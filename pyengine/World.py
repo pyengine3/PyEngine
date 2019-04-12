@@ -5,8 +5,9 @@ __all__ = ["World"]
 
 
 class World:
-    def __init__(self):
+    def __init__(self, gravity_force=5):
         self.entities = pygame.sprite.Group()
+        self.gravity_force = gravity_force
 
     def get_entity(self, identity):
         for i in self.entities:
