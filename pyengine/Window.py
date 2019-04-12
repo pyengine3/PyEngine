@@ -11,10 +11,13 @@ class Window:
         pygame.init()
 
         self.screen = pygame.display.set_mode((width, height))
+        self.clock = pygame.time.Clock()
         self.width = width
         self.height = height
         self.world = None
         self.launch = True
+
+        pygame.key.set_repeat(1, 1)
 
     def get_size(self):
         return [self.width, self.height]
@@ -37,4 +40,11 @@ class Window:
         while self.launch:
             for event in pygame.event.get():
                 self.process_event(event)
+
+            self.screen.fill((0, 0, 0))
+            self.clock.tick(60)
+
+            self.world.show(self.screen)
+
+            pygame.display.update()
         pygame.quit()

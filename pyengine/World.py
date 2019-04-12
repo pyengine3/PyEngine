@@ -18,3 +18,6 @@ class World:
             raise TypeError("Argument is not a Entity")
         entity.set_id(len(self.entities))
         self.entities.add(entity)
+
+    def show(self, screen):
+        self.entities.draw(screen)
