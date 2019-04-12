@@ -10,6 +10,12 @@ class Entity(pygame.sprite.Sprite):
         super(Entity, self).__init__()
         self.id = -1
         self.components = []
+    def set_id(self, identity):
+        self.id = identity
+
+    def get_id(self):
+        return self.id
+
 
     def add_components(self, component, *param):
         if component not in [PositionComponent, SpriteComponent]:
