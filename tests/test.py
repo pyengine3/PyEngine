@@ -9,6 +9,8 @@ game.set_world(monde)
 entity = Entity()
 entity.add_components(PositionComponent, [100, 100])
 entity.add_components(SpriteComponent, "images/sprite0.png")
+entity.get_component(PositionComponent).set_position([200, 200])
+
 monde.add_entity(entity)
 
 game.run()
