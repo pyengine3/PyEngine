@@ -1,5 +1,7 @@
 import pygame
 from pyengine.Entity import Entity
+from pyengine.Components import ControlComponent, PositionComponent, SpriteComponent
+from pyengine.Exceptions import NoComponentError
 
 __all__ = ["World"]
 
