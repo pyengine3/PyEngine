@@ -8,6 +8,9 @@ class PositionComponent:
 
     def __init__(self):
         self.entity = None
+        self.x = 0
+        self.y = 0
+        self.offset = [0, 0]
         self.initialized = False
 
     def initialize(self, entity, position, offset=None):
@@ -15,15 +18,15 @@ class PositionComponent:
             offset = [0, 0]
 
         if self.initialized:
-            raise ComponentAlreadyIntialized("SpriteComponent already initialized")
+            raise ComponentIntializedError("PositionComponent already initialized")
         self.entity = entity
-        self.entity.x = position[0] + offset[0]
-        self.entity.y = position[1] + offset[1]
-        self.entity.offset = offset
+        self.x = position[0] + offset[0]
+        self.y = position[1] + offset[1]
+        self.offset = offset
 
     def set_position(self, position):
-        self.entity.x = position[0]+self.entity.offset[0]
-        self.entity.y = position[1]+self.entity.offset[0]
+        self.x = position[0]+self.offset[0]
+        self.y = position[1]+self.offset[0]
 
         from pyengine.Components.SpriteComponent import SpriteComponent  # Avoid import cycle
 
@@ -35,4 +38,4 @@ class PositionComponent:
                 i.get_component(PositionComponent).set_position(position)
 
     def get_position(self):
-        return [self.entity.x, self.entity.y]
+        return [self.x, self.y]
