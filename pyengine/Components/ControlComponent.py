@@ -19,8 +19,9 @@ class ControlComponent:
     def initialize(self, entity, controltype, speed=5):
         if self.initialized:
             raise ComponentIntializedError("ControlComponent already initialized")
-        if controltype != ControlType.FOURDIRECTION:
-            raise NotImplementedError("Only FOURDIRECTION Controltype is implemented")
+        if controltype == ControlType.DOUBLEJUMP:
+            raise NotImplementedError("DOUBLEJUMP Controltype is not implemented")
+        self.initialized = True
         self.entity = entity
         self.controltype = controltype
         self.speed = speed
@@ -45,4 +46,23 @@ class ControlComponent:
                 cango = self.entity.get_component(PhysicsComponent).can_go(pos)
             if cango:
                 self.entity.get_component(PositionComponent).set_position(pos)
+        elif self.controltype == ControlType.CLASSICJUMP:
+            if not self.entity.has_component(PhysicsComponent):
+                raise NoComponentError("Entity must have PhysicsComponent")
+            phys = self.entity.get_component(PhysicsComponent)
+            pos = position.get_position()
+            if eventkey == const.K_LEFT:
+                pos = [position.x - self.speed, position.y]
+            if eventkey == const.K_RIGHT:
+                pos = [position.x + self.speed, position.y]
+
+            cango = True
+            if self.entity.has_component(PhysicsComponent):
+                cango = self.entity.get_component(PhysicsComponent).can_go(pos)
+            if cango:
+                self.entity.get_component(PositionComponent).set_position(pos)
+
+            if eventkey == const.K_UP and phys.grounded:
+                phys.grounded = False
+                phys.gravity_force = -phys.max_gravity_force
 
