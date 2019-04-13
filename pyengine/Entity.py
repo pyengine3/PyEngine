@@ -1,5 +1,5 @@
 import pygame
-from pyengine.Exceptions import WrongComponent, NoComponent
+from pyengine.Exceptions import WrongComponentError, NoComponentError
 from pyengine.Components import *
 
 __all__ = ["Entity"]
@@ -22,8 +22,8 @@ class Entity(pygame.sprite.Sprite):
         self.attachedentities.append(entity)
 
     def add_components(self, component, *param):
-        if component not in [PositionComponent, SpriteComponent]:
-            raise WrongComponent("Entity can have "+str(component)+" as component.")
+        if component not in [PositionComponent, SpriteComponent, ControlComponent, PhysicsComponent]:
+            raise WrongComponentError("Entity can't have "+str(component)+" as component.")
         component = eval(component.name+"()")
         if param is not None:
             component.initialize(self, *param)
@@ -39,4 +39,4 @@ class Entity(pygame.sprite.Sprite):
         for i in self.components:
             if type(i) == component:
                 return i
-        raise NoComponent("Entity have no "+str(component)+" as component.")
+        raise NoComponentError("Entity have no "+str(component)+" as component.")

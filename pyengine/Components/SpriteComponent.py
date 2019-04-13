@@ -1,5 +1,5 @@
 import pygame
-from pyengine.Exceptions import ComponentAlreadyIntialized
+from pyengine.Exceptions import ComponentIntializedError
 from pyengine.Components.PositionComponent import PositionComponent
 
 __all__ = ["SpriteComponent"]

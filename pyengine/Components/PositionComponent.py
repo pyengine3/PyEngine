@@ -1,4 +1,4 @@
-from pyengine.Exceptions import ComponentAlreadyIntialized
+from pyengine.Exceptions import ComponentIntializedError
 
 __all__ = ["PositionComponent"]
 

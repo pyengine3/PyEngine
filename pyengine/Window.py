@@ -1,5 +1,5 @@
 import pygame
-from pyengine.Exceptions import NoWorld
+from pyengine.Exceptions import NoWorldError
 from pyengine.World import World
 from pygame import locals as const
 

@@ -1,18 +1,19 @@
-class NoWorld(Exception):
+class NoWorldError(Exception):
     def __init__(self, text):
-        super(NoWorld, self).__init__(text)
+        super(NoWorldError, self).__init__(text)
 
 
-class WrongComponent(Exception):
+class WrongComponentError(Exception):
     def __init__(self, text):
-        super(WrongComponent, self).__init__(text)
+        super(WrongComponentError, self).__init__(text)
 
 
-class NoComponent(Exception):
+class NoComponentError(Exception):
     def __init__(self, text):
-        super(NoComponent, self).__init__(text)
+        super(NoComponentError, self).__init__(text)
 
 
-class ComponentAlreadyIntialized(Exception):
+class ComponentIntializedError(Exception):
     def __init__(self, text):
-        super(ComponentAlreadyIntialized, self).__init__(text)
+        super(ComponentIntializedError, self).__init__(text)
+
