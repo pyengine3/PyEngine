@@ -32,6 +32,7 @@ class Entity(pygame.sprite.Sprite):
         if param is not None:
             component.initialize(self, *param)
         self.components.append(component)
+        return component
 
     def has_component(self, component):
         for i in self.components:
