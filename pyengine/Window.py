@@ -26,6 +26,7 @@ class Window:
         if type(world) != World:
             raise TypeError("Argument is not a World")
         self.world = world
+        self.world.set_window(self)
 
     def get_world(self):
         return self.world
@@ -33,6 +34,8 @@ class Window:
     def process_event(self, evt):
         if evt.type == const.QUIT:
             self.launch = False
+        if evt.type == const.KEYDOWN:
+            self.world.keypress(evt.key)
 
     def run(self):
         if self.world is None:
