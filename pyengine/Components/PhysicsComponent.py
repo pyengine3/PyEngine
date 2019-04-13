@@ -17,6 +17,7 @@ class PhysicsComponent:
         self.timegravity = 5
         self.grounded = False
         self.initialized = False
+        self.callback = None
 
     def initialize(self, entity, affectbygravity=True, gravity_force=5):
         if self.initialized:
@@ -27,7 +28,10 @@ class PhysicsComponent:
         self.gravity_force = gravity_force
         self.max_gravity_force = gravity_force
 
-    def can_go(self, position):
+    def set_callback(self, function):
+        self.callback = function
+
+    def can_go(self, position, make_callback=True):
         if not self.entity.has_component(SpriteComponent):
             raise NoComponentError("Entity must have SpriteComponent.")
         gosprite = pygame.sprite.Sprite()
@@ -36,6 +40,8 @@ class PhysicsComponent:
         collision = pygame.sprite.spritecollide(gosprite, self.entity.world.entities, False, None)
         for i in collision:
             if i.has_component(PhysicsComponent) and i.id != self.entity.id:
+                if self.callback is not None and make_callback:
+                    self.callback(self.entity.id, i.id)
                 return False
         return True
 
@@ -43,7 +49,7 @@ class PhysicsComponent:
         if not self.entity.has_component(PositionComponent):
             raise NoComponentError("Entity must have PositionComponent.")
         position = self.entity.get_component(PositionComponent)
-        if self.can_go([position.x, position.y + self.gravity_force]) and self.affectbygravity:
+        if self.can_go([position.x, position.y + self.gravity_force], False) and self.affectbygravity:
             self.grounded = False
             position.set_position([position.x, position.y + self.gravity_force])
         else:
