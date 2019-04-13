@@ -11,12 +11,16 @@ class Entity(pygame.sprite.Sprite):
         self.id = -1
         self.components = []
         self.attachedentities = []
+        self.world = None
 
     def set_id(self, identity):
         self.id = identity
 
     def get_id(self):
         return self.id
+
+    def set_world(self, world):
+        self.world = world
 
     def attach_entity(self, entity):
         self.attachedentities.append(entity)
@@ -40,3 +44,11 @@ class Entity(pygame.sprite.Sprite):
             if type(i) == component:
                 return i
         raise NoComponentError("Entity have no "+str(component)+" as component.")
+
+    def update(self):
+        if self.has_component(PhysicsComponent):
+            self.get_component(PhysicsComponent).update_gravity()
+        if self.has_component(PositionComponent):
+            position = self.get_component(PositionComponent)
+            if position.y >= self.world.window.height:
+                position.set_position([position.x, 0])

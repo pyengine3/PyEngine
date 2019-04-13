@@ -5,9 +5,12 @@ __all__ = ["World"]
 
 
 class World:
-    def __init__(self, gravity_force=5):
+    def __init__(self):
         self.entities = pygame.sprite.Group()
-        self.gravity_force = gravity_force
+        self.window = None
+
+    def set_window(self, window):
+        self.window = window
 
     def get_entity(self, identity):
         for i in self.entities:
@@ -20,7 +23,12 @@ class World:
         if not entity.has_component(PositionComponent) and not entity.has_component(SpriteComponent):
             raise NoComponentError("Entity must have PositionComponent and SpriteComponent to be add in a world.")
         entity.set_id(len(self.entities))
+        entity.set_world(self)
         self.entities.add(entity)
+
+    def update(self):
+        for i in self.entities:
+            i.update()
 
     def keypress(self, key):
         for i in self.entities:

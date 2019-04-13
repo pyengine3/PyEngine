@@ -36,7 +36,7 @@ class Window:
 
     def run(self):
         if self.world is None:
-            raise NoWorld("Window have no world")
+            raise NoWorldError("Window have no world")
         while self.launch:
             for event in pygame.event.get():
                 self.process_event(event)
@@ -44,6 +44,7 @@ class Window:
             self.screen.fill((0, 0, 0))
             self.clock.tick(60)
 
+            self.world.update()
             self.world.show(self.screen)
 
             pygame.display.update()
