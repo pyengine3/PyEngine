@@ -7,7 +7,7 @@ __all__ = ["Window"]
 
 
 class Window:
-    def __init__(self, width, height):
+    def __init__(self, width, height, debug=False):
         pygame.init()
 
         self.screen = pygame.display.set_mode((width, height))
@@ -16,6 +16,8 @@ class Window:
         self.height = height
         self.world = None
         self.launch = True
+        self.debug = debug
+        self.debugfont = pygame.font.SysFont("arial", 15)
 
         pygame.key.set_repeat(1, 1)
 
@@ -49,6 +51,8 @@ class Window:
 
             self.world.update()
             self.world.show(self.screen)
+            if self.debug:
+                self.world.show_debug(self.screen)
 
             pygame.display.update()
         pygame.quit()
