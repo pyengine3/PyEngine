@@ -24,6 +24,9 @@ class Window:
     def get_size(self):
         return [self.width, self.height]
 
+    def set_debug(self, debug):
+        self.debug = debug
+
     def set_world(self, world):
         if type(world) != World:
             raise TypeError("Argument is not a World")
