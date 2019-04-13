@@ -1,6 +1,6 @@
 import pygame
 from pyengine.Entity import Entity
-from pyengine.Components import ControlComponent, PositionComponent, SpriteComponent
+from pyengine.Components import ControlComponent, PositionComponent, SpriteComponent, TextComponent
 from pyengine.Exceptions import NoComponentError
 
 __all__ = ["World"]
@@ -9,6 +9,7 @@ __all__ = ["World"]
 class World:
     def __init__(self):
         self.entities = pygame.sprite.Group()
+        self.texts = pygame.sprite.Group()
         self.window = None
 
     def set_window(self, window):
@@ -22,11 +23,16 @@ class World:
     def add_entity(self, entity):
         if type(entity) != Entity:
             raise TypeError("Argument is not a Entity")
-        if not entity.has_component(PositionComponent) and not entity.has_component(SpriteComponent):
-            raise NoComponentError("Entity must have PositionComponent and SpriteComponent to be add in a world.")
+        if not entity.has_component(PositionComponent):
+            raise NoComponentError("Entity must have PositionComponent to be add in a world.")
+        if not entity.has_component(SpriteComponent) and not entity.has_component(TextComponent):
+            raise NoComponentError("Entity must have SpriteComponent or TextComponent to be add in a world.")
         entity.set_id(len(self.entities))
         entity.set_world(self)
-        self.entities.add(entity)
+        if entity.has_component(SpriteComponent):
+            self.entities.add(entity)
+        else:
+            self.texts.add(entity)
 
     def update(self):
         for i in self.entities:
@@ -39,3 +45,8 @@ class World:
 
     def show(self, screen):
         self.entities.draw(screen)
+        for i in self.texts:
+            text = i.get_component(TextComponent)
+            position = i.get_component(PositionComponent)
+            screen.blit(text.render(), position.get_position())
+
