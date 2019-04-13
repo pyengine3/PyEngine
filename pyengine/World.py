@@ -22,5 +22,10 @@ class World:
         entity.set_id(len(self.entities))
         self.entities.add(entity)
 
+    def keypress(self, key):
+        for i in self.entities:
+            if i.has_component(ControlComponent):
+                i.get_component(ControlComponent).keypress(key)
+
     def show(self, screen):
         self.entities.draw(screen)
