@@ -13,14 +13,19 @@ class PhysicsComponent:
         self.entity = None
         self.affectbygravity = True
         self.gravity_force = 0
+        self.max_gravity_force = 0
+        self.timegravity = 5
+        self.grounded = False
         self.initialized = False
 
     def initialize(self, entity, affectbygravity=True, gravity_force=5):
         if self.initialized:
             raise ComponentIntializedError("PhysicsComponent already initialized")
+        self.initialized = True
         self.entity = entity
         self.affectbygravity = affectbygravity
         self.gravity_force = gravity_force
+        self.max_gravity_force = gravity_force
 
     def can_go(self, position):
         if not self.entity.has_component(SpriteComponent):
@@ -39,4 +44,13 @@ class PhysicsComponent:
             raise NoComponentError("Entity must have PositionComponent.")
         position = self.entity.get_component(PositionComponent)
         if self.can_go([position.x, position.y + self.gravity_force]) and self.affectbygravity:
+            self.grounded = False
             position.set_position([position.x, position.y + self.gravity_force])
+        else:
+            self.grounded = True
+            self.gravity_force = 2
+
+        if self.timegravity <= 0 and self.gravity_force < self.max_gravity_force and not self.grounded:
+            self.gravity_force += 1
+            self.timegravity = 5
+        self.timegravity -= 1
