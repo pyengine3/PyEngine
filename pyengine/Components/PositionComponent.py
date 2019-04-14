@@ -26,7 +26,7 @@ class PositionComponent:
 
     def set_position(self, position):
         self.x = position[0]+self.offset[0]
-        self.y = position[1]+self.offset[0]
+        self.y = position[1]+self.offset[1]
 
         from pyengine.Components.SpriteComponent import SpriteComponent  # Avoid import cycle
 
