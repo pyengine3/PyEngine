@@ -27,8 +27,13 @@ bloc = Entity()
 bloc.add_components(PositionComponent, [300, 300])
 bloc.add_components(SpriteComponent, "images/sprite1.png")
 bloc.add_components(PhysicsComponent, False)
+bloc2 = Entity()
+bloc2.add_components(PositionComponent, [350, 350])
+bloc2.add_components(SpriteComponent, "images/sprite1.png", 10)
+bloc2.add_components(PhysicsComponent, False)
 
 monde.add_entity(bloc)
+monde.add_entity(bloc2)
 monde.add_entity(entity)
 monde.add_entity(subentity)
 
