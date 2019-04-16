@@ -11,9 +11,12 @@ class SpriteComponent:
     def __init__(self):
         self.entity = None
         self.sprite = ""
+        self.scale = 1
+        self.width = 0
+        self.height = 0
         self.initialized = False
 
-    def initialize(self, entity, image):
+    def initialize(self, entity, image, scale=1):
         if self.initialized:
             raise ComponentIntializedError("SpriteComponent already initialized")
 
@@ -26,9 +29,17 @@ class SpriteComponent:
         self.entity = entity
         self.sprite = image
         self.entity.image = pygame.image.load(image)
+        self.entity.rect = self.entity.image.get_rect()
+        self.width = self.entity.rect.width
+        self.height = self.entity.rect.height
+        self.set_scale(scale)
+
+    def set_scale(self, scale):
+        self.scale = scale
+        self.entity.image = pygame.transform.scale(self.entity.image, (self.width*scale, self.height*scale))
+        self.entity.rect = self.entity.image.get_rect()
         if self.entity.has_component(PositionComponent):
-            position = entity.get_component(PositionComponent)
-            self.entity.rect = self.entity.image.get_rect()
+            position = self.entity.get_component(PositionComponent)
             self.entity.rect.x = position.x
             self.entity.rect.y = position.y
 
