@@ -43,6 +43,14 @@ class SpriteComponent:
             self.entity.rect.x = position.x
             self.entity.rect.y = position.y
 
+    def set_sprite(self, sprite, scale=1):
+        self.sprite = sprite
+        self.entity.image = pygame.image.load(sprite)
+        self.entity.rect = self.entity.image.get_rect()
+        self.width = self.entity.rect.width
+        self.height = self.entity.rect.height
+        self.set_scale(scale)
+
     def update_position(self):
         if self.entity.has_component(PositionComponent):
             position = self.entity.get_component(PositionComponent)
