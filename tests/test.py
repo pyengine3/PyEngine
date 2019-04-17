@@ -37,4 +37,6 @@ monde.add_entity(bloc2)
 monde.add_entity(entity)
 monde.add_entity(subentity)
 
+bloc.get_component(SpriteComponent).set_sprite("images/sprite0.png", 10)
+
 game.run()
