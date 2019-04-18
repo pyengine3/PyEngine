@@ -41,6 +41,16 @@ class EntitySystem:
             if i.has_component(ControlComponent):
                 i.get_component(ControlComponent).keypress(key)
 
+    def keyup(self, key):
+        for i in self.entities:
+            if i.has_component(ControlComponent):
+                i.get_component(ControlComponent).keyup(key)
+
+    def mousepress(self, button, pos):
+        for i in self.entities:
+            if i.has_component(ControlComponent):
+                i.get_component(ControlComponent).mousepress(button, pos)
+
     def show(self, screen):
         self.entities.draw(screen)
         for i in self.texts:
