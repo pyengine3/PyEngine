@@ -20,6 +20,9 @@ class MusicSystem:
                 self.queue.append(self.queue[0])
             del self.queue[0]
 
+    def clear_queue(self):
+        self.queue = []
+
     def set_loop(self, loop):
         self.loop = loop
 
