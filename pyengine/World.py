@@ -38,6 +38,12 @@ class World:
             except AttributeError:
                 pass
 
+    def mousepress(self, button):
+        for i in self.systems:
+            try:
+                i.mousepress(button)
+            except AttributeError:
+                pass
 
     def show(self, screen):
         for i in self.systems:
