@@ -38,10 +38,17 @@ class World:
             except AttributeError:
                 pass
 
-    def mousepress(self, button):
+    def keyup(self, key):
         for i in self.systems:
             try:
-                i.mousepress(button)
+                i.keyup(key)
+            except AttributeError:
+                pass
+
+    def mousepress(self, button, pos):
+        for i in self.systems:
+            try:
+                i.mousepress(button, pos)
             except AttributeError:
                 pass
 

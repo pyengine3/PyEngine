@@ -42,7 +42,9 @@ class Window:
         if evt.type == const.KEYDOWN:
             self.world.keypress(evt.key)
         if evt.type == const.MOUSEBUTTONDOWN:
-            self.world.mousepress(evt.button)
+            self.world.mousepress(evt.button, evt.pos)
+        if evt.type == const.KEYUP:
+            self.world.keyup(evt.key)
 
     def run(self):
         if self.world is None:
