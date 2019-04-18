@@ -37,7 +37,7 @@ class PhysicsComponent:
         gosprite = pygame.sprite.Sprite()
         gosprite.rect = pygame.rect.Rect(position[0], position[1], self.entity.image.get_width(),
                                          self.entity.image.get_height())
-        collision = pygame.sprite.spritecollide(gosprite, self.entity.world.entities, False, None)
+        collision = pygame.sprite.spritecollide(gosprite, self.entity.system.entities, False, None)
         for i in collision:
             if i.has_component(PhysicsComponent) and i.id != self.entity.id:
                 if self.callback is not None and make_callback:
