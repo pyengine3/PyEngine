@@ -15,6 +15,7 @@ class ControlComponent:
         self.controltype = None
         self.speed = 0
         self.initialized = False
+        self.jumping = False
 
     def initialize(self, entity, controltype, speed=5):
         if self.initialized:
@@ -25,6 +26,11 @@ class ControlComponent:
         self.entity = entity
         self.controltype = controltype
         self.speed = speed
+
+    def keyup(self, eventkey):
+        if self.controltype == ControlType.DOUBLEJUMP or self.controltype == ControlType.CLASSICJUMP:
+            if eventkey == const.K_UP:
+                self.jumping = False
 
     def keypress(self, eventkey):
         if not self.entity.has_component(PositionComponent):
@@ -46,7 +52,7 @@ class ControlComponent:
                 cango = self.entity.get_component(PhysicsComponent).can_go(pos)
             if cango:
                 self.entity.get_component(PositionComponent).set_position(pos)
-        elif self.controltype == ControlType.CLASSICJUMP:
+        elif self.controltype == ControlType.CLASSICJUMP or self.controltype == ControlType.DOUBLEJUMP:
             if not self.entity.has_component(PhysicsComponent):
                 raise NoComponentError("Entity must have PhysicsComponent")
             phys = self.entity.get_component(PhysicsComponent)
@@ -62,7 +68,17 @@ class ControlComponent:
             if cango:
                 self.entity.get_component(PositionComponent).set_position(pos)
 
-            if eventkey == const.K_UP and phys.grounded:
-                phys.grounded = False
-                phys.gravity_force = -phys.max_gravity_force
+            if self.controltype == ControlType.CLASSICJUMP:
+                if eventkey == const.K_UP and phys.grounded and not self.jumping:
+                    phys.grounded = False
+                    self.jumping = True
+                    phys.gravity_force = -phys.max_gravity_force
+            elif self.controltype == ControlType.DOUBLEJUMP:
+                if eventkey == const.K_UP and (phys.grounded or phys.doublejump) and not self.jumping:
+                    if not phys.grounded:
+                        phys.doublejump = False
+                    phys.grounded = False
+                    self.jumping = True
+                    phys.gravity_force = -phys.max_gravity_force
+
 

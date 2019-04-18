@@ -16,6 +16,7 @@ class PhysicsComponent:
         self.max_gravity_force = 0
         self.timegravity = 5
         self.grounded = False
+        self.doublejump = True
         self.initialized = False
         self.callback = None
 
@@ -54,6 +55,7 @@ class PhysicsComponent:
             position.set_position([position.x, position.y + self.gravity_force])
         else:
             self.grounded = True
+            self.doublejump = True
             self.gravity_force = 2
 
         if self.timegravity <= 0 and self.gravity_force < self.max_gravity_force and not self.grounded:
