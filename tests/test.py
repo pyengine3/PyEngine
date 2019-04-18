@@ -1,5 +1,6 @@
 from pyengine import Window, World, Entity, ControlType
 from pyengine.Components import *
+from pyengine.Systems import *
 
 
 def collision(id1, id2):
@@ -32,10 +33,11 @@ bloc2.add_components(PositionComponent, [350, 350])
 bloc2.add_components(SpriteComponent, "images/sprite1.png", 10)
 bloc2.add_components(PhysicsComponent, False)
 
-monde.add_entity(bloc)
-monde.add_entity(bloc2)
-monde.add_entity(entity)
-monde.add_entity(subentity)
+entitySystem = monde.get_system(EntitySystem)
+entitySystem.add_entity(bloc)
+entitySystem.add_entity(bloc2)
+entitySystem.add_entity(entity)
+entitySystem.add_entity(subentity)
 
 bloc.get_component(SpriteComponent).set_rotation(45)
 
