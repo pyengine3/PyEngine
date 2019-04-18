@@ -39,12 +39,14 @@ class Window:
     def process_event(self, evt):
         if evt.type == const.QUIT:
             self.launch = False
-        if evt.type == const.KEYDOWN:
+        elif evt.type == const.KEYDOWN:
             self.world.keypress(evt.key)
-        if evt.type == const.MOUSEBUTTONDOWN:
+        elif evt.type == const.MOUSEBUTTONDOWN:
             self.world.mousepress(evt.button, evt.pos)
-        if evt.type == const.KEYUP:
+        elif evt.type == const.KEYUP:
             self.world.keyup(evt.key)
+        else:
+            self.world.event(evt)
 
     def run(self):
         if self.world is None:

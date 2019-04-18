@@ -52,6 +52,10 @@ class World:
             except AttributeError:
                 pass
 
+    def event(self, evt):
+        if evt.type == self.systems[1].ENDSOUND:
+            self.systems[1].next_song()
+
     def show(self, screen):
         for i in self.systems:
             try:
