@@ -1,6 +1,7 @@
 from pyengine.Window import Window
 from pyengine.World import World
 from pyengine.Entity import Entity
-from pyengine.Enums import ControlType
+from pyengine.Enums import ControlType, MouseButton
+from pygame import locals as const
 
-__all__ = ["Window", "World", "Entity", "ControlType"]
+__all__ = ["Window", "World", "Entity", "ControlType", "const", "MouseButton"]
