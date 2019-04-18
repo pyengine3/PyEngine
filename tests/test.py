@@ -3,19 +3,20 @@ from pyengine.Components import *
 from pyengine.Systems import *
 
 
-def collision(id1, id2):
-    print("Collision between", id1, "and", id2)
-
-
 game = Window(800, 600, True)
 monde = World()
 game.set_world(monde)
 
+
+def collision(id1, id2):
+    monde.get_system(MusicSystem).next_song()
+
+
 entity = Entity()
 entity.add_components(PositionComponent, [100, 100])
 entity.add_components(SpriteComponent, "images/sprite0.png")
-entity.add_components(ControlComponent, ControlType.CLICKFOLLOW)
-phys = entity.add_components(PhysicsComponent, False)
+entity.add_components(ControlComponent, ControlType.DOUBLEJUMP)
+phys = entity.add_components(PhysicsComponent)
 phys.set_callback(collision)
 
 subentity = Entity()
