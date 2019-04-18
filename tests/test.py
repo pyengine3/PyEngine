@@ -42,5 +42,6 @@ entitySystem.add_entity(subentity)
 bloc.get_component(SpriteComponent).set_rotation(45)
 
 monde.get_system(MusicSystem).play("musique/Heikousen.mp3", True)
+monde.get_system(MusicSystem).play("musique/Richard.mp3")
 
 game.run()
