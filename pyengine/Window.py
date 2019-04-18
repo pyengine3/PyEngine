@@ -41,6 +41,8 @@ class Window:
             self.launch = False
         if evt.type == const.KEYDOWN:
             self.world.keypress(evt.key)
+        if evt.type == const.MOUSEBUTTONDOWN:
+            self.world.mousepress(evt.button)
 
     def run(self):
         if self.world is None:
