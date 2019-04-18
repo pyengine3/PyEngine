@@ -11,7 +11,7 @@ class Entity(pygame.sprite.Sprite):
         self.id = -1
         self.components = []
         self.attachedentities = []
-        self.world = None
+        self.system = None
 
     def set_id(self, identity):
         self.id = identity
@@ -19,8 +19,8 @@ class Entity(pygame.sprite.Sprite):
     def get_id(self):
         return self.id
 
-    def set_world(self, world):
-        self.world = world
+    def set_system(self, system):
+        self.system = system
 
     def attach_entity(self, entity):
         self.attachedentities.append(entity)
@@ -51,5 +51,5 @@ class Entity(pygame.sprite.Sprite):
             self.get_component(PhysicsComponent).update_gravity()
         if self.has_component(PositionComponent):
             position = self.get_component(PositionComponent)
-            if position.y >= self.world.window.height:
+            if position.y >= self.system.world.window.height:
                 position.set_position([position.x, 0])
