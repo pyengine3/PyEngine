@@ -1,4 +1,5 @@
 import pygame
+from pyengine.Exceptions import NoMusicError
 
 __all__ = ["MusicSystem"]
 
@@ -6,14 +7,34 @@ __all__ = ["MusicSystem"]
 class MusicSystem:
     def __init__(self, world):
         self.world = world
+        self.queue = []
+        self.ENDSOUND = 231
+        self.loop = False
+        pygame.mixer.music.set_endevent(self.ENDSOUND)
 
-    @staticmethod
-    def play(file, loop=False):
-        pygame.mixer.music.load(file)
-        if loop:
-            pygame.mixer.music.play(-1)
-        else:
+    def next_song(self):
+        if len(self.queue):
+            pygame.mixer.music.load(self.queue[0])
             pygame.mixer.music.play()
+            if self.loop:
+                self.queue.append(self.queue[0])
+            del self.queue[0]
+
+    def set_loop(self, loop):
+        self.loop = loop
+
+    def play(self):
+        if len(self.queue):
+            pygame.mixer.music.load(self.queue[0])
+            pygame.mixer.music.play()
+            if self.loop:
+                self.queue.append(self.queue[0])
+            del self.queue[0]
+        else:
+            raise NoMusicError("The MusicSystem have any music to play")
+
+    def add(self, file):
+        self.queue.append(file)
 
     @staticmethod
     def set_volume(volume):

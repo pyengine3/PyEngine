@@ -27,3 +27,8 @@ class CompatibilityError(Exception):
     def __init__(self, text):
         super(CompatibilityError, self).__init__(text)
 
+
+class NoMusicError(Exception):
+    def __init__(self, text):
+        super(NoMusicError, self).__init__(text)
+
