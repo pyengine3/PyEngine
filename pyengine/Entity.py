@@ -53,3 +53,5 @@ class Entity(pygame.sprite.Sprite):
             position = self.get_component(PositionComponent)
             if position.y >= self.system.world.window.height:
                 position.set_position([position.x, 0])
+        if self.has_component(ControlComponent):
+            self.get_component(ControlComponent).update()

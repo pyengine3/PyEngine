@@ -7,6 +7,7 @@ class ControlType(Enum):
     FOURDIRECTION = 1
     CLASSICJUMP = 2
     DOUBLEJUMP = 3
+    CLICKFOLLOW = 4
 
 
 class MouseButton(Enum):
