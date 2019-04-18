@@ -13,6 +13,11 @@ class NoComponentError(Exception):
         super(NoComponentError, self).__init__(text)
 
 
+class NoSystemError(Exception):
+    def __init__(self, text):
+        super(NoSystemError, self).__init__(text)
+
+
 class ComponentIntializedError(Exception):
     def __init__(self, text):
         super(ComponentIntializedError, self).__init__(text)
