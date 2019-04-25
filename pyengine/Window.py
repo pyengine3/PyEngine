@@ -48,6 +48,9 @@ class Window:
         else:
             self.world.event(evt)
 
+    def stop(self):
+        self.launch = False
+
     def run(self):
         if self.world is None:
             raise NoWorldError("Window have no world")
