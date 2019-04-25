@@ -1,5 +1,5 @@
 from pyengine.Exceptions import ComponentIntializedError, NoComponentError
-from pyengine.Enums import ControlType, MouseButton
+from pyengine.Enums import ControlType, MouseButton, CollisionCauses
 from pyengine.Components.PositionComponent import PositionComponent
 from pyengine.Components.PhysicsComponent import PhysicsComponent
 from pygame import locals as const
@@ -65,18 +65,24 @@ class ControlComponent:
         position = self.entity.get_component(PositionComponent)
         if self.controltype == ControlType.FOURDIRECTION:
             pos = position.get_position()
+            cango = True
             if eventkey == const.K_LEFT:
                 pos = [position.x - self.speed, position.y]
+                if self.entity.has_component(PhysicsComponent):
+                    cango = self.entity.get_component(PhysicsComponent).can_go(pos, CollisionCauses.LEFTCONTROL)
             if eventkey == const.K_RIGHT:
                 pos = [position.x + self.speed, position.y]
+                if self.entity.has_component(PhysicsComponent):
+                    cango = self.entity.get_component(PhysicsComponent).can_go(pos, CollisionCauses.RIGHTCONTROL)
             if eventkey == const.K_UP:
                 pos = [position.x, position.y - self.speed]
+                if self.entity.has_component(PhysicsComponent):
+                    cango = self.entity.get_component(PhysicsComponent).can_go(pos, CollisionCauses.UPCONTROL)
             if eventkey == const.K_DOWN:
                 pos = [position.x, position.y + self.speed]
+                if self.entity.has_component(PhysicsComponent):
+                    cango = self.entity.get_component(PhysicsComponent).can_go(pos, CollisionCauses.DOWNCONTROL)
 
-            cango = True
-            if self.entity.has_component(PhysicsComponent):
-                cango = self.entity.get_component(PhysicsComponent).can_go(pos)
             if cango:
                 self.entity.get_component(PositionComponent).set_position(pos)
         elif self.controltype == ControlType.CLASSICJUMP or self.controltype == ControlType.DOUBLEJUMP:
@@ -84,12 +90,16 @@ class ControlComponent:
                 raise NoComponentError("Entity must have PhysicsComponent")
             phys = self.entity.get_component(PhysicsComponent)
             pos = position.get_position()
+            cango = True
             if eventkey == const.K_LEFT:
                 pos = [position.x - self.speed, position.y]
+                if self.entity.has_component(PhysicsComponent):
+                    cango = self.entity.get_component(PhysicsComponent).can_go(pos, CollisionCauses.LEFTCONTROL)
             if eventkey == const.K_RIGHT:
                 pos = [position.x + self.speed, position.y]
+                if self.entity.has_component(PhysicsComponent):
+                    cango = self.entity.get_component(PhysicsComponent).can_go(pos, CollisionCauses.RIGHTCONTROL)
 
-            cango = True
             if self.entity.has_component(PhysicsComponent):
                 cango = self.entity.get_component(PhysicsComponent).can_go(pos)
             if cango:

@@ -1,6 +1,6 @@
 from pyengine.Exceptions import ComponentIntializedError, NoComponentError
-from pyengine.Components.SpriteComponent import SpriteComponent
-from pyengine.Components.PositionComponent import PositionComponent
+from pyengine.Components import SpriteComponent, PositionComponent
+from pyengine.Enums import CollisionCauses
 import pygame
 
 __all__ = ["PhysicsComponent"]
@@ -32,7 +32,7 @@ class PhysicsComponent:
     def set_callback(self, function):
         self.callback = function
 
-    def can_go(self, position, make_callback=True):
+    def can_go(self, position, createdby=CollisionCauses.UNKNOWN):
         if not self.entity.has_component(SpriteComponent):
             raise NoComponentError("Entity must have SpriteComponent.")
         gosprite = pygame.sprite.Sprite()
@@ -41,8 +41,8 @@ class PhysicsComponent:
         collision = pygame.sprite.spritecollide(gosprite, self.entity.system.entities, False, None)
         for i in collision:
             if i.has_component(PhysicsComponent) and i.id != self.entity.id:
-                if self.callback is not None and make_callback:
-                    self.callback(i)
+                if self.callback is not None:
+                    self.callback(i, createdby)
                 return False
         return True
 
@@ -50,10 +50,10 @@ class PhysicsComponent:
         if not self.entity.has_component(PositionComponent):
             raise NoComponentError("Entity must have PositionComponent.")
         position = self.entity.get_component(PositionComponent)
-        if self.can_go([position.x, position.y + self.gravity_force], False) and self.affectbygravity:
+        if self.can_go([position.x, position.y + self.gravity_force], CollisionCauses.GRAVITY) and self.affectbygravity:
             self.grounded = False
             position.set_position([position.x, position.y + self.gravity_force])
-        else:
+        elif self.gravity_force > 0 and self.affectbygravity:
             self.grounded = True
             self.doublejump = True
             self.gravity_force = 2
