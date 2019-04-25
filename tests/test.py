@@ -8,7 +8,7 @@ monde = World()
 game.set_world(monde)
 
 
-def collision(id1, id2):
+def collision(objet):
     monde.get_system(MusicSystem).next_song()
 
 
