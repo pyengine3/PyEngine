@@ -45,6 +45,17 @@ class SpriteComponent:
             self.entity.rect.x = position.x
             self.entity.rect.y = position.y
 
+    def set_size(self, size):
+        print(size)
+        self.width, self.height = size
+        self.scale = 1
+        self.entity.image = pygame.transform.scale(self.entity.image, size)
+        self.entity.rect = self.entity.image.get_rect()
+        if self.entity.has_component(PositionComponent):
+            position = self.entity.get_component(PositionComponent)
+            self.entity.rect.x = position.x
+            self.entity.rect.y = position.y
+
     def set_rotation(self, rotation):
         self.rotation = rotation - self.rotation
         self.entity.image = pygame.transform.rotate(self.entity.image, self.rotation)

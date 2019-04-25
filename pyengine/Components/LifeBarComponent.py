@@ -63,3 +63,8 @@ class LifeBarComponent:
             self.life = 0
         else:
             self.life = life
+        if self.created_sprites:
+            width = int(self.maxwidth * self.life / self.maxlife)
+            height = self.frontentity.image.get_size()[1]
+            sprite = self.frontentity.get_component(SpriteComponent)
+            sprite.set_size((width, height))
