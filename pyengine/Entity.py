@@ -1,6 +1,7 @@
 import pygame
 from pyengine.Exceptions import WrongComponentError, NoComponentError
 from pyengine.Components import *
+from pyengine.Enums import WorldCallbacks
 
 __all__ = ["Entity"]
 
@@ -54,6 +55,6 @@ class Entity(pygame.sprite.Sprite):
         if self.has_component(PositionComponent):
             position = self.get_component(PositionComponent)
             if position.y >= self.system.world.window.height:
-                position.set_position([position.x, 0])
+                self.system.world.call(WorldCallbacks.FALL, self)
         if self.has_component(ControlComponent):
             self.get_component(ControlComponent).update()

@@ -1,5 +1,6 @@
 from pyengine.Systems import EntitySystem, MusicSystem
 from pyengine.Exceptions import NoSystemError
+from pyengine.Enums import WorldCallbacks
 
 __all__ = ["World"]
 
@@ -8,6 +9,22 @@ class World:
     def __init__(self):
         self.window = None
         self.systems = [EntitySystem(self), MusicSystem(self)]
+        self.callbacks = {
+            WorldCallbacks.FALL: None
+        }
+
+    def set_callback(self, callback, function):
+        if type(callback) == WorldCallbacks:
+            self.callbacks[callback] = function
+        else:
+            raise TypeError("Callback must be a WorldCallback (from WorldCallbacks Enum)")
+
+    def call(self, callback, *param):
+        if type(callback) == WorldCallbacks:
+            if self.callbacks[callback] is not None:
+                self.callbacks[callback](*param)
+        else:
+            raise TypeError("Callback must be a WorldCallback (from WorldCallbacks Enum)")
 
     def get_system(self, classe):
         for i in self.systems:
