@@ -12,6 +12,7 @@ class Entity(pygame.sprite.Sprite):
         self.components = []
         self.attachedentities = []
         self.system = None
+        self.image = None
 
     def set_id(self, identity):
         self.id = identity
@@ -26,7 +27,8 @@ class Entity(pygame.sprite.Sprite):
         self.attachedentities.append(entity)
 
     def add_components(self, component, *param):
-        if component not in [PositionComponent, SpriteComponent, ControlComponent, PhysicsComponent, TextComponent]:
+        if component not in [PositionComponent, SpriteComponent, ControlComponent, PhysicsComponent,
+                             TextComponent, LifeBarComponent]:
             raise WrongComponentError("Entity can't have "+str(component)+" as component.")
         component = eval(component.name+"()")
         if param is not None:
