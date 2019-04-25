@@ -71,9 +71,8 @@ setup(
         "Programming Language :: Python :: 3.7",
         "Topic :: Software Development :: Libraries :: pygame",
         "Intended Audience :: Developers",
-    ],
- 
- 
+    ], install_requires=['pygame']
+
     # C'est un système de plugin, mais on s'en sert presque exclusivement
     # Pour créer des commandes, comme "django-admin".
     # Par exemple, si on veut créer la fabuleuse commande "proclame-sm", on
