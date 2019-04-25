@@ -42,7 +42,7 @@ class PhysicsComponent:
         for i in collision:
             if i.has_component(PhysicsComponent) and i.id != self.entity.id:
                 if self.callback is not None and make_callback:
-                    self.callback(self.entity.id, i.id)
+                    self.callback(i)
                 return False
         return True
 
