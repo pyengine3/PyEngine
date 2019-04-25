@@ -18,8 +18,6 @@ class EntitySystem:
                 return i
 
     def add_entity(self, entity):
-        if type(entity) != Entity:
-            raise TypeError("Argument is not a Entity")
         if not entity.has_component(PositionComponent):
             raise NoComponentError("Entity must have PositionComponent to be add in a world.")
         if not entity.has_component(SpriteComponent) and not entity.has_component(TextComponent):
