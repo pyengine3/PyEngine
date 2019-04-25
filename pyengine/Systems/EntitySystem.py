@@ -1,5 +1,4 @@
 import pygame
-from pyengine.Entity import Entity
 from pyengine.Exceptions import NoComponentError
 from pyengine.Components import PositionComponent, SpriteComponent, TextComponent, ControlComponent
 
