@@ -5,7 +5,7 @@ from pyengine.Enums import WorldCallbacks
 
 
 def collision(objet, cause):
-    print("COLLISION")
+    print(cause, objet.id)
 
 
 def fall(objet):
@@ -23,14 +23,14 @@ game.set_world(monde)
 entity = Entity()
 entity.add_components(PositionComponent, [100, 100])
 entity.add_components(SpriteComponent, "images/sprite0.png")
-entity.add_components(ControlComponent, ControlType.DOUBLEJUMP)
+entity.add_components(ControlComponent, ControlType.FOURDIRECTION)
 entity.add_components(LifeBarComponent, 100, ["images/lifebar-back.png", "images/lifebar-front.png"], [-30, -15])
-phys = entity.add_components(PhysicsComponent)
+phys = entity.add_components(PhysicsComponent, False)
 phys.set_callback(collision)
 
 bloc = Entity()
-bloc.add_components(PositionComponent, [300, 300])
-bloc.add_components(SpriteComponent, "images/sprite1.png")
+bloc.add_components(PositionComponent, [350, 200])
+bloc.add_components(SpriteComponent, "images/lifebar-front.png")
 bloc.add_components(PhysicsComponent, False)
 bloc2 = Entity()
 bloc2.add_components(PositionComponent, [350, 350])
