@@ -1,6 +1,5 @@
 from pyengine.Exceptions import ComponentIntializedError
 from pyengine.Components import PositionComponent, SpriteComponent
-import os
 
 __all__ = ["LifeBarComponent"]
 
@@ -25,7 +24,7 @@ class LifeBarComponent:
             offset = [0, 0]
 
         if self.initialized:
-            raise ComponentIntializedError("PositionComponent already initialized")
+            raise ComponentIntializedError("LifeBarComponent already initialized")
         self.initialized = True
         self.entity = entity
         self.maxlife = maxlife

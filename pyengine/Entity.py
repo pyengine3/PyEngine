@@ -34,6 +34,8 @@ class Entity(pygame.sprite.Sprite):
         component = eval(component.name+"()")
         if param is not None:
             component.initialize(self, *param)
+        else:
+            component.initialize(self)
         self.components.append(component)
         return component
 

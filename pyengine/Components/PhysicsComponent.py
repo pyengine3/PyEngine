@@ -50,15 +50,16 @@ class PhysicsComponent:
         if not self.entity.has_component(PositionComponent):
             raise NoComponentError("Entity must have PositionComponent.")
         position = self.entity.get_component(PositionComponent)
-        if self.can_go([position.x, position.y + self.gravity_force], CollisionCauses.GRAVITY) and self.affectbygravity:
-            self.grounded = False
-            position.set_position([position.x, position.y + self.gravity_force])
-        elif self.gravity_force > 0 and self.affectbygravity:
-            self.grounded = True
-            self.doublejump = True
-            self.gravity_force = 2
+        if self.affectbygravity:
+            if self.can_go([position.x, position.y + self.gravity_force], CollisionCauses.GRAVITY):
+                self.grounded = False
+                position.set_position([position.x, position.y + self.gravity_force])
+            elif self.gravity_force > 0:
+                self.grounded = True
+                self.doublejump = True
+                self.gravity_force = 2
 
-        if self.timegravity <= 0 and self.gravity_force < self.max_gravity_force and not self.grounded:
-            self.gravity_force += 1
-            self.timegravity = 5
-        self.timegravity -= 1
+            if self.timegravity <= 0 and self.gravity_force < self.max_gravity_force and not self.grounded:
+                self.gravity_force += 1
+                self.timegravity = 5
+            self.timegravity -= 1

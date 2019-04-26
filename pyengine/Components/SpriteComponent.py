@@ -46,7 +46,6 @@ class SpriteComponent:
             self.entity.rect.y = position.y
 
     def set_size(self, size):
-        print(size)
         self.width, self.height = size
         self.scale = 1
         self.entity.image = pygame.transform.scale(self.entity.image, size)

@@ -28,7 +28,7 @@ class TextComponent:
             font.append(False)
 
         if self.initialized:
-            raise ComponentIntializedError("ControlComponent already initialized")
+            raise ComponentIntializedError("TextComponent already initialized")
 
         from pyengine.Components.SpriteComponent import SpriteComponent
 
