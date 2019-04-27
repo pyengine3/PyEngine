@@ -1,4 +1,4 @@
-from pyengine.Systems import EntitySystem, MusicSystem
+from pyengine.Systems import EntitySystem, MusicSystem, UISystem
 from pyengine.Exceptions import NoSystemError
 from pyengine.Enums import WorldCallbacks
 
@@ -8,7 +8,7 @@ __all__ = ["World"]
 class World:
     def __init__(self):
         self.state = None
-        self.systems = [EntitySystem(self), MusicSystem(self)]
+        self.systems = [EntitySystem(self), MusicSystem(self), UISystem(self)]
         self.callbacks = {
             WorldCallbacks.FALL: None
         }
