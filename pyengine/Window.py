@@ -22,6 +22,14 @@ class Window:
 
         pygame.key.set_repeat(1, 1)
 
+    @staticmethod
+    def set_title(title):
+        pygame.display.set_caption(title)
+
+    @staticmethod
+    def get_title(title):
+        pygame.display.get_caption()
+
     def get_size(self):
         return [self.width, self.height]
 
