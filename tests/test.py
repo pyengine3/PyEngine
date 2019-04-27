@@ -1,51 +1,40 @@
-from pyengine import Window, World, Entity, ControlType
+from pyengine import Window, World, Entity, ControlType, GameState
 from pyengine.Components import *
 from pyengine.Systems import *
 from pyengine.Enums import WorldCallbacks
 
 
-def collision(objet, cause):
-    print(cause, objet.id)
-
-
 def fall(objet):
-    if objet.has_component(PositionComponent):
-        position = objet.get_component(PositionComponent)
-        position.set_position([position.x, 0])
-    print("FALL :", objet.id)
+    print("CHANGE STATE")
+    game.set_current_state("LOOSE")
 
 
 game = Window(800, 600, True)
+state1 = GameState("JEU")
+state2 = GameState("LOOSE")
+game.add_state(state1)
+game.add_state(state2)
+
 monde = World()
 monde.set_callback(WorldCallbacks.FALL, fall)
-game.set_world(monde)
 
 entity = Entity()
 entity.add_components(PositionComponent, [100, 100])
 entity.add_components(SpriteComponent, "images/sprite0.png")
-entity.add_components(ControlComponent, ControlType.FOURDIRECTION)
-entity.add_components(LifeBarComponent, 100, ["images/lifebar-back.png", "images/lifebar-front.png"], [-30, -15])
-phys = entity.add_components(PhysicsComponent, False)
-phys.set_callback(collision)
-
-bloc = Entity()
-bloc.add_components(PositionComponent, [350, 200])
-bloc.add_components(SpriteComponent, "images/lifebar-front.png")
-bloc.add_components(PhysicsComponent, False)
-bloc2 = Entity()
-bloc2.add_components(PositionComponent, [350, 350])
-bloc2.add_components(SpriteComponent, "images/sprite1.png", 10)
-bloc2.add_components(PhysicsComponent, False)
+entity.add_components(ControlComponent, ControlType.CLASSICJUMP)
+phys = entity.add_components(PhysicsComponent, True)
 
 entitySystem = monde.get_system(EntitySystem)
-entitySystem.add_entity(bloc)
-entitySystem.add_entity(bloc2)
 entitySystem.add_entity(entity)
+state1.set_world(monde)
 
-lifebar = entity.get_component(LifeBarComponent)
-lifebar.create_life_sprites()
-lifebar.update_life(50)
+monde2 = World()
 
-bloc.get_component(SpriteComponent).set_rotation(45)
+text = Entity()
+text.add_components(PositionComponent, [100, 100])
+text.add_components(TextComponent, "LOOSE")
+entitySystem2 = monde2.get_system(EntitySystem)
+entitySystem2.add_entity(text)
+state2.set_world(monde2)
 
 game.run()
