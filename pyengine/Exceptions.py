@@ -18,9 +18,19 @@ class NoSystemError(Exception):
         super(NoSystemError, self).__init__(text)
 
 
+class NoGameStateError(Exception):
+    def __init__(self, text):
+        super(NoGameStateError, self).__init__(text)
+
+
 class ComponentIntializedError(Exception):
     def __init__(self, text):
         super(ComponentIntializedError, self).__init__(text)
+
+
+class GameStateIntializedError(Exception):
+    def __init__(self, text):
+        super(GameStateIntializedError, self).__init__(text)
 
 
 class CompatibilityError(Exception):
