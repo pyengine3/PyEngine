@@ -1,40 +1,23 @@
-from pyengine import Window, World, Entity, ControlType, GameState
-from pyengine.Components import *
+from pyengine import Window, World, GameState
 from pyengine.Systems import *
-from pyengine.Enums import WorldCallbacks
-
-
-def fall(objet):
-    print("CHANGE STATE")
-    game.set_current_state("LOOSE")
+from pyengine.Widgets import *
 
 
 game = Window(800, 600, True)
-state1 = GameState("JEU")
-state2 = GameState("LOOSE")
-game.add_state(state1)
-game.add_state(state2)
+game.set_title("UI TEST")
+state = GameState("BASE")
+game.add_state(state)
 
 monde = World()
-monde.set_callback(WorldCallbacks.FALL, fall)
+state.set_world(monde)
 
-entity = Entity()
-entity.add_components(PositionComponent, [100, 100])
-entity.add_components(SpriteComponent, "images/sprite0.png")
-entity.add_components(ControlComponent, ControlType.CLASSICJUMP)
-phys = entity.add_components(PhysicsComponent, True)
+label = Label([100, 100], "TEST", (255, 255, 255), ["arial", 25, True, True])
+image = Image([100, 100], "images/sprite0.png", [200, 100])
 
-entitySystem = monde.get_system(EntitySystem)
-entitySystem.add_entity(entity)
-state1.set_world(monde)
+uisystem = monde.get_system(UISystem)
+uisystem.add_widget(image)
+uisystem.add_widget(label)
 
-monde2 = World()
-
-text = Entity()
-text.add_components(PositionComponent, [100, 100])
-text.add_components(TextComponent, "LOOSE")
-entitySystem2 = monde2.get_system(EntitySystem)
-entitySystem2.add_entity(text)
-state2.set_world(monde2)
+image.set_position([110, 100])
 
 game.run()
