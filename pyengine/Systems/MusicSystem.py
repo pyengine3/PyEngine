@@ -34,7 +34,7 @@ class MusicSystem:
                 self.queue.append(self.queue[0])
             del self.queue[0]
         else:
-            raise NoMusicError("The MusicSystem have any music to play")
+            raise NoMusicError("MusicSystem have any music to play")
 
     def add(self, file):
         self.queue.append(file)
