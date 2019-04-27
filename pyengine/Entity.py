@@ -56,7 +56,7 @@ class Entity(pygame.sprite.Sprite):
             self.get_component(PhysicsComponent).update_gravity()
         if self.has_component(PositionComponent):
             position = self.get_component(PositionComponent)
-            if position.y >= self.system.world.window.height:
+            if position.y >= self.system.world.state.window.height:
                 self.system.world.call(WorldCallbacks.FALL, self)
         if self.has_component(ControlComponent):
             self.get_component(ControlComponent).update()

@@ -1,6 +1,6 @@
 import pygame
-from pyengine.Exceptions import NoWorldError
-from pyengine.World import World
+from pyengine.Exceptions import NoGameStateError
+from pyengine.GameState import GameState
 from pygame import locals as const
 
 __all__ = ["Window"]
@@ -14,7 +14,8 @@ class Window:
         self.clock = pygame.time.Clock()
         self.width = width
         self.height = height
-        self.world = None
+        self.states = []
+        self.current_state = None
         self.launch = True
         self.debug = debug
         self.debugfont = pygame.font.SysFont("arial", 15)
@@ -27,33 +28,49 @@ class Window:
     def set_debug(self, debug):
         self.debug = debug
 
-    def set_world(self, world):
-        if type(world) != World:
-            raise TypeError("Argument is not a World")
-        self.world = world
-        self.world.set_window(self)
+    def add_state(self, state):
+        if type(state) != GameState:
+            raise TypeError("Argument is not a GameState")
+        if len(self.states) == 0:
+            self.current_state = state
+        state.set_window(self)
+        self.states.append(state)
 
-    def get_world(self):
-        return self.world
+    def set_current_state(self, name):
+        for i in self.states:
+            if i.name == name:
+                self.current_state = i
+
+    def get_current_state(self):
+        return self.current_state
+
+    def get_state(self, name):
+        for i in self.states:
+            if i.name == name:
+                return i
 
     def process_event(self, evt):
         if evt.type == const.QUIT:
             self.launch = False
         elif evt.type == const.KEYDOWN:
-            self.world.keypress(evt.key)
+            for i in self.states:
+                i.keypress(evt.key)
         elif evt.type == const.MOUSEBUTTONDOWN:
-            self.world.mousepress(evt.button, evt.pos)
+            for i in self.states:
+                i.mousepress(evt.button, evt.pos)
         elif evt.type == const.KEYUP:
-            self.world.keyup(evt.key)
+            for i in self.states:
+                i.keyup(evt.key)
         else:
-            self.world.event(evt)
+            for i in self.states:
+                i.event(evt)
 
     def stop(self):
         self.launch = False
 
     def run(self):
-        if self.world is None:
-            raise NoWorldError("Window have no world")
+        if len(self.states) == 0:
+            raise NoGameStateError("Window have no GameState")
         while self.launch:
             for event in pygame.event.get():
                 self.process_event(event)
@@ -61,10 +78,7 @@ class Window:
             self.screen.fill((0, 0, 0))
             self.clock.tick(60)
 
-            self.world.update()
-            self.world.show(self.screen)
-            if self.debug:
-                self.world.show_debug(self.screen)
+            self.current_state.run()
 
             pygame.display.update()
         pygame.quit()

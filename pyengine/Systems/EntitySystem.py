@@ -57,5 +57,5 @@ class EntitySystem:
 
     def show_debug(self, screen):
         for i in self.entities:
-            render = self.world.window.debugfont.render("ID : "+str(i.id), 1, (255, 255, 0))
+            render = self.world.state.window.debugfont.render("ID : "+str(i.id), 1, (255, 255, 0))
             screen.blit(render, (i.rect.x + i.rect.width / 2 - render.get_width()/2, i.rect.y - 20))

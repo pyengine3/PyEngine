@@ -7,7 +7,7 @@ __all__ = ["World"]
 
 class World:
     def __init__(self):
-        self.window = None
+        self.state = None
         self.systems = [EntitySystem(self), MusicSystem(self)]
         self.callbacks = {
             WorldCallbacks.FALL: None
@@ -38,8 +38,8 @@ class World:
                 return True
         return False
 
-    def set_window(self, window):
-        self.window = window
+    def set_state(self, state):
+        self.state = state
 
     def update(self):
         for i in self.systems:
