@@ -1,6 +1,7 @@
-from pyengine import Window, World, GameState
+from pyengine import Window, GameState, Entity
 from pyengine.Systems import *
 from pyengine.Widgets import *
+from pyengine.Components import *
 
 
 game = Window(800, 600, True)
@@ -8,16 +9,14 @@ game.set_title("UI TEST")
 state = GameState("BASE")
 game.add_state(state)
 
-monde = World()
-state.set_world(monde)
+monde = state.get_world()
 
-label = Label([100, 100], "TEST", (255, 255, 255), ["arial", 25, True, True])
-image = Image([100, 100], "images/sprite0.png", [200, 100])
+entity = Entity()
+entity.add_component(PositionComponent([100, 100]))
+entity.add_component(SpriteComponent("images/sprite0.png"))
+life = entity.add_component(LifeBarComponent(100, ["images/lifebar-back.png", "images/lifebar-front.png"]))
 
-uisystem = monde.get_system(UISystem)
-uisystem.add_widget(image)
-uisystem.add_widget(label)
-
-image.set_position([110, 100])
+entitysystem = monde.get_system(EntitySystem)
+entitysystem.add_entity(entity)
 
 game.run()
