@@ -29,6 +29,5 @@ class Widget(pygame.sprite.Sprite):
         self.rect.x = self.position[0]
         self.rect.y = self.position[1]
 
-
     def get_position(self):
         return self.position
