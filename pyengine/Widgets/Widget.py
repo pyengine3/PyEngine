@@ -11,6 +11,7 @@ class Widget(pygame.sprite.Sprite):
         self.system = None
 
         self.rect = None  # Respect PEP8
+        self.image = None  # Respect PEP8
 
     def set_id(self, identity):
         self.id = identity
@@ -31,3 +32,8 @@ class Widget(pygame.sprite.Sprite):
 
     def get_position(self):
         return self.position
+
+    def update_rect(self):
+        self.rect = self.image.get_rect()
+        self.rect.x = self.position[0]
+        self.rect.y = self.position[1]

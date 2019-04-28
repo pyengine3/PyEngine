@@ -23,6 +23,4 @@ class Label(Widget):
         self.font = pygame.font.SysFont(font[0], font[1], font[2], font[3])
         self.text = text
         self.image = self.font.render(text, 1, color)
-        self.rect = self.image.get_rect()
-        self.rect.x = self.position[0]
-        self.rect.y = self.position[1]
+        self.update_rect()

@@ -21,9 +21,7 @@ class Button(Widget):
         self.size = size
         self.image = image
         self.command = command
-        self.rect = image.get_rect()
-        self.rect.x = position[0]
-        self.rect.y = position[1]
+        self.update_rect()
         self.label = Label(position, text)
         self.label.set_position([position[0]+self.rect.width/2-self.label.rect.width/2,
                                  position[1]+self.rect.height/2-self.label.rect.height/2])

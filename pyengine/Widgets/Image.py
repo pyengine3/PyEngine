@@ -11,6 +11,4 @@ class Image(Widget):
         self.image = pygame.image.load(image)
         if size is not None:
             self.image = pygame.transform.scale(self.image, size)
-        self.rect = self.image.get_rect()
-        self.rect.x = self.position[0]
-        self.rect.y = self.position[1]
+        self.update_rect()
