@@ -6,7 +6,8 @@ __all__ = ["GameState"]
 
 class GameState:
     def __init__(self, name):
-        self.world = None
+        self.world = World()
+        self.world.set_state(self)
         self.name = name
         self.window = None
 
