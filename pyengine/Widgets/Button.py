@@ -26,6 +26,20 @@ class Button(Widget):
         self.label.set_position([position[0]+self.rect.width/2-self.label.rect.width/2,
                                  position[1]+self.rect.height/2-self.label.rect.height/2])
 
+    def get_label(self):
+        return self.label
+
+    def update(self):
+        self.update_rect()
+        self.label.set_position([self.rect.x+self.rect.width/2-self.label.rect.width/2,
+                                 self.rect.y+self.rect.height/2-self.label.rect.height/2])
+
+    def set_command(self, command):
+        self.command = command
+
+    def get_command(self):
+        return self.command
+
     def set_system(self, system):
         super(Button, self).set_system(system)
         system.add_widget(self.label)
