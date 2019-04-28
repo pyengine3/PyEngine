@@ -19,5 +19,12 @@ class UISystem:
         widget.set_system(self)
         return widget
 
+    def mousepress(self, button, pos):
+        for i in self.widgets.sprites():
+            try:
+                i.mousepress(button, pos)
+            except AttributeError:
+                pass
+
     def show(self, screen):
         self.widgets.draw(screen)
