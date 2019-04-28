@@ -15,8 +15,8 @@ class UISystem:
 
     def add_widget(self, widget):
         widget.set_id(len(self.widgets))
-        widget.set_system(self)
         self.widgets.add(widget)
+        widget.set_system(self)
         return widget
 
     def show(self, screen):
