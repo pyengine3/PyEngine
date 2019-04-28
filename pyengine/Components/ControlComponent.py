@@ -10,21 +10,15 @@ __all__ = ["ControlComponent"]
 class ControlComponent:
     name = "ControlComponent"
 
-    def __init__(self):
+    def __init__(self, controltype, speed=5):
         self.entity = None
-        self.controltype = None
-        self.speed = 0
-        self.goto = (-1, -1)
-        self.initialized = False
-        self.jumping = False
-
-    def initialize(self, entity, controltype, speed=5):
-        if self.initialized:
-            raise ComponentIntializedError("ControlComponent already initialized")
-        self.initialized = True
-        self.entity = entity
         self.controltype = controltype
         self.speed = speed
+        self.goto = (-1, -1)
+        self.jumping = False
+
+    def set_entity(self, entity):
+        self.entity = entity
 
     def update(self):
         if self.controltype == ControlType.CLICKFOLLOW and self.goto != (-1, -1):

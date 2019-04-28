@@ -9,25 +9,18 @@ __all__ = ["PhysicsComponent"]
 class PhysicsComponent:
     name = "PhysicsComponent"
 
-    def __init__(self):
+    def __init__(self, affectbygravity=True, gravity_force=5):
         self.entity = None
-        self.affectbygravity = True
-        self.gravity_force = 0
-        self.max_gravity_force = 0
-        self.timegravity = 5
-        self.grounded = False
-        self.doublejump = True
-        self.initialized = False
-        self.callback = None
-
-    def initialize(self, entity, affectbygravity=True, gravity_force=5):
-        if self.initialized:
-            raise ComponentIntializedError("PhysicsComponent already initialized")
-        self.initialized = True
-        self.entity = entity
         self.affectbygravity = affectbygravity
         self.gravity_force = gravity_force
         self.max_gravity_force = gravity_force
+        self.timegravity = 5
+        self.grounded = False
+        self.doublejump = True
+        self.callback = None
+
+    def set_entity(self, entity):
+        self.entity = entity
 
     def set_callback(self, function):
         self.callback = function

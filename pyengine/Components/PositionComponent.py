@@ -1,28 +1,19 @@
-from pyengine.Exceptions import ComponentIntializedError
-
 __all__ = ["PositionComponent"]
 
 
 class PositionComponent:
     name = "PositionComponent"
 
-    def __init__(self):
+    def __init__(self, position, offset=None):
         self.entity = None
-        self.x = 0
-        self.y = 0
-        self.offset = [0, 0]
-        self.initialized = False
-
-    def initialize(self, entity, position, offset=None):
         if offset is None:
             offset = [0, 0]
-
-        if self.initialized:
-            raise ComponentIntializedError("PositionComponent already initialized")
-        self.entity = entity
-        self.x = position[0] + offset[0]
-        self.y = position[1] + offset[1]
         self.offset = offset
+        self.x = position[0]+self.offset[0]
+        self.y = position[1]+self.offset[1]
+
+    def set_entity(self, entity):
+        self.entity = entity
         self.update_dependances()
 
     def set_position(self, position):

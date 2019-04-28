@@ -27,15 +27,11 @@ class Entity(pygame.sprite.Sprite):
     def attach_entity(self, entity):
         self.attachedentities.append(entity)
 
-    def add_components(self, component, *param):
-        if component not in [PositionComponent, SpriteComponent, ControlComponent, PhysicsComponent,
-                             TextComponent, LifeBarComponent]:
             raise WrongComponentError("Entity can't have "+str(component)+" as component.")
-        component = eval(component.name+"()")
-        if param is not None:
-            component.initialize(self, *param)
-        else:
-            component.initialize(self)
+    def add_component(self, component):
+        if type(component) not in [PositionComponent, SpriteComponent, ControlComponent, PhysicsComponent,
+                                   TextComponent, LifeBarComponent]:
+        component.set_entity(self)
         self.components.append(component)
         return component
 
@@ -49,7 +45,6 @@ class Entity(pygame.sprite.Sprite):
         for i in self.components:
             if type(i) == component:
                 return i
-        raise NoComponentError("Entity have no "+str(component)+" as component.")
 
     def update(self):
         if self.has_component(PhysicsComponent):

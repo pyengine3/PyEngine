@@ -1,5 +1,5 @@
 import pygame
-from pyengine.Exceptions import ComponentIntializedError, CompatibilityError
+from pyengine.Exceptions import CompatibilityError
 from pyengine.Components.PositionComponent import PositionComponent
 
 __all__ = ["SpriteComponent"]
@@ -8,33 +8,28 @@ __all__ = ["SpriteComponent"]
 class SpriteComponent:
     name = "SpriteComponent"
 
-    def __init__(self):
+    def __init__(self, image, scale=1, rotation=0):
         self.entity = None
-        self.sprite = ""
-        self.scale = 1
-        self.rotation = 0
+        self.sprite = image
+        self.scale = scale
+        self.rotation = rotation
         self.width = 0
         self.height = 0
-        self.initialized = False
 
-    def initialize(self, entity, image, scale=1, rotation=0):
-        if self.initialized:
-            raise ComponentIntializedError("SpriteComponent already initialized")
+    def set_entity(self, entity):
 
         from pyengine.Components.TextComponent import TextComponent
 
         if entity.has_component(TextComponent):
             raise CompatibilityError("SpriteComponent is not compatible with TextComponent")
 
-        self.initialized = True
         self.entity = entity
-        self.sprite = image
-        self.entity.image = pygame.image.load(image)
+        self.entity.image = pygame.image.load(self.sprite)
         self.entity.rect = self.entity.image.get_rect()
         self.width = self.entity.rect.width
         self.height = self.entity.rect.height
-        self.set_scale(scale)
-        self.set_rotation(rotation)
+        self.set_scale(self.scale)
+        self.set_rotation(self.rotation)
 
     def set_scale(self, scale):
         self.scale = scale
