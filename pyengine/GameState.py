@@ -1,5 +1,5 @@
 from pyengine.World import World
-from pyengine.Exceptions import NoWorldError, GameStateIntializedError
+from pyengine.Exceptions import NoObjectError
 
 __all__ = ["GameState"]
 
@@ -24,9 +24,7 @@ class GameState:
 
     def run(self):
         if self.window is None:
-            raise GameStateIntializedError("GameState is not initilized.")
-        if self.world is None:
-            raise NoWorldError("GameState have no World.")
+            raise NoObjectError("GameState is attached to any Window.")
         self.world.update()
         self.world.show(self.window.screen)
         if self.window.debug:

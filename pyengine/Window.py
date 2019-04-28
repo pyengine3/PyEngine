@@ -1,5 +1,5 @@
 import pygame
-from pyengine.Exceptions import NoGameStateError
+from pyengine.Exceptions import NoObjectError
 from pyengine.GameState import GameState
 from pygame import locals as const
 
@@ -78,7 +78,7 @@ class Window:
 
     def run(self):
         if len(self.states) == 0:
-            raise NoGameStateError("Window have no GameState")
+            raise NoObjectError("Window have any GameState")
         while self.launch:
             for event in pygame.event.get():
                 self.process_event(event)

@@ -1,5 +1,4 @@
 from pyengine.Systems import EntitySystem, MusicSystem, UISystem
-from pyengine.Exceptions import NoSystemError
 from pyengine.Enums import WorldCallbacks
 
 __all__ = ["World"]
@@ -30,7 +29,6 @@ class World:
         for i in self.systems:
             if type(i) == classe:
                 return i
-        raise NoSystemError("World have any "+str(classe)+" as system")
 
     def has_system(self, classe):
         for i in self.systems:

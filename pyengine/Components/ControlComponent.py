@@ -1,4 +1,4 @@
-from pyengine.Exceptions import ComponentIntializedError, NoComponentError
+from pyengine.Exceptions import NoObjectError
 from pyengine.Enums import ControlType, MouseButton, CollisionCauses
 from pyengine.Components.PositionComponent import PositionComponent
 from pyengine.Components.PhysicsComponent import PhysicsComponent
@@ -23,7 +23,7 @@ class ControlComponent:
     def update(self):
         if self.controltype == ControlType.CLICKFOLLOW and self.goto != (-1, -1):
             if not self.entity.has_component(PositionComponent):
-                raise NoComponentError("Entity must have PositionComponent.")
+                raise NoObjectError("Entity must have PositionComponent.")
             position = self.entity.get_component(PositionComponent)
             if position.x-10 < self.goto[0] < position.x+10 and position.y-10 < self.goto[1] < position.y+10:
                 self.goto = (-1, -1)
@@ -55,7 +55,7 @@ class ControlComponent:
 
     def keypress(self, eventkey):
         if not self.entity.has_component(PositionComponent):
-            raise NoComponentError("Entity must have PositionComponent.")
+            raise NoObjectError("Entity must have PositionComponent.")
         position = self.entity.get_component(PositionComponent)
         if self.controltype == ControlType.FOURDIRECTION:
             pos = position.get_position()
@@ -81,7 +81,7 @@ class ControlComponent:
                 self.entity.get_component(PositionComponent).set_position(pos)
         elif self.controltype == ControlType.CLASSICJUMP or self.controltype == ControlType.DOUBLEJUMP:
             if not self.entity.has_component(PhysicsComponent):
-                raise NoComponentError("Entity must have PhysicsComponent")
+                raise NoObjectError("Entity must have PhysicsComponent")
             phys = self.entity.get_component(PhysicsComponent)
             pos = position.get_position()
             cango = True

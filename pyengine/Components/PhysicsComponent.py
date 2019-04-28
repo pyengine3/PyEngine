@@ -1,4 +1,4 @@
-from pyengine.Exceptions import ComponentIntializedError, NoComponentError
+from pyengine.Exceptions import NoObjectError
 from pyengine.Components import SpriteComponent, PositionComponent
 from pyengine.Enums import CollisionCauses
 import pygame
@@ -27,7 +27,7 @@ class PhysicsComponent:
 
     def can_go(self, position, createdby=CollisionCauses.UNKNOWN):
         if not self.entity.has_component(SpriteComponent):
-            raise NoComponentError("Entity must have SpriteComponent.")
+            raise NoObjectError("Entity must have SpriteComponent.")
         gosprite = pygame.sprite.Sprite()
         gosprite.rect = pygame.rect.Rect(position[0], position[1], self.entity.image.get_width(),
                                          self.entity.image.get_height())
@@ -41,7 +41,7 @@ class PhysicsComponent:
 
     def update_gravity(self):
         if not self.entity.has_component(PositionComponent):
-            raise NoComponentError("Entity must have PositionComponent.")
+            raise NoObjectError("Entity must have PositionComponent.")
         position = self.entity.get_component(PositionComponent)
         if self.affectbygravity:
             if self.can_go([position.x, position.y + self.gravity_force], CollisionCauses.GRAVITY):

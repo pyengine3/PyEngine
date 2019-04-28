@@ -1,5 +1,5 @@
 import pygame
-from pyengine.Exceptions import WrongComponentError, NoComponentError
+from pyengine.Exceptions import WrongObjectError
 from pyengine.Components import *
 from pyengine.Enums import WorldCallbacks
 
@@ -27,10 +27,10 @@ class Entity(pygame.sprite.Sprite):
     def attach_entity(self, entity):
         self.attachedentities.append(entity)
 
-            raise WrongComponentError("Entity can't have "+str(component)+" as component.")
     def add_component(self, component):
         if type(component) not in [PositionComponent, SpriteComponent, ControlComponent, PhysicsComponent,
                                    TextComponent, LifeBarComponent]:
+            raise WrongObjectError("Entity can't have "+str(component)+" as component.")
         component.set_entity(self)
         self.components.append(component)
         return component

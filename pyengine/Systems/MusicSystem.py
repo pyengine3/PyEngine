@@ -1,5 +1,5 @@
 import pygame
-from pyengine.Exceptions import NoMusicError
+from pyengine.Exceptions import NoObjectError
 
 __all__ = ["MusicSystem"]
 
@@ -34,7 +34,7 @@ class MusicSystem:
                 self.queue.append(self.queue[0])
             del self.queue[0]
         else:
-            raise NoMusicError("MusicSystem have any music to play")
+            raise NoObjectError("MusicSystem have any music to play")
 
     def add(self, file):
         self.queue.append(file)

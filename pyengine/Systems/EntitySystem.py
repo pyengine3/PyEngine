@@ -1,5 +1,5 @@
 import pygame
-from pyengine.Exceptions import NoComponentError
+from pyengine.Exceptions import NoObjectError
 from pyengine.Components import PositionComponent, SpriteComponent, TextComponent, ControlComponent
 
 __all__ = ["EntitySystem"]
@@ -18,9 +18,9 @@ class EntitySystem:
 
     def add_entity(self, entity):
         if not entity.has_component(PositionComponent):
-            raise NoComponentError("Entity must have PositionComponent to be add in a world.")
+            raise NoObjectError("Entity must have PositionComponent to be add in a world.")
         if not entity.has_component(SpriteComponent) and not entity.has_component(TextComponent):
-            raise NoComponentError("Entity must have SpriteComponent or TextComponent to be add in a world.")
+            raise NoObjectError("Entity must have SpriteComponent or TextComponent to be add in a world.")
         entity.set_id(len(self.entities))
         entity.set_system(self)
         if entity.has_component(SpriteComponent):

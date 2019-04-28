@@ -1,44 +1,14 @@
-class NoWorldError(Exception):
+class WrongObjectError(Exception):
     def __init__(self, text):
-        super(NoWorldError, self).__init__(text)
+        super(WrongObjectError, self).__init__(text)
 
 
-class WrongComponentError(Exception):
+class NoObjectError(Exception):
     def __init__(self, text):
-        super(WrongComponentError, self).__init__(text)
-
-
-class NoComponentError(Exception):
-    def __init__(self, text):
-        super(NoComponentError, self).__init__(text)
-
-
-class NoSystemError(Exception):
-    def __init__(self, text):
-        super(NoSystemError, self).__init__(text)
-
-
-class NoGameStateError(Exception):
-    def __init__(self, text):
-        super(NoGameStateError, self).__init__(text)
-
-
-class ComponentIntializedError(Exception):
-    def __init__(self, text):
-        super(ComponentIntializedError, self).__init__(text)
-
-
-class GameStateIntializedError(Exception):
-    def __init__(self, text):
-        super(GameStateIntializedError, self).__init__(text)
+        super(NoObjectError, self).__init__(text)
 
 
 class CompatibilityError(Exception):
     def __init__(self, text):
         super(CompatibilityError, self).__init__(text)
-
-
-class NoMusicError(Exception):
-    def __init__(self, text):
-        super(NoMusicError, self).__init__(text)
 
