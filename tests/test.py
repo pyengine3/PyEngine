@@ -6,10 +6,11 @@ from random import randint
 
 
 def click(obj, b):
-    label.set_color((randint(0, 255), randint(0, 255), randint(0, 255)))
-    obj.get_label().set_color((randint(0, 255), randint(0, 255), randint(0, 255)))
-    obj.get_label().set_text("CECI EST BIEN TROP LONG !")
-    obj.update()
+    if image.get_image() == "images/sprite0.png":
+        image.set_image("images/sprite1.png")
+    else:
+        image.set_image("images/sprite0.png")
+    image.set_size([randint(100, 300), randint(100, 300)])
 
 
 game = Window(800, 600, True)
@@ -20,10 +21,11 @@ game.add_state(state)
 monde = state.get_world()
 
 button = Button([100, 100], "Appuie", click)
-label = Label([200, 200], "RAINBOW !", None, ["arial", 35])
+image = Image([200, 200], "images/sprite0.png")
+
 
 system = monde.get_system(UISystem)
 system.add_widget(button)
-system.add_widget(label)
+system.add_widget(image)
 
 game.run()
