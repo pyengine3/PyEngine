@@ -7,6 +7,7 @@ class UISystem:
     def __init__(self, world):
         self.world = world
         self.widgets = pygame.sprite.Group()
+        self.focus = None
 
     def get_widget(self, identity):
         for i in self.widgets:
