@@ -21,18 +21,25 @@ class Button(Widget):
         self.size = size
         self.image = image
         self.command = command
-        self.update_rect()
         self.label = Label(position, text)
-        self.label.set_position([position[0]+self.rect.width/2-self.label.rect.width/2,
-                                 position[1]+self.rect.height/2-self.label.rect.height/2])
+        self.label.parent = self
+        self.update_all()
 
     def get_label(self):
         return self.label
 
-    def update(self):
+    def update_all(self):
         self.update_rect()
         self.label.set_position([self.rect.x+self.rect.width/2-self.label.rect.width/2,
                                  self.rect.y+self.rect.height/2-self.label.rect.height/2])
+
+    def get_size(self):
+        return self.size
+
+    def set_size(self, size):
+        self.size = size
+        self.image = pygame.transform.scale(self.image, size)
+        self.update_all()
 
     def set_command(self, command):
         self.command = command
@@ -53,5 +60,6 @@ class Button(Widget):
         if self.rect.x <= evt.pos[0] <= self.rect.x + self.rect.width and self.rect.y <= evt.pos[1] <= self.rect.y +\
                 self.rect.height and self.command:
             self.command(self, evt.button)
+            return True
 
 
