@@ -33,20 +33,20 @@ class EntitySystem:
         for i in self.entities:
             i.update()
 
-    def keypress(self, key):
+    def keypress(self, evt):
         for i in self.entities:
             if i.has_component(ControlComponent):
-                i.get_component(ControlComponent).keypress(key)
+                i.get_component(ControlComponent).keypress(evt)
 
-    def keyup(self, key):
+    def keyup(self, evt):
         for i in self.entities:
             if i.has_component(ControlComponent):
-                i.get_component(ControlComponent).keyup(key)
+                i.get_component(ControlComponent).keyup(evt)
 
-    def mousepress(self, button, pos):
+    def mousepress(self, evt):
         for i in self.entities:
             if i.has_component(ControlComponent):
-                i.get_component(ControlComponent).mousepress(button, pos)
+                i.get_component(ControlComponent).mousepress(evt)
 
     def show(self, screen):
         self.entities.draw(screen)

@@ -19,10 +19,10 @@ class UISystem:
         widget.set_system(self)
         return widget
 
-    def mousepress(self, button, pos):
+    def mousepress(self, evt):
         for i in self.widgets.sprites():
             try:
-                i.mousepress(button, pos)
+                if i.mousepress(evt):
             except AttributeError:
                 pass
 

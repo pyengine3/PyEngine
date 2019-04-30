@@ -49,9 +49,9 @@ class Button(Widget):
         self.label.set_position([self.rect.x+self.rect.width/2-self.label.rect.width/2,
                                  self.rect.y+self.rect.height/2-self.label.rect.height/2])
 
-    def mousepress(self, button, pos):
-        if self.rect.x <= pos[0] <= self.rect.x + self.rect.width and self.rect.y <= pos[1] <= self.rect.y +\
+    def mousepress(self, evt):
+        if self.rect.x <= evt.pos[0] <= self.rect.x + self.rect.width and self.rect.y <= evt.pos[1] <= self.rect.y +\
                 self.rect.height and self.command:
-            self.command(self, button)
+            self.command(self, evt.button)
 
 

@@ -62,13 +62,13 @@ class Window:
             self.launch = False
         elif evt.type == const.KEYDOWN:
             for i in self.states:
-                i.keypress(evt.key)
+                i.keypress(evt)
         elif evt.type == const.MOUSEBUTTONDOWN:
             for i in self.states:
-                i.mousepress(evt.button, evt.pos)
+                i.mousepress(evt)
         elif evt.type == const.KEYUP:
             for i in self.states:
-                i.keyup(evt.key)
+                i.keyup(evt)
         else:
             for i in self.states:
                 i.event(evt)

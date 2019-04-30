@@ -31,17 +31,17 @@ class GameState:
         if self.window.debug:
             self.world.show_debug(self.window.screen)
 
-    def keypress(self, key):
+    def keypress(self, evt):
         if self.world is not None:
-            self.world.keypress(key)
+            self.world.keypress(evt)
 
-    def mousepress(self, button, pos):
+    def mousepress(self, evt):
         if self.world is not None:
-            self.world.mousepress(button, pos)
+            self.world.mousepress(evt)
 
-    def keyup(self, key):
+    def keyup(self, evt):
         if self.world is not None:
-            self.world.keyup(key)
+            self.world.keyup(evt)
 
     def event(self, evt):
         if self.world is not None:

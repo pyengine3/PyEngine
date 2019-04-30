@@ -44,16 +44,18 @@ class ControlComponent:
                 if cango:
                     self.entity.get_component(PositionComponent).set_position(pos)
 
-    def mousepress(self, button, pos):
-        if self.controltype == ControlType.CLICKFOLLOW and button == MouseButton.LEFTCLICK.value:
-            self.goto = pos
+    def mousepress(self, evt):
+        if self.controltype == ControlType.CLICKFOLLOW and evt.button == MouseButton.LEFTCLICK.value:
+            self.goto = evt.pos
 
-    def keyup(self, eventkey):
+    def keyup(self, evt):
+        eventkey = evt.key
         if self.controltype == ControlType.DOUBLEJUMP or self.controltype == ControlType.CLASSICJUMP:
             if eventkey == const.K_UP:
                 self.jumping = False
 
-    def keypress(self, eventkey):
+    def keypress(self, evt):
+        eventkey = evt.key
         if not self.entity.has_component(PositionComponent):
             raise NoObjectError("Entity must have PositionComponent.")
         position = self.entity.get_component(PositionComponent)
