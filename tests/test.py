@@ -10,7 +10,8 @@ def click(obj, b):
         image.set_image("images/sprite1.png")
     else:
         image.set_image("images/sprite0.png")
-    image.set_size([randint(100, 300), randint(100, 300)])
+    obj.set_size([randint(100, 200), randint(100, 200)])
+    print(entry.label.get_text())
 
 
 game = Window(800, 600, True)
@@ -22,10 +23,11 @@ monde = state.get_world()
 
 button = Button([100, 100], "Appuie", click)
 image = Image([200, 200], "images/sprite0.png")
-
+entry = Entry([300, 300])
 
 system = monde.get_system(UISystem)
 system.add_widget(button)
 system.add_widget(image)
+system.add_widget(entry)
 
 game.run()
