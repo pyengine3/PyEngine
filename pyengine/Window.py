@@ -42,6 +42,9 @@ class Window:
     def get_size(self):
         return [self.width, self.height]
 
+    def get_debug(self):
+        return self.debug
+
     def set_debug(self, debug):
         self.debug = debug
 
