@@ -24,6 +24,17 @@ class Entry(Widget):
         self.typing = False
         self.update_all()
 
+    def get_text(self):
+        if self.cursor:
+            return self.label.get_text()[:-1]
+        return self.label.get_text()
+
+    def set_text(self, text):
+        if self.cursor:
+			self.label.set_text(text+"I")
+		else:
+			self.label.set_text(text)
+
     def focusout(self):
         if self.cursor:
             self.label.set_text(self.label.get_text()[:-1])
