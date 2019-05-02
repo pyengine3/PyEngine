@@ -30,7 +30,7 @@ class Window:
         pygame.display.set_caption(title)
 
     @staticmethod
-    def get_title(title):
+    def get_title():
         pygame.display.get_caption()
 
     def get_color(self):
