@@ -11,10 +11,10 @@ def click(obj, b):
     else:
         image.set_image("images/sprite0.png")
     obj.set_size([randint(100, 200), randint(100, 200)])
-    print(entry.label.get_text())
+    print(entry.get_text())
 
 
-game = Window(800, 600, True)
+game = Window(800, 600, (200, 145, 208), True)
 game.set_title("UI TEST")
 state = GameState("BASE")
 game.add_state(state)
