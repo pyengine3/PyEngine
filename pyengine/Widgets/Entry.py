@@ -42,9 +42,11 @@ class Entry(Widget):
                     self.label.set_text(self.label.get_text()[:-1])
         elif evt.unicode and not self.typing:
             if self.cursor:
-                self.label.set_text(self.label.get_text()[:-1]+evt.unicode+"I")
+                if self.label.rect.width + 10 < self.rect.width:
+                    self.label.set_text(self.label.get_text()[:-1]+evt.unicode+"I")
             else:
-                self.label.set_text(self.label.get_text() + evt.unicode)
+                if self.label.rect.width + 10 < self.rect.width:
+                    self.label.set_text(self.label.get_text() + evt.unicode)
         self.typing = True
 
     def update_all(self):
