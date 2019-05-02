@@ -7,7 +7,9 @@ __all__ = ["Window"]
 
 
 class Window:
-    def __init__(self, width, height, debug=False):
+    def __init__(self, width, height, color=None, debug=False):
+        if color is None:
+            color = (0, 0, 0)
         pygame.init()
 
         self.screen = pygame.display.set_mode((width, height))
@@ -18,6 +20,7 @@ class Window:
         self.current_state = None
         self.launch = True
         self.debug = debug
+        self.color = color
         self.debugfont = pygame.font.SysFont("arial", 15)
 
         pygame.key.set_repeat(1, 1)
@@ -29,6 +32,12 @@ class Window:
     @staticmethod
     def get_title(title):
         pygame.display.get_caption()
+
+    def get_color(self):
+        return self.color
+
+    def set_color(self, color):
+        self.color = color
 
     def get_size(self):
         return [self.width, self.height]
@@ -83,7 +92,7 @@ class Window:
             for event in pygame.event.get():
                 self.process_event(event)
 
-            self.screen.fill((0, 0, 0))
+            self.screen.fill(self.color)
             self.clock.tick(60)
 
             self.current_state.run()
