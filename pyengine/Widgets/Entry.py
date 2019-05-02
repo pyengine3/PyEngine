@@ -17,7 +17,7 @@ class Entry(Widget):
         self.iiwhite = pygame.Surface([self.width-8, 28])
         self.iiwhite.fill((255, 255, 255))
         self.image.blit(self.iiwhite, (4, 4))
-        self.label = Label([position[0]+5, position[1]+5], "Test", (0, 0, 0), ["arial", 17])
+        self.label = Label([position[0]+5, position[1]+5], "", (0, 0, 0), ["arial", 17])
         self.label.parent = self
         self.cursortimer = 20
         self.cursor = False
