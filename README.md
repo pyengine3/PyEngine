@@ -25,17 +25,17 @@ A lib to build 2D Games.
 
 ## Changelog
 
-### V 1.0.0 : XXX Update - XX/XX/XX
+### V 1.0.0 : XXX Update - XX/05/19
 
-    - Components : Create LifeBarComponent
+    - Components : Create LifeBarComponent, MoveComponent
     - Components : Rework on system (Work with constructor)
     - World-Enums : Create WorldCallbacks
     - Components/SpriteComponent : Add set_size function
     - Components/PhysicsComponent-Enums : Add CollisionCauses in CollisionCallback
     - GameState-Window-World : Create GameState System
     - Systems/UISystem : Create Wigets System
-    - Widgets : Add Label, Image, Button widget
-    - Window : Add title management
+    - Widgets : Create Label, Image, Button, Entry widget
+    - Window : Add title and background color management
     - Exceptions : Rework on system (rename and remove useless exceptions
 
 ### V 0.2.0-DEV : Little Update - 25/04/19
