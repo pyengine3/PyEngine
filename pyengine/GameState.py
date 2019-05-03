@@ -12,8 +12,8 @@ class GameState:
         self.window = None
 
     def set_world(self, world):
-        if type(world) != World:
-            raise TypeError("Argument is not a World")
+        if not isinstance(world, World):
+            raise TypeError("Argument is not type of "+str(World)+" but "+str(type(world))+".")
         self.world = world
         world.set_state(self)
 
