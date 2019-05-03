@@ -49,8 +49,8 @@ class Window:
         self.debug = debug
 
     def add_state(self, state):
-        if type(state) != GameState:
-            raise TypeError("Argument is not a GameState")
+        if not isinstance(state, GameState):
+            raise TypeError("Argument is not type of "+str(GameState)+" but "+str(type(state))+".")
         if len(self.states) == 0:
             self.current_state = state
         state.set_window(self)
