@@ -23,6 +23,7 @@ class CollisionCauses(Enum):
     RIGHTCONTROL = 4
     UPCONTROL = 5
     DOWNCONTROL = 6
+    MOVECOMPONENT = 7
 
 
 class WorldCallbacks(Enum):
