@@ -29,7 +29,7 @@ class Entity(pygame.sprite.Sprite):
 
     def add_component(self, component):
         if type(component) not in [PositionComponent, SpriteComponent, ControlComponent, PhysicsComponent,
-                                   TextComponent, LifeBarComponent]:
+                                   TextComponent, LifeBarComponent, MoveComponent]:
             raise WrongObjectError("Entity can't have "+str(component)+" as component.")
         component.set_entity(self)
         self.components.append(component)
@@ -55,3 +55,5 @@ class Entity(pygame.sprite.Sprite):
                 self.system.world.call(WorldCallbacks.FALL, self)
         if self.has_component(ControlComponent):
             self.get_component(ControlComponent).update()
+        if self.has_component(MoveComponent):
+            self.get_component(MoveComponent).update()
