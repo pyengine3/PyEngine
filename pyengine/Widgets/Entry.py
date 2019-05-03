@@ -31,9 +31,9 @@ class Entry(Widget):
 
     def set_text(self, text):
         if self.cursor:
-			self.label.set_text(text+"I")
-		else:
-			self.label.set_text(text)
+            self.label.set_text(text+"I")
+        else:
+            self.label.set_text(text)
 
     def focusout(self):
         if self.cursor:
