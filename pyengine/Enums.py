@@ -27,4 +27,4 @@ class CollisionCauses(Enum):
 
 
 class WorldCallbacks(Enum):
-    FALL = 1
+    OUTOFWINDOW = 1

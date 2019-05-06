@@ -52,7 +52,13 @@ class Entity(pygame.sprite.Sprite):
         if self.has_component(PositionComponent):
             position = self.get_component(PositionComponent)
             if position.y >= self.system.world.state.window.height:
-                self.system.world.call(WorldCallbacks.FALL, self)
+                self.system.world.call(WorldCallbacks.OUTOFWINDOW, self, position.get_position())
+            elif position.y < 0:
+                self.system.world.call(WorldCallbacks.OUTOFWINDOW, self, position.get_position())
+            if position.x >= self.system.world.state.window.width:
+                self.system.world.call(WorldCallbacks.OUTOFWINDOW, self, position.get_position())
+            elif position.x < 0:
+                self.system.world.call(WorldCallbacks.OUTOFWINDOW, self, position.get_position())
         if self.has_component(ControlComponent):
             self.get_component(ControlComponent).update()
         if self.has_component(MoveComponent):
