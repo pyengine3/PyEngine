@@ -19,6 +19,12 @@ class PhysicsComponent:
         self.doublejump = True
         self.callback = None
 
+    def get_gravity(self):
+        return self.gravity_force
+
+    def set_gravity(self, gravity):
+        self.gravity_force = gravity
+
     def set_entity(self, entity):
         self.entity = entity
 
