@@ -2,12 +2,12 @@
 
 A lib to build 2D Games.
 
-## Dependances
+## Dependencies
 
 - Python 3.5+
 - PyGame
 
-## Other informations
+## Other information
 
 - Main Developer : LavaPower
 - Contributors : X
@@ -29,9 +29,11 @@ A lib to build 2D Games.
 
     - Components : Create LifeBarComponent, MoveComponent
     - Components : Rework on system (Work with constructor)
-    - World-Enums : Create WorldCallbacks
+    - World-Enums : Create WorldCallbacks (OUTOFWINDOW)
     - Components/SpriteComponent : Add set_size function
     - Components/PhysicsComponent-Enums : Add CollisionCauses in CollisionCallback
+    - Components/PhysicsComponent : Add gravity management
+    - Components/ControlComponent : Add speed management
     - GameState-Window-World : Create GameState System
     - Systems/UISystem : Create Wigets System
     - Widgets : Create Label, Image, Button, Entry widget
