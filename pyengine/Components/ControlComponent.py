@@ -17,6 +17,12 @@ class ControlComponent:
         self.goto = (-1, -1)
         self.jumping = False
 
+    def get_speed(self):
+        return self.speed
+
+    def set_speed(self, speed):
+        self.speed = speed
+
     def set_entity(self, entity):
         self.entity = entity
 
