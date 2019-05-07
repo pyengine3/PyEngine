@@ -1,5 +1,5 @@
 from pyengine.Exceptions import NoObjectError
-from pyengine.Enums import ControlType, MouseButton, CollisionCauses
+from pyengine.Enums import ControlType, MouseButton, CollisionCauses, Controls
 from pyengine.Components.PositionComponent import PositionComponent
 from pyengine.Components.PhysicsComponent import PhysicsComponent
 from pygame import locals as const
@@ -16,6 +16,28 @@ class ControlComponent:
         self.speed = speed
         self.goto = (-1, -1)
         self.jumping = False
+        self.controles = {
+            Controls.UPJUMP: const.K_UP,
+            Controls.LEFT: const.K_LEFT,
+            Controls.RIGHT: const.K_RIGHT,
+            Controls.DOWN: const.K_DOWN
+        }
+
+    def set_control(self, name, key):
+        if not type(name) == Controls:
+            raise TypeError("Name must be a Controls type")
+        try:
+            self.controles[name] = key
+        except KeyError:
+            raise ValueError("Control unknown : "+name)
+
+    def get_control(self, name):
+        if not type(name) == Controls:
+            raise TypeError("Name must be a Controls type")
+        try:
+            return self.controles[name]
+        except KeyError:
+            raise ValueError("Control unknown : "+name)
 
     def get_speed(self):
         return self.speed

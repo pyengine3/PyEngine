@@ -10,6 +10,13 @@ class ControlType(Enum):
     CLICKFOLLOW = 4
 
 
+class Controls(Enum):
+    UPJUMP = 1
+    LEFT = 2
+    DOWN = 3
+    RIGHT = 4
+
+
 class MouseButton(Enum):
     LEFTCLICK = 1
     MIDDLECLICK = 2
