@@ -4,7 +4,7 @@ from pyengine.Components.PositionComponent import PositionComponent
 from pyengine.Components.PhysicsComponent import PhysicsComponent
 from pygame import locals as const
 
-__all__ = ["ControlComponent"]
+__all__ = ["ControlComponent", "const"]
 
 
 class ControlComponent:
