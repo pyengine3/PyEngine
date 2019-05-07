@@ -34,6 +34,9 @@ A lib to build 2D Games.
     - Components/PhysicsComponent-Enums : Add CollisionCauses in CollisionCallback
     - Components/PhysicsComponent : Add gravity management
     - Components/ControlComponent : Add speed management
+    - Components/ControlComponent : Add controls management
+    - Components/ControlComponent-Enums : Add LEFTRIGHT and UPDOWN ControlType
+    - Components/ControlComponent-Enums : Add ControlsE Enums
     - GameState-Window-World : Create GameState System
     - Systems/UISystem : Create Wigets System
     - Widgets : Create Label, Image, Button, Entry widget
