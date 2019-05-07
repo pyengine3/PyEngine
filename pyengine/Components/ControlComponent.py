@@ -79,7 +79,7 @@ class ControlComponent:
     def keyup(self, evt):
         eventkey = evt.key
         if self.controltype == ControlType.DOUBLEJUMP or self.controltype == ControlType.CLASSICJUMP:
-            if eventkey == const.K_UP:
+            if eventkey == self.controles[Controls.UPJUMP]:
                 self.jumping = False
 
     def keypress(self, evt):
@@ -87,59 +87,48 @@ class ControlComponent:
         if not self.entity.has_component(PositionComponent):
             raise NoObjectError("Entity must have PositionComponent.")
         position = self.entity.get_component(PositionComponent)
-        if self.controltype == ControlType.FOURDIRECTION:
-            pos = position.get_position()
-            cango = True
-            if eventkey == const.K_LEFT:
+        pos = position.get_position()
+        cango = True
+        if eventkey == self.controles[Controls.LEFT]:
+            if self.controltype == ControlType.FOURDIRECTION or self.controltype == ControlType.CLASSICJUMP \
+                    or self.controltype == ControlType.DOUBLEJUMP or self.controltype == ControlType.LEFTRIGHT:
                 pos = [position.x - self.speed, position.y]
                 if self.entity.has_component(PhysicsComponent):
                     cango = self.entity.get_component(PhysicsComponent).can_go(pos, CollisionCauses.LEFTCONTROL)
-            if eventkey == const.K_RIGHT:
+        if eventkey == self.controles[Controls.RIGHT]:
+            if self.controltype == ControlType.FOURDIRECTION or self.controltype == ControlType.CLASSICJUMP \
+                    or self.controltype == ControlType.DOUBLEJUMP or self.controltype == ControlType.LEFTRIGHT:
                 pos = [position.x + self.speed, position.y]
                 if self.entity.has_component(PhysicsComponent):
                     cango = self.entity.get_component(PhysicsComponent).can_go(pos, CollisionCauses.RIGHTCONTROL)
-            if eventkey == const.K_UP:
+        if eventkey == self.controles[Controls.UPJUMP]:
+            if self.controltype == ControlType.FOURDIRECTION or self.controltype == ControlType.UPDOWN:
                 pos = [position.x, position.y - self.speed]
                 if self.entity.has_component(PhysicsComponent):
                     cango = self.entity.get_component(PhysicsComponent).can_go(pos, CollisionCauses.UPCONTROL)
-            if eventkey == const.K_DOWN:
-                pos = [position.x, position.y + self.speed]
-                if self.entity.has_component(PhysicsComponent):
-                    cango = self.entity.get_component(PhysicsComponent).can_go(pos, CollisionCauses.DOWNCONTROL)
-
-            if cango:
-                self.entity.get_component(PositionComponent).set_position(pos)
-        elif self.controltype == ControlType.CLASSICJUMP or self.controltype == ControlType.DOUBLEJUMP:
-            if not self.entity.has_component(PhysicsComponent):
-                raise NoObjectError("Entity must have PhysicsComponent")
-            phys = self.entity.get_component(PhysicsComponent)
-            pos = position.get_position()
-            cango = True
-            if eventkey == const.K_LEFT:
-                pos = [position.x - self.speed, position.y]
-                if self.entity.has_component(PhysicsComponent):
-                    cango = self.entity.get_component(PhysicsComponent).can_go(pos, CollisionCauses.LEFTCONTROL)
-            if eventkey == const.K_RIGHT:
-                pos = [position.x + self.speed, position.y]
-                if self.entity.has_component(PhysicsComponent):
-                    cango = self.entity.get_component(PhysicsComponent).can_go(pos, CollisionCauses.RIGHTCONTROL)
-
-            if self.entity.has_component(PhysicsComponent):
-                cango = self.entity.get_component(PhysicsComponent).can_go(pos)
-            if cango:
-                self.entity.get_component(PositionComponent).set_position(pos)
-
-            if self.controltype == ControlType.CLASSICJUMP:
-                if eventkey == const.K_UP and phys.grounded and not self.jumping:
+            elif self.controltype == ControlType.CLASSICJUMP:
+                if not self.entity.has_component(PhysicsComponent):
+                    raise NoObjectError("Entity must have PhysicsComponent")
+                phys = self.entity.get_component(PhysicsComponent)
+                if phys.grounded and not self.jumping:
                     phys.grounded = False
                     self.jumping = True
                     phys.gravity_force = -phys.max_gravity_force
             elif self.controltype == ControlType.DOUBLEJUMP:
-                if eventkey == const.K_UP and (phys.grounded or phys.doublejump) and not self.jumping:
+                if not self.entity.has_component(PhysicsComponent):
+                    raise NoObjectError("Entity must have PhysicsComponent")
+                phys = self.entity.get_component(PhysicsComponent)
+                if (phys.grounded or phys.doublejump) and not self.jumping:
                     if not phys.grounded:
                         phys.doublejump = False
                     phys.grounded = False
                     self.jumping = True
                     phys.gravity_force = -phys.max_gravity_force
+        if eventkey ==  self.controles[Controls.DOWN]:
+            if self.controltype == ControlType.FOURDIRECTION or self.controltype == ControlType.UPDOWN:
+                pos = [position.x, position.y + self.speed]
+                if self.entity.has_component(PhysicsComponent):
+                    cango = self.entity.get_component(PhysicsComponent).can_go(pos, CollisionCauses.DOWNCONTROL)
 
-
+        if cango:
+            self.entity.get_component(PositionComponent).set_position(pos)
