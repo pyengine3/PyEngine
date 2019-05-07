@@ -8,6 +8,8 @@ class ControlType(Enum):
     CLASSICJUMP = 2
     DOUBLEJUMP = 3
     CLICKFOLLOW = 4
+    LEFTRIGHT = 5
+    UPDOWN = 6
 
 
 class Controls(Enum):
