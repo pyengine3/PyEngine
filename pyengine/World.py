@@ -9,7 +9,7 @@ class World:
         self.state = None
         self.systems = [EntitySystem(self), MusicSystem(self), UISystem(self)]
         self.callbacks = {
-            WorldCallbacks.FALL: None
+            WorldCallbacks.OUTOFWINDOW: None
         }
 
     def set_callback(self, callback, function):
