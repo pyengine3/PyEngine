@@ -25,7 +25,7 @@ A lib to build 2D Games.
 
 ## Changelog
 
-### V 1.0.0 : XXX Update - XX/05/19
+### V 1.0.0 : First Update - 09/05/19
 
     - Components : Create LifeBarComponent, MoveComponent
     - Components : Rework on system (Work with constructor)
