@@ -26,7 +26,7 @@ setup(
     # https://pypi.python.org/pypi?%3Aaction=list_classifiers.
     classifiers=[
         "Programming Language :: Python",
-        "Development Status :: 2 - Pre-Alpha",
+        "Development Status :: 5 - Production/Stable",
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
         "Natural Language :: English",
         "Operating System :: OS Independent",
