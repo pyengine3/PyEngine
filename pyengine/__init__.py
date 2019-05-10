@@ -7,4 +7,4 @@ from pygame import locals as const
 
 __all__ = ["Window", "World", "Entity", "ControlType", "const", "MouseButton", "CollisionCauses",
            "WorldCallbacks", "GameState"]
-__version__="1.0.0"
+__version__ = "1.0.1"

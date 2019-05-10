@@ -25,6 +25,13 @@ A lib to build 2D Games.
 
 ## Changelog
 
+### V 1.0.1 : Fix Update - 10/05/19
+
+    - Enums : Add Controls in __all__
+    - Entity : Can add custom component
+    
+Cette MAJ ne casse pas la combatilbilité avec la précédente.
+
 ### V 1.0.0 : First Update - 09/05/19
 
     - Components : Create LifeBarComponent, MoveComponent

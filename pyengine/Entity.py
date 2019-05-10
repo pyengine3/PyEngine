@@ -28,8 +28,13 @@ class Entity(pygame.sprite.Sprite):
         self.attachedentities.append(entity)
 
     def add_component(self, component):
-        if type(component) not in [PositionComponent, SpriteComponent, ControlComponent, PhysicsComponent,
-                                   TextComponent, LifeBarComponent, MoveComponent]:
+        found = False
+        for i in [PositionComponent, SpriteComponent, ControlComponent, PhysicsComponent,
+                  TextComponent, LifeBarComponent, MoveComponent]:
+            if isinstance(component, i):
+                found = True
+                break
+        if not found :
             raise WrongObjectError("Entity can't have "+str(component)+" as component.")
         component.set_entity(self)
         self.components.append(component)

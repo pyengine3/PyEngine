@@ -1,6 +1,6 @@
 from enum import Enum
 
-__all__ = ["ControlType", "MouseButton", "CollisionCauses", "WorldCallbacks"]
+__all__ = ["ControlType", "MouseButton", "CollisionCauses", "WorldCallbacks", "Controls"]
 
 
 class ControlType(Enum):
