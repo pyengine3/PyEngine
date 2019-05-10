@@ -42,13 +42,13 @@ class Entity(pygame.sprite.Sprite):
 
     def has_component(self, component):
         for i in self.components:
-            if type(i) == component:
+            if isinstance(i, component):
                 return True
         return False
 
     def get_component(self, component):
         for i in self.components:
-            if type(i) == component:
+            if isinstance(i, component):
                 return i
 
     def update(self):
