@@ -25,6 +25,14 @@ A lib to build 2D Games.
 
 ## Changelog
 
+### V 1.0.2 : Fix Update 2 - 11/05/19
+
+    - Entity : Can get custom component
+    - Setup : Fix crash when pygame is not installed
+    - Setup : Don't get PyGame2
+    
+Cette MAJ ne casse pas la combatilbilité avec la précédente.
+
 ### V 1.0.1 : Fix Update - 10/05/19
 
     - Enums : Add Controls in __all__
