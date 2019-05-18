@@ -32,6 +32,25 @@ class EntitySystem:
             self.texts.add(entity)
         return entity
 
+    def has_entity(self, entity):
+        if entity in self.entities:
+            return True
+        return False
+
+    def remove_entity(self, entity):
+        if entity.has_component(SpriteComponent):
+            if entity in self.entities:
+                self.entities.remove(entity)
+            else:
+                raise ValueError("Entity has not in EntitySystem")
+        elif entity.has_component(TextComponent):
+            if entity in self.texts:
+                self.texts.remove(entity)
+            else:
+                raise ValueError("Entity has not in EntitySystem")
+        else:
+            raise ValueError("Entity has not in EntitySystem")
+
     def update(self):
         for i in self.entities:
             i.update()
