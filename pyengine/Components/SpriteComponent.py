@@ -10,7 +10,8 @@ class SpriteComponent:
         self.entity = None
         self.sprite = image
         self.scale = scale
-        self.rotation = rotation
+        self.firstrotation = rotation
+        self.rotation = 0
         self.width = 0
         self.height = 0
 
@@ -27,7 +28,7 @@ class SpriteComponent:
         self.width = self.entity.rect.width
         self.height = self.entity.rect.height
         self.set_scale(self.scale)
-        self.set_rotation(self.rotation)
+        self.set_rotation(self.firstrotation)
 
     def set_scale(self, scale):
         self.scale = scale
