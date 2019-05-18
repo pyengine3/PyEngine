@@ -24,6 +24,9 @@ class Entity(pygame.sprite.Sprite):
     def set_system(self, system):
         self.system = system
 
+    def get_system(self):
+        return self.system
+
     def attach_entity(self, entity):
         self.attachedentities.append(entity)
 
