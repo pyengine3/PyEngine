@@ -23,6 +23,17 @@ class UISystem:
         widget.set_system(self)
         return widget
 
+    def has_widget(self, widget):
+        if widget in self.widgets:
+            return True
+        return False
+
+    def remove_widget(self, widget):
+        if widget in self.widgets:
+            self.widgets.remove(widget)
+        else:
+            raise ValueError("Entity has not in EntitySystem")
+
     def mousepress(self, evt):
         focustemp = None
         for i in self.widgets.sprites():
