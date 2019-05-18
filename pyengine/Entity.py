@@ -1,7 +1,7 @@
 import pygame
 from pyengine.Exceptions import WrongObjectError
 from pyengine.Components import *
-from pyengine.Enums import WorldCallbacks
+from pyengine.Enums import StateCallbacks
 
 __all__ = ["Entity"]
 
@@ -30,11 +30,11 @@ class Entity(pygame.sprite.Sprite):
     def add_component(self, component):
         found = False
         for i in [PositionComponent, SpriteComponent, ControlComponent, PhysicsComponent,
-                  TextComponent, LifeBarComponent, MoveComponent]:
+                  TextComponent, LifeComponent, MoveComponent]:
             if isinstance(component, i):
                 found = True
                 break
-        if not found :
+        if not found:
             raise WrongObjectError("Entity can't have "+str(component)+" as component.")
         component.set_entity(self)
         self.components.append(component)
@@ -56,14 +56,14 @@ class Entity(pygame.sprite.Sprite):
             self.get_component(PhysicsComponent).update_gravity()
         if self.has_component(PositionComponent):
             position = self.get_component(PositionComponent)
-            if position.y >= self.system.world.state.window.height:
-                self.system.world.call(WorldCallbacks.OUTOFWINDOW, self, position.get_position())
+            if position.y >= self.system.state.window.height:
+                self.system.state.call(StateCallbacks.OUTOFWINDOW, self, position.get_position())
             elif position.y < 0:
-                self.system.world.call(WorldCallbacks.OUTOFWINDOW, self, position.get_position())
-            if position.x >= self.system.world.state.window.width:
-                self.system.world.call(WorldCallbacks.OUTOFWINDOW, self, position.get_position())
+                self.system.state.call(StateCallbacks.OUTOFWINDOW, self, position.get_position())
+            if position.x >= self.system.state.window.width:
+                self.system.state.call(StateCallbacks.OUTOFWINDOW, self, position.get_position())
             elif position.x < 0:
-                self.system.world.call(WorldCallbacks.OUTOFWINDOW, self, position.get_position())
+                self.system.state.call(StateCallbacks.OUTOFWINDOW, self, position.get_position())
         if self.has_component(ControlComponent):
             self.get_component(ControlComponent).update()
         if self.has_component(MoveComponent):

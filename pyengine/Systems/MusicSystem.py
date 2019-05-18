@@ -5,8 +5,7 @@ __all__ = ["MusicSystem"]
 
 
 class MusicSystem:
-    def __init__(self, world):
-        self.world = world
+    def __init__(self, state):
         self.queue = []
         self.ENDSOUND = 231
         self.loop = False

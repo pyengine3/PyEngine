@@ -1,24 +1,42 @@
-from pyengine.World import World
 from pyengine.Exceptions import NoObjectError
+from pyengine.Systems import EntitySystem, MusicSystem, UISystem
+from pyengine.Enums import StateCallbacks
 
 __all__ = ["GameState"]
 
 
 class GameState:
     def __init__(self, name):
-        self.world = World()
-        self.world.set_state(self)
         self.name = name
         self.window = None
+        self.systems = [EntitySystem(self), MusicSystem(self), UISystem(self)]
+        self.callbacks = {
+            StateCallbacks.OUTOFWINDOW: None
+        }
 
-    def set_world(self, world):
-        if not isinstance(world, World):
-            raise TypeError("Argument is not type of "+str(World)+" but "+str(type(world))+".")
-        self.world = world
-        world.set_state(self)
+    def set_callback(self, callback, function):
+        if type(callback) == StateCallbacks:
+            self.callbacks[callback] = function
+        else:
+            raise TypeError("Callback must be a StateCallback (from StateCallbacks Enum)")
 
-    def get_world(self):
-        return self.world
+    def call(self, callback, *param):
+        if type(callback) == StateCallbacks:
+            if self.callbacks[callback] is not None:
+                self.callbacks[callback](*param)
+        else:
+            raise TypeError("Callback must be a StateCallback (from StateCallbacks Enum)")
+
+    def get_system(self, classe):
+        for i in self.systems:
+            if type(i) == classe:
+                return i
+
+    def has_system(self, classe):
+        for i in self.systems:
+            if type(i) == classe:
+                return True
+        return False
 
     def set_window(self, window):
         self.window = window
@@ -26,23 +44,49 @@ class GameState:
     def run(self):
         if self.window is None:
             raise NoObjectError("GameState is attached to any Window.")
-        self.world.update()
-        self.world.show(self.window.screen)
-        if self.window.debug:
-            self.world.show_debug(self.window.screen)
+        for i in self.systems:
+            try:
+                i.update()
+            except AttributeError:
+                pass
+
+            try:
+                i.show(self.window.screen)
+            except AttributeError:
+                pass
+
+            if self.window.debug:
+                try:
+                    i.show_debug(self.window.screen)
+                except AttributeError:
+                    pass
 
     def keypress(self, evt):
-        if self.world is not None:
-            self.world.keypress(evt)
+        for i in self.systems:
+            try:
+                i.keypress(evt)
+            except AttributeError:
+                pass
 
     def mousepress(self, evt):
-        if self.world is not None:
-            self.world.mousepress(evt)
+        for i in self.systems:
+            try:
+                i.mousepress(evt)
+            except AttributeError:
+                pass
 
     def keyup(self, evt):
-        if self.world is not None:
-            self.world.keyup(evt)
+        for i in self.systems:
+            try:
+                i.keyup(evt)
+            except AttributeError:
+                pass
 
     def event(self, evt):
-        if self.world is not None:
-            self.world.event(evt)
+        if evt.type == self.systems[1].ENDSOUND:
+            self.systems[1].next_song()
+        for i in self.systems:
+            try:
+                i.event(evt)
+            except AttributeError:
+                pass

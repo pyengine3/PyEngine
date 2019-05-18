@@ -5,8 +5,8 @@ __all__ = ["UISystem"]
 
 
 class UISystem:
-    def __init__(self, world):
-        self.world = world
+    def __init__(self, state):
+        self.state = state
         self.widgets = pygame.sprite.Group()
         self.focus = None
 
