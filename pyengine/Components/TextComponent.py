@@ -5,8 +5,6 @@ __all__ = ["TextComponent"]
 
 
 class TextComponent:
-    name = "TextComponent"
-
     def __init__(self, texte, color=None, font=None):
         if font is None:
             font = ["arial", 12, False, False]

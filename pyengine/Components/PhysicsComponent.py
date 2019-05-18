@@ -7,8 +7,6 @@ __all__ = ["PhysicsComponent"]
 
 
 class PhysicsComponent:
-    name = "PhysicsComponent"
-
     def __init__(self, affectbygravity=True, gravity_force=5):
         self.entity = None
         self.affectbygravity = affectbygravity

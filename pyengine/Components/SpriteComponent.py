@@ -6,8 +6,6 @@ __all__ = ["SpriteComponent"]
 
 
 class SpriteComponent:
-    name = "SpriteComponent"
-
     def __init__(self, image, scale=1, rotation=0):
         self.entity = None
         self.sprite = image

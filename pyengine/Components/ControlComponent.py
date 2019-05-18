@@ -8,8 +8,6 @@ __all__ = ["ControlComponent", "const"]
 
 
 class ControlComponent:
-    name = "ControlComponent"
-
     def __init__(self, controltype, speed=5):
         self.entity = None
         self.controltype = controltype

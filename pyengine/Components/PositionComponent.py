@@ -2,8 +2,6 @@ __all__ = ["PositionComponent"]
 
 
 class PositionComponent:
-    name = "PositionComponent"
-
     def __init__(self, position, offset=None):
         self.entity = None
         if offset is None:

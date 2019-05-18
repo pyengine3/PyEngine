@@ -7,8 +7,6 @@ __all__ = ["MoveComponent"]
 
 
 class MoveComponent:
-    name = "MoveComponent"
-
     def __init__(self, direction, speed=5):
         self.entity = None
         self.direction = direction
