@@ -25,6 +25,18 @@ A lib to build 2D Games.
 
 ## Changelog
 
+### V 1.1.0 : XXX Update - XX/XX/19
+
+    - LifeComponent : Remove creation of sprite
+    - LifeComponent : Add get_life and get_maxlife functions
+    - Entity : Add get_system function
+    - World : Remove world
+    - Enums : Rename WorldCallbacks to StateCallbacks
+    - EntitySystem : Add function to remove entity
+    - UISystem : Add function to remove widget
+    
+    - Bug Fix : Rotation of SpriteComponent don't work
+
 ### V 1.0.2 : Fix Update 2 - 11/05/19
 
     - Entity : Can get custom component
@@ -51,7 +63,7 @@ Cette MAJ ne casse pas la combatilbilité avec la précédente.
     - Components/ControlComponent : Add speed management
     - Components/ControlComponent : Add controls management
     - Components/ControlComponent-Enums : Add LEFTRIGHT and UPDOWN ControlType
-    - Components/ControlComponent-Enums : Add ControlsE Enums
+    - Components/ControlComponent-Enums : Add Controls Enums
     - GameState-Window-World : Create GameState System
     - Systems/UISystem : Create Wigets System
     - Widgets : Create Label, Image, Button, Entry widget
