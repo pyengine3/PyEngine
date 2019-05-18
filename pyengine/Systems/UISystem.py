@@ -75,4 +75,6 @@ class UISystem:
                 pass
 
     def show(self, screen):
-        self.widgets.draw(screen)
+        for i in self.widgets.sprites():
+            if i.isshow:
+                screen.blit(i.image, i.rect)

@@ -10,6 +10,7 @@ class Widget(pygame.sprite.Sprite):
         self.position = position
         self.system = None
         self.parent = None
+        self.isshow = True
 
         self.rect = None  # Respect PEP8
         self.image = None  # Respect PEP8
@@ -31,6 +32,15 @@ class Widget(pygame.sprite.Sprite):
 
     def get_system(self):
         return self.system
+
+    def is_show(self):
+        return self.isshow
+
+    def show(self):
+        self.isshow = True
+
+    def hide(self):
+        self.isshow = False
 
     def set_position(self, position):
         self.position = position

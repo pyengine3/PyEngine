@@ -1,36 +1,27 @@
-from pyengine import Window, GameState, Entity, ControlType, Controls, StateCallbacks
+from pyengine import Window, GameState
 from pyengine.Systems import *
-from pyengine.Components import *
-from pyengine.Components.ControlComponent import const
+from pyengine.Widgets import *
 
 
-def quitter(obj, pos):
-    if state.get_system(EntitySystem).has_entity(bloc):
-        state.get_system(EntitySystem).remove_entity(bloc)
+def click(obj, button):
+    if image.is_show():
+        image.hide()
+    else:
+        image.show()
 
 
 game = Window(800, 600, (200, 145, 208), True)
-game.set_title("Controles TEST")
+game.set_title("ShowHide TEST")
 state = GameState("BASE")
 game.add_state(state)
 
-entity = Entity()
-entity.add_component(PositionComponent([100, 100]))
-entity.add_component(SpriteComponent("images/sprite0.png"))
-entity.add_component(PhysicsComponent())
-control = entity.add_component(ControlComponent(ControlType.CLASSICJUMP))
-control.set_control(Controls.UPJUMP, const.K_SPACE)
+button = Button([100, 100], "Clique", click)
 
-state.set_callback(StateCallbacks.OUTOFWINDOW, quitter)
-
-bloc = Entity()
-bloc.add_component(PositionComponent([100, 200]))
-bloc.add_component(SpriteComponent("images/sprite1.png", 1, 45))
-bloc.add_component(PhysicsComponent(False))
+image = Image([300, 300], "images/sprite0.png")
 
 
-system = state.get_system(EntitySystem)
-system.add_entity(entity)
-system.add_entity(bloc)
+system = state.get_system(UISystem)
+system.add_widget(button)
+system.add_widget(image)
 
 game.run()
