@@ -7,16 +7,22 @@ __all__ = ["Entry"]
 
 
 class Entry(Widget):
-    def __init__(self, position, width=200):
+    def __init__(self, position, width=200, image=None):
         super(Entry, self).__init__(position)
 
         self.width = width
 
-        self.image = pygame.Surface([self.width, 35])
-        self.image.fill((50, 50, 50))
-        self.iiwhite = pygame.Surface([self.width-8, 28])
-        self.iiwhite.fill((255, 255, 255))
-        self.image.blit(self.iiwhite, (4, 4))
+        if image is not None:
+            self.image = pygame.image.load(image)
+            self.image = pygame.transform.scale(self.image, [self.width, 35])
+            self.hasimage = True
+        else:
+            self.image = pygame.Surface([self.width, 35])
+            self.image.fill((50, 50, 50))
+            self.iiwhite = pygame.Surface([self.width-8, 28])
+            self.iiwhite.fill((255, 255, 255))
+            self.image.blit(self.iiwhite, (4, 4))
+            self.hasimage = False
         self.label = Label([position[0]+5, position[1]+5], "", (0, 0, 0), ["arial", 17])
         self.label.parent = self
         self.cursortimer = 20
@@ -62,9 +68,14 @@ class Entry(Widget):
 
     def update_all(self):
         self.update_rect()
-        self.label.set_position([self.label.get_position()[0],
-                                 self.rect.y + 4 + self.iiwhite.get_rect().height / 2
-                                 - self.label.rect.height / 2])
+        if self.hasimage:
+            self.label.set_position([self.label.get_position()[0],
+                                     self.rect.y + self.image.get_rect().height / 2
+                                     - self.label.rect.height / 2])
+        else:
+            self.label.set_position([self.label.get_position()[0],
+                                     self.rect.y + 4 + self.iiwhite.get_rect().height / 2
+                                     - self.label.rect.height / 2])
 
     def set_system(self, system):
         super(Entry, self).set_system(system)
