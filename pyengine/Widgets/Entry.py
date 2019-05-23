@@ -28,7 +28,7 @@ class Entry(Widget):
         self.cursortimer = 20
         self.cursor = False
         self.typing = False
-        self.update_all()
+        self.update_render()
 
     def get_text(self):
         if self.cursor:
@@ -66,7 +66,7 @@ class Entry(Widget):
                     self.label.set_text(self.label.get_text() + evt.unicode)
         self.typing = True
 
-    def update_all(self):
+    def update_render(self):
         self.update_rect()
         if self.hasimage:
             self.label.set_position([self.label.get_position()[0],
