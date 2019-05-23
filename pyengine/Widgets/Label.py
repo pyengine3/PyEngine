@@ -50,4 +50,6 @@ class Label(Widget):
     def update_render(self):
         self.image = self.font.render().render(self.text, 1, self.color)
         self.update_rect()
+        if self.parent:
+            self.parent.update_render()
 
