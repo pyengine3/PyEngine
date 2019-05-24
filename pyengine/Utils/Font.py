@@ -13,24 +13,28 @@ class Font:
 
     def set_name(self, name):
         self.name = name
+        return self
 
     def get_name(self):
         return self.name
 
     def set_size(self, size):
         self.size = size
+        return self
 
     def get_size(self):
         return self.size
 
     def set_bold(self, bold):
         self.bold = bold
+        return self
 
     def is_bold(self):
         return self.bold
 
     def set_italic(self, italic):
         self.italic = italic
+        return self
 
     def is_italic(self):
         return self.italic
