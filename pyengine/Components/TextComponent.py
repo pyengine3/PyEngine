@@ -1,5 +1,5 @@
 from pyengine.Exceptions import CompatibilityError
-from pyengine.Utils import Font
+from pyengine.Utils import Font, Color, Colors
 
 __all__ = ["TextComponent"]
 
@@ -9,10 +9,12 @@ class TextComponent:
         if font is None:
             font = Font()
         if color is None:
-            color = (255, 255, 255)
+            color = Colors.WHITE.value
 
         if not isinstance(font, Font):
             raise TypeError("Font have not a Font type")
+        if not isinstance(color, Color):
+            raise TypeError("Color have not a Color type")
 
         self.entity = None
         self.texte = texte
@@ -29,6 +31,9 @@ class TextComponent:
         self.entity = entity
 
     def set_color(self, color):
+        if not isinstance(color, Color):
+            raise TypeError("Color have not a Color type")
+
         self.color = color
 
     def get_color(self):
@@ -44,4 +49,4 @@ class TextComponent:
         return self.font
 
     def render(self):
-        return self.font.render().render(self.texte, 1, self.color)
+        return self.font.render().render(self.texte, 1, self.color.get())
