@@ -31,9 +31,13 @@ A lib to build 2D Games.
     - LifeComponent : Add get_life and get_maxlife functions
     - Entity : Add get_system function
     - World : Remove world
-    - Enums : Rename WorldCallbacks to StateCallbacks
+    - Enums : Move Enums in classes
     - EntitySystem : Add function to remove entity
     - UISystem : Add function to remove widget
+    - Widgets : You can hide and show widgets
+    - Entry : You can use your own background
+    - Color-Colors : Create color class and colors enums
+    - Font : Create font class
     
     - Bug Fix : Rotation of SpriteComponent don't work
 
