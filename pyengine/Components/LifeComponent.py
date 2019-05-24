@@ -1,5 +1,3 @@
-from pyengine.Components import PositionComponent, SpriteComponent
-
 __all__ = ["LifeComponent"]
 
 
