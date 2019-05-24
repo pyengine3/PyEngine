@@ -1,4 +1,3 @@
-import pygame
 from pyengine.Widgets.Widget import Widget
 from pyengine.Utils import Font
 
@@ -18,7 +17,6 @@ class Label(Widget):
 
         self.color = color
         self.font = font
-        self.font.parent = self
         self.text = text
         self.update_render()
 
@@ -34,7 +32,6 @@ class Label(Widget):
             raise TypeError("Font have not a Font type")
 
         self.font = font
-        self.font.parent = self
         self.update_render()
 
     def get_font(self):

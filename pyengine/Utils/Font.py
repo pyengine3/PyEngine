@@ -11,34 +11,26 @@ class Font:
         self.italic = italic
         self.parent = None
 
-    def update(self):
-        if self.parent:
-            self.parent.update()
-
     def set_name(self, name):
         self.name = name
-        self.update()
 
     def get_name(self):
         return self.name
 
     def set_size(self, size):
         self.size = size
-        self.update()
 
     def get_size(self):
         return self.size
 
     def set_bold(self, bold):
         self.bold = bold
-        self.update()
 
     def is_bold(self):
         return self.bold
 
     def set_italic(self, italic):
         self.italic = italic
-        self.update()
 
     def is_italic(self):
         return self.italic
