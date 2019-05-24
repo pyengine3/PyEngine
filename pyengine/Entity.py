@@ -1,7 +1,7 @@
 import pygame
 from pyengine.Exceptions import WrongObjectError
 from pyengine.Components import *
-from pyengine.Enums import StateCallbacks
+from pyengine.GameState import StateCallbacks
 
 __all__ = ["Entity"]
 

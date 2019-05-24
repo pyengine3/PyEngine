@@ -1,13 +1,21 @@
+from enum import Enum
+
+__all__ = ["GameState", "StateCallbacks"]
+
+
+class StateCallbacks(Enum):
+    OUTOFWINDOW = 1
+
+
+# StateCallbacks doit être défini avec les imports
 from pyengine.Exceptions import NoObjectError
 from pyengine.Systems import EntitySystem, MusicSystem, UISystem
-from pyengine.Enums import StateCallbacks
-
-__all__ = ["GameState"]
 
 
 class GameState:
     def __init__(self, name):
         self.name = name
+
         self.window = None
         self.systems = [EntitySystem(self), MusicSystem(self), UISystem(self)]
         self.callbacks = {

@@ -1,7 +1,6 @@
 from pyengine.Components.PositionComponent import PositionComponent
-from pyengine.Components.PhysicsComponent import PhysicsComponent
+from pyengine.Components.PhysicsComponent import PhysicsComponent, CollisionCauses
 from pyengine.Exceptions import NoObjectError
-from pyengine.Enums import CollisionCauses
 
 __all__ = ["MoveComponent"]
 

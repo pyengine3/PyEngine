@@ -1,9 +1,19 @@
 from pyengine.Exceptions import NoObjectError
 from pyengine.Components import SpriteComponent, PositionComponent
-from pyengine.Enums import CollisionCauses
 import pygame
+from enum import Enum
 
-__all__ = ["PhysicsComponent"]
+__all__ = ["PhysicsComponent", "CollisionCauses"]
+
+
+class CollisionCauses(Enum):
+    UNKNOWN = 1
+    GRAVITY = 2
+    LEFTCONTROL = 3
+    RIGHTCONTROL = 4
+    UPCONTROL = 5
+    DOWNCONTROL = 6
+    MOVECOMPONENT = 7
 
 
 class PhysicsComponent:
