@@ -2,11 +2,14 @@ from pyengine import Window, GameState, Entity
 from pyengine.Systems import *
 from pyengine.Components import PositionComponent, TextComponent
 from pyengine.Widgets import *
+from pyengine.Utils import Colors
 
 
 def click(pos, click):
     text = entity.get_component(TextComponent)
-    text.get_font().set_size(text.get_font().get_size()+1)
+    text.set_color(Colors.BLUE.value.clone().lighter())
+    text.set_font(text.get_font().set_size(text.get_font().get_size()+1))
+    bouton.get_label().set_color(Colors.RED.value.clone().lighter())
     bouton.get_label().set_text("TEST")
 
 
