@@ -16,7 +16,7 @@ A lib to build 2D Games.
     - Windows 10 (V 0.1.0-DEV --> Latest)
   - Version of Python :
     - 3.7.1 (V 0.1.0-DEV --> Latest)
-  - Librairy :
+  - Library :
     - PyGame (V 0.1.0-DEV --> Latest)
 
 ## Known bugs of the developing version
@@ -25,7 +25,7 @@ A lib to build 2D Games.
 
 ## Changelog
 
-### V 1.1.0 : XXX Update - XX/XX/19
+### V 1.1.0 : General Update - 25/05/19
 
     - LifeComponent : Remove creation of sprite
     - LifeComponent : Add get_life and get_maxlife functions
@@ -34,10 +34,12 @@ A lib to build 2D Games.
     - Enums : Move Enums in classes
     - EntitySystem : Add function to remove entity
     - UISystem : Add function to remove widget
+    - SoundSystem : Create
     - Widgets : You can hide and show widgets
     - Entry : You can use your own background
     - Color-Colors : Create color class and colors enums
     - Font : Create font class
+    - Optimisation of lib
     
     - Bug Fix : Rotation of SpriteComponent don't work
 
