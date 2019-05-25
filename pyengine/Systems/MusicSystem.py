@@ -5,7 +5,7 @@ __all__ = ["MusicSystem"]
 
 
 class MusicSystem:
-    def __init__(self, state):
+    def __init__(self):
         self.queue = []
         self.ENDSOUND = 231
         self.loop = False

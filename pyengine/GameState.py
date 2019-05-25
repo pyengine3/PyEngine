@@ -19,8 +19,8 @@ class GameState:
         self.window = None
         self.systems = {
             "Entity": EntitySystem(self),
-            "Music": MusicSystem(self),
             "UI" : UISystem(self)
+            "Music": MusicSystem(),
         }
         self.callbacks = {
             StateCallbacks.OUTOFWINDOW: None
