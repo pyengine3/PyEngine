@@ -17,6 +17,7 @@ setup(
     author="LavaPower",
     author_email="lavapower84@gmail.com",
     description="A lib to create 2D games",
+    long_description_content_type="text/markdown",
     long_description=open('README.md').read(),
 
     include_package_data=True,
