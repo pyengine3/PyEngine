@@ -7,7 +7,7 @@ class StateCallbacks(Enum):
     OUTOFWINDOW = 1
 
 
-# StateCallbacks doit être défini avec les imports
+# StateCallbacks doit être défini avant les imports
 from pyengine.Exceptions import NoObjectError
 from pyengine.Systems import EntitySystem, MusicSystem, UISystem
 
@@ -17,7 +17,11 @@ class GameState:
         self.name = name
 
         self.window = None
-        self.systems = [EntitySystem(self), MusicSystem(self), UISystem(self)]
+        self.systems = {
+            "Entity": EntitySystem(self),
+            "Music": MusicSystem(self),
+            "UI" : UISystem(self)
+        }
         self.callbacks = {
             StateCallbacks.OUTOFWINDOW: None
         }
@@ -36,12 +40,12 @@ class GameState:
             raise TypeError("Callback must be a StateCallback (from StateCallbacks Enum)")
 
     def get_system(self, classe):
-        for i in self.systems:
+        for i in self.systems.values():
             if type(i) == classe:
                 return i
 
     def has_system(self, classe):
-        for i in self.systems:
+        for i in self.systems.values():
             if type(i) == classe:
                 return True
         return False
@@ -52,49 +56,25 @@ class GameState:
     def run(self):
         if self.window is None:
             raise NoObjectError("GameState is attached to any Window.")
-        for i in self.systems:
-            try:
-                i.update()
-            except AttributeError:
-                pass
 
-            try:
-                i.show(self.window.screen)
-            except AttributeError:
-                pass
-
-            if self.window.debug:
-                try:
-                    i.show_debug(self.window.screen)
-                except AttributeError:
-                    pass
+        self.systems["UI"].update()
+        self.systems["UI"].show(self.window.screen)
+        self.systems["Entity"].update()
+        self.systems["Entity"].show(self.window.screen)
+        self.systems["Entity"].show_debug(self.window.screen)
 
     def keypress(self, evt):
-        for i in self.systems:
-            try:
-                i.keypress(evt)
-            except AttributeError:
-                pass
+        self.systems["UI"].keypress(evt)
+        self.systems["Entity"].keypress(evt)
 
     def mousepress(self, evt):
-        for i in self.systems:
-            try:
-                i.mousepress(evt)
-            except AttributeError:
-                pass
+        self.systems["UI"].mousepress(evt)
+        self.systems["Entity"].mousepress(evt)
 
     def keyup(self, evt):
-        for i in self.systems:
-            try:
-                i.keyup(evt)
-            except AttributeError:
-                pass
+        self.systems["UI"].keyup(evt)
+        self.systems["Entity"].keyup(evt)
 
     def event(self, evt):
-        if evt.type == self.systems[1].ENDSOUND:
-            self.systems[1].next_song()
-        for i in self.systems:
-            try:
-                i.event(evt)
-            except AttributeError:
-                pass
+        if evt.type == self.systems["Music"].ENDSOUND:
+            self.systems["Music"].next_song()
