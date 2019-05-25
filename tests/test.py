@@ -11,6 +11,7 @@ def click(pos, click):
     text.set_font(text.get_font().set_size(text.get_font().get_size()+1))
     bouton.get_label().set_color(Colors.RED.value.clone().lighter())
     bouton.get_label().set_text("TEST")
+    state.get_system(SoundSystem).play("bruitages/test.wav")
 
 
 game = Window(800, 600, (0, 0, 0), True)
@@ -27,5 +28,7 @@ system = state.get_system(UISystem)
 system.add_widget(bouton)
 system2 = state.get_system(EntitySystem)
 system2.add_entity(entity)
+
+state.get_system(SoundSystem).set_number_sound(20)
 
 game.run()
