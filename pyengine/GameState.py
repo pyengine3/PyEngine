@@ -9,7 +9,7 @@ class StateCallbacks(Enum):
 
 # StateCallbacks doit être défini avant les imports
 from pyengine.Exceptions import NoObjectError
-from pyengine.Systems import EntitySystem, MusicSystem, UISystem
+from pyengine.Systems import EntitySystem, MusicSystem, UISystem, SoundSystem
 
 
 class GameState:
@@ -19,8 +19,9 @@ class GameState:
         self.window = None
         self.systems = {
             "Entity": EntitySystem(self),
-            "UI" : UISystem(self)
             "Music": MusicSystem(),
+            "UI": UISystem(self),
+            "Sound": SoundSystem()
         }
         self.callbacks = {
             StateCallbacks.OUTOFWINDOW: None
