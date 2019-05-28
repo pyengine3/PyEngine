@@ -21,6 +21,12 @@ class TextComponent:
         self.font = font
         self.color = color
 
+    def get_text(self):
+        return self.texte
+
+    def set_text(self, text):
+        self.texte = text
+
     def set_entity(self, entity):
 
         from pyengine.Components.SpriteComponent import SpriteComponent
