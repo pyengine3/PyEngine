@@ -1,6 +1,7 @@
 import pygame
 from pyengine.Exceptions import NoObjectError
 from pyengine.GameState import GameState
+from pyengine.Utils import Color
 from pygame import locals as const
 
 __all__ = ["Window"]
@@ -9,7 +10,7 @@ __all__ = ["Window"]
 class Window:
     def __init__(self, width, height, color=None, debug=False):
         if color is None:
-            color = (0, 0, 0)
+            color = Color(0, 0, 0)
         pygame.init()
 
         self.screen = pygame.display.set_mode((width, height))
@@ -37,6 +38,8 @@ class Window:
         return self.color
 
     def set_color(self, color):
+        if isinstance(color, Color):
+            raise TypeError("Color have not a Color type")
         self.color = color
 
     def get_size(self):
@@ -95,7 +98,7 @@ class Window:
             for event in pygame.event.get():
                 self.process_event(event)
 
-            self.screen.fill(self.color)
+            self.screen.fill(self.color.get())
             self.clock.tick(60)
 
             self.current_state.run()
