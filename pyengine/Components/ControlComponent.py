@@ -1,6 +1,6 @@
 from pyengine.Exceptions import NoObjectError
 from pyengine.Components.PositionComponent import PositionComponent
-from pyengine.Components.PhysicsComponent import PhysicsComponent
+from pyengine.Components.PhysicsComponent import PhysicsComponent, CollisionCauses
 from pygame import locals as const
 from enum import Enum
 
