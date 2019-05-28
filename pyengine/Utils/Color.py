@@ -12,9 +12,6 @@ class Color:
     def get(self):
         return self.r, self.g, self.b
 
-    def clone(self):
-        return Color(self.r, self.g, self.b)
-
     def set(self, color):
         if not isinstance(color, Color):
             raise TypeError("Color have not a Color type")
@@ -24,22 +21,28 @@ class Color:
         return self
 
     def darker(self):
+        r = self.r
+        b = self.b
+        g = self.g
         if self.r >= 10:
-            self.r -= 10
+            r -= 10
         if self.g >= 10:
-            self.g -= 10
+            g -= 10
         if self.b >= 10:
-            self.b -= 10
-        return self
+            b -= 10
+        return Color(r, g, b)
 
     def lighter(self):
+        r = self.r
+        b = self.b
+        g = self.g
         if self.r <= 245:
-            self.r += 10
+            r += 10
         if self.g <= 245:
-            self.g += 10
+            g += 10
         if self.b <= 245:
-            self.b += 10
-        return self
+            b += 10
+        return Color(r, g, b)
 
 
 class Colors(Enum):
