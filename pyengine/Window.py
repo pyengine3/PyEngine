@@ -8,9 +8,12 @@ __all__ = ["Window"]
 
 
 class Window:
-    def __init__(self, width, height, color=None, debug=False):
+    def __init__(self, width, height, color=None, icon=None, debug=False):
         if color is None:
             color = Color(0, 0, 0)
+        if icon is not None:
+            pygame.display.set_icon(pygame.image.load(icon))
+
         pygame.init()
 
         self.screen = pygame.display.set_mode((width, height))
