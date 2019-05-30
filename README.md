@@ -1,3 +1,5 @@
+![PyEngine logo](Logo.png "PyEngine logo")
+
 # PyEngine
 
 A lib to build 2D Games.
