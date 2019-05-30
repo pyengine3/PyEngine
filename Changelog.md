@@ -1,5 +1,15 @@
 # Changelog
 
+## V 1.1.1 : Patch Update - 30/05/19
+
+    - Create and add PyEngine Logo
+    - Window : Add icon parameter
+    - Window : Use Color class
+    - TextComponent : Add text management
+    
+    - Bug Fix : OutOfWindow don't take sprite size
+    - Critical Bug Fix : CollisionCallbacks is not defined in ControlComponent
+
 ## V 1.1.0 : General Update - 25/05/19
 
     - LifeComponent : Remove creation of sprite
@@ -15,6 +25,7 @@
     - Color-Colors : Create color class and colors enums
     - Font : Create font class
     - Optimisation of lib
+    
     - Bug Fix : Rotation of SpriteComponent don't work
 
 ## V 1.0.2 : Fix Update 2 - 11/05/19
