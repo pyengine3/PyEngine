@@ -60,9 +60,10 @@ class GameState:
 
         self.systems["Entity"].update()
         self.systems["Entity"].show(self.window.screen)
-        self.systems["Entity"].show_debug(self.window.screen)
         self.systems["UI"].update()
         self.systems["UI"].show(self.window.screen)
+        if self.window.debug:
+            self.systems["Entity"].show_debug(self.window.screen)
 
     def keypress(self, evt):
         self.systems["Entity"].keypress(evt)

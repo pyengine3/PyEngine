@@ -4,6 +4,7 @@
 
     - Bug Fix : EntitySystem give wrong id to Entities
     - Bug Fix : EntitySystem is render after UISystem
+    - Bug Fix : Window is always in debug mode
 
 Cette MAJ ne casse pas la combatilbilité avec la précédente.
 
