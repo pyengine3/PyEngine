@@ -14,7 +14,7 @@ class EntitySystem:
 
     def get_entity(self, identity):
         for i in self.entities:
-            if i.identity == identity:
+            if i.id == identity:
                 return i
 
     def add_entity(self, entity):
@@ -24,7 +24,10 @@ class EntitySystem:
             raise NoObjectError("Entity must have PositionComponent to be add in a world.")
         if not entity.has_component(SpriteComponent) and not entity.has_component(TextComponent):
             raise NoObjectError("Entity must have SpriteComponent or TextComponent to be add in a world.")
-        entity.set_id(len(self.entities))
+        if len(self.entities):
+            entity.set_id(self.entities.sprites()[-1].id + 1)
+        else:
+            entity.set_id(0)
         entity.set_system(self)
         if entity.has_component(SpriteComponent):
             self.entities.add(entity)
