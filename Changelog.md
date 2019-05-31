@@ -1,5 +1,12 @@
 # Changelog
 
+## V 1.1.2 : Patch Update 2 - XX/06/19
+
+    - Bug Fix : EntitySystem give wrong id to Entities
+    - Bug Fix : EntitySystem is render after UISystem
+
+Cette MAJ ne casse pas la combatilbilité avec la précédente.
+
 ## V 1.1.1 : Patch Update - 30/05/19
 
     - Create and add PyEngine Logo
@@ -9,6 +16,8 @@
     
     - Bug Fix : OutOfWindow don't take sprite size
     - Critical Bug Fix : CollisionCallbacks is not defined in ControlComponent
+
+Cette MAJ ne casse pas la combatilbilité avec la précédente.
 
 ## V 1.1.0 : General Update - 25/05/19
 
