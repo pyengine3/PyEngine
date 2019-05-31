@@ -1,16 +1,14 @@
 import pygame
 from pyengine.Exceptions import NoObjectError
 from pyengine.GameState import GameState
-from pyengine.Utils import Color
+from pyengine.Utils import Color, Colors
 from pygame import locals as const
 
 __all__ = ["Window"]
 
 
 class Window:
-    def __init__(self, width, height, color=None, icon=None, debug=False):
-        if color is None:
-            color = Color(0, 0, 0)
+    def __init__(self, width, height, color=Colors.BLACK.value, icon=None, debug=False):
         if icon is not None:
             pygame.display.set_icon(pygame.image.load(icon))
 
@@ -79,17 +77,13 @@ class Window:
         if evt.type == const.QUIT:
             self.launch = False
         elif evt.type == const.KEYDOWN:
-            for i in self.states:
-                i.keypress(evt)
+            self.current_state.keypress(evt)
         elif evt.type == const.MOUSEBUTTONDOWN:
-            for i in self.states:
-                i.mousepress(evt)
+            self.current_state.mousepress(evt)
         elif evt.type == const.KEYUP:
-            for i in self.states:
-                i.keyup(evt)
+            self.current_state.keyup(evt)
         else:
-            for i in self.states:
-                i.event(evt)
+            self.current_state.event(evt)
 
     def stop(self):
         self.launch = False

@@ -36,9 +36,7 @@ class EntitySystem:
         return entity
 
     def has_entity(self, entity):
-        if entity in self.entities:
-            return True
-        return False
+        return entity in self.entities
 
     def remove_entity(self, entity):
         if entity.has_component(SpriteComponent):

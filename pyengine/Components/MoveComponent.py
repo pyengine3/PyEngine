@@ -1,6 +1,5 @@
 from pyengine.Components.PositionComponent import PositionComponent
 from pyengine.Components.PhysicsComponent import PhysicsComponent, CollisionCauses
-from pyengine.Exceptions import NoObjectError
 
 __all__ = ["MoveComponent"]
 
@@ -27,21 +26,20 @@ class MoveComponent:
         return self.direction
 
     def update(self):
-        if not self.entity.has_component(PositionComponent):
-            raise NoObjectError("Entity must have PositionComponent.")
-        position = self.entity.get_component(PositionComponent)
-        pos = position.get_position()
-        if self.direction[0] == 1:
-            pos[0] += self.speed
-        elif self.direction[0] == -1:
-            pos[0] -= self.speed
-        if self.direction[1] == 1:
-            pos[1] += self.speed
-        elif self.direction[1] == -1:
-            pos[1] -= self.speed
-        cango = True
-        if self.entity.has_component(PhysicsComponent):
-            cango = self.entity.get_component(PhysicsComponent).can_go(pos, CollisionCauses.MOVECOMPONENT)
-        if cango:
-            self.entity.get_component(PositionComponent).set_position(pos)
+        if self.entity.has_component(PositionComponent):
+            position = self.entity.get_component(PositionComponent)
+            pos = position.get_position()
+            if self.direction[0] == 1:
+                pos[0] += self.speed
+            elif self.direction[0] == -1:
+                pos[0] -= self.speed
+            if self.direction[1] == 1:
+                pos[1] += self.speed
+            elif self.direction[1] == -1:
+                pos[1] -= self.speed
+            cango = True
+            if self.entity.has_component(PhysicsComponent):
+                cango = self.entity.get_component(PhysicsComponent).can_go(pos, CollisionCauses.MOVECOMPONENT)
+            if cango:
+                self.entity.get_component(PositionComponent).set_position(pos)
 

@@ -5,12 +5,10 @@ __all__ = ["Label"]
 
 
 class Label(Widget):
-    def __init__(self, position, text, color=None, font=None):
+    def __init__(self, position, text, color=Colors.WHITE.value, font=None):
         super(Label, self).__init__(position)
         if font is None:
             font = Font()
-        if color is None:
-            color = Colors.WHITE.value
 
         if not isinstance(font, Font):
             raise TypeError("Font have not a Font type")

@@ -17,11 +17,9 @@ class Image(Widget):
     def get_image(self):
         return self.istr
 
-    def set_image(self, image, size=None):
+    def set_image(self, image):
         self.istr = image
         self.image = pygame.image.load(image)
-        if size is not None:
-            self.image = pygame.transform.scale(self.image, size)
         self.update_rect()
 
     def get_size(self):

@@ -10,4 +10,4 @@ except ModuleNotFoundError:
 
 __all__ = ["Window", "Entity", "ControlType", "const", "MouseButton", "CollisionCauses",
            "StateCallbacks", "GameState", "Controls"]
-__version__ = "1.1.1"
+__version__ = "1.1.2"

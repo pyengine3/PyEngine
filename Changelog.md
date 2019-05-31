@@ -3,6 +3,7 @@
 ## V 1.1.2 : Patch Update 2 - XX/06/19
 
     - UISystem : Add a show_debug function
+    - Optimization
     - Bug Fix : EntitySystem give wrong id to Entities
     - Bug Fix : EntitySystem is render after UISystem
     - Bug Fix : Window is always in debug mode

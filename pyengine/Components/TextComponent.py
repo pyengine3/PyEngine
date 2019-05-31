@@ -5,12 +5,7 @@ __all__ = ["TextComponent"]
 
 
 class TextComponent:
-    def __init__(self, texte, color=None, font=None):
-        if font is None:
-            font = Font()
-        if color is None:
-            color = Colors.WHITE.value
-
+    def __init__(self, texte, color=Colors.WHITE.value, font=Font):
         if not isinstance(font, Font):
             raise TypeError("Font have not a Font type")
         if not isinstance(color, Color):

@@ -57,7 +57,9 @@ class Entity(pygame.sprite.Sprite):
     def update(self):
         if self.has_component(PhysicsComponent):
             self.get_component(PhysicsComponent).update_gravity()
+
         if self.has_component(PositionComponent):
+            # Verify if entity is not out of window
             position = self.get_component(PositionComponent)
             if position.y >= self.system.state.window.height - self.image.get_rect().height:
                 self.system.state.call(StateCallbacks.OUTOFWINDOW, self, position.get_position())
@@ -67,7 +69,9 @@ class Entity(pygame.sprite.Sprite):
                 self.system.state.call(StateCallbacks.OUTOFWINDOW, self, position.get_position())
             elif position.x < 0:
                 self.system.state.call(StateCallbacks.OUTOFWINDOW, self, position.get_position())
+
         if self.has_component(ControlComponent):
             self.get_component(ControlComponent).update()
+
         if self.has_component(MoveComponent):
             self.get_component(MoveComponent).update()

@@ -36,7 +36,7 @@ class GameState:
     def call(self, callback, *param):
         if type(callback) == StateCallbacks:
             if self.callbacks[callback] is not None:
-                self.callbacks[callback](*param)
+                self.callbacks[callback](*param)  # Call function which is represented by the callback
         else:
             raise TypeError("Callback must be a StateCallback (from StateCallbacks Enum)")
 
@@ -59,8 +59,8 @@ class GameState:
             raise NoObjectError("GameState is attached to any Window.")
 
         self.systems["Entity"].update()
-        self.systems["Entity"].show(self.window.screen)
         self.systems["UI"].update()
+        self.systems["Entity"].show(self.window.screen)
         self.systems["UI"].show(self.window.screen)
         if self.window.debug:
             self.systems["Entity"].show_debug(self.window.screen)

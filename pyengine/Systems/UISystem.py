@@ -19,15 +19,16 @@ class UISystem:
     def add_widget(self, widget):
         if not isinstance(widget, Widget):
             raise TypeError("Argument is not type of "+str(Widget)+" but "+str(type(widget))+".")
-        widget.set_id(len(self.widgets))
+        if len(self.widgets):
+            widget.set_id(self.widgets.sprites()[-1].id + 1)
+        else:
+            widget.set_id(0)
         self.widgets.add(widget)
         widget.set_system(self)
         return widget
 
     def has_widget(self, widget):
-        if widget in self.widgets:
-            return True
-        return False
+        return widget in self.widgets
 
     def remove_widget(self, widget):
         if widget in self.widgets:
