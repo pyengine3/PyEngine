@@ -58,23 +58,23 @@ class GameState:
         if self.window is None:
             raise NoObjectError("GameState is attached to any Window.")
 
-        self.systems["UI"].update()
-        self.systems["UI"].show(self.window.screen)
         self.systems["Entity"].update()
         self.systems["Entity"].show(self.window.screen)
         self.systems["Entity"].show_debug(self.window.screen)
+        self.systems["UI"].update()
+        self.systems["UI"].show(self.window.screen)
 
     def keypress(self, evt):
-        self.systems["UI"].keypress(evt)
         self.systems["Entity"].keypress(evt)
+        self.systems["UI"].keypress(evt)
 
     def mousepress(self, evt):
-        self.systems["UI"].mousepress(evt)
         self.systems["Entity"].mousepress(evt)
+        self.systems["UI"].mousepress(evt)
 
     def keyup(self, evt):
-        self.systems["UI"].keyup(evt)
         self.systems["Entity"].keyup(evt)
+        self.systems["UI"].keyup(evt)
 
     def event(self, evt):
         if evt.type == self.systems["Music"].ENDSOUND:
