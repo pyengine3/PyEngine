@@ -1,6 +1,6 @@
 # Changelog
 
-## V 1.1.2 : Patch Update 2 - XX/06/19
+## V 1.1.2 : Patch Update 2 - 01/06/19
 
     - UISystem : Add a show_debug function
     - Optimization
