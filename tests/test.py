@@ -1,12 +1,15 @@
-from pyengine import Window, GameState, Entity
+from pyengine import Window, Entity
 from pyengine.Components import *
-from pyengine.Systems import EntitySystem, UISystem
+from pyengine.Systems import EntitySystem, UISystem, CameraSystem
 from pyengine.Widgets import *
 
-game = Window(300, 300, debug=True)
 
-state = GameState("JEU")
-game.add_state(state)
+def move_cam(pos, click):
+    world.get_system(CameraSystem).set_position([10, 10])
+
+
+game = Window(300, 300, debug=True)
+world = game.get_world()
 
 e = Entity()
 e.add_component(PositionComponent([100, 100]))
@@ -22,15 +25,14 @@ sprite = e3.add_component(SpriteComponent("images/sprite0.png"))
 sprite.set_size([100, 20])
 
 w = Image([100, 100], "images/sprite0.png", [100, 20])
+b = Button([10, 10], "Camera", move_cam)
 
-state.get_system(EntitySystem).add_entity(e)
-state.get_system(EntitySystem).add_entity(e2)
-state.get_system(EntitySystem).remove_entity(e)
-state.get_system(EntitySystem).add_entity(e3)
+world.get_system(EntitySystem).add_entity(e)
+world.get_system(EntitySystem).add_entity(e2)
+world.get_system(EntitySystem).remove_entity(e)
+world.get_system(EntitySystem).add_entity(e3)
 
-print(state.get_system(EntitySystem).get_entity(1).get_component(PositionComponent).get_position())
-print(state.get_system(EntitySystem).get_entity(2).get_component(PositionComponent).get_position())
-
-state.get_system(UISystem).add_widget(w)
+world.get_system(UISystem).add_widget(w)
+world.get_system(UISystem).add_widget(b)
 
 game.run()
