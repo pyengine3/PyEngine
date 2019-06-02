@@ -5,7 +5,10 @@ from pyengine.Widgets import *
 
 
 def move_cam(pos, click):
-    game.world.get_system(CameraSystem).position = [10, 10]
+    if game.world.get_system(CameraSystem).entity_follow == e2:
+        game.world.get_system(CameraSystem).entity_follow = e3
+    else:
+        game.world.get_system(CameraSystem).entity_follow = e2
 
 
 game = Window(300, 300, debug=True)
@@ -35,5 +38,7 @@ game.world.get_system(EntitySystem).add_entity(e3)
 
 game.world.get_system(UISystem).add_widget(w)
 game.world.get_system(UISystem).add_widget(b)
+
+game.world.get_system(CameraSystem).entity_follow = e2
 
 game.run()

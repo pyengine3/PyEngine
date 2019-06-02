@@ -64,6 +64,7 @@ class World:
 
         self.systems["Entity"].update()
         self.systems["UI"].update()
+        self.systems["Camera"].update()
         self.systems["Entity"].show(self.window.screen)
         self.systems["UI"].show(self.window.screen)
         if self.window.debug:
