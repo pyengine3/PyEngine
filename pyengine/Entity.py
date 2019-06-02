@@ -1,7 +1,7 @@
 import pygame
 from pyengine.Exceptions import WrongObjectError
 from pyengine.Components import *
-from pyengine.GameState import StateCallbacks
+from pyengine.World import WorldCallbacks
 
 __all__ = ["Entity"]
 
@@ -61,14 +61,14 @@ class Entity(pygame.sprite.Sprite):
         if self.has_component(PositionComponent):
             # Verify if entity is not out of window
             position = self.get_component(PositionComponent)
-            if position.y >= self.system.state.window.height - self.image.get_rect().height:
-                self.system.state.call(StateCallbacks.OUTOFWINDOW, self, position.get_position())
+            if position.y >= self.system.world.window.height - self.image.get_rect().height:
+                self.system.world.call(WorldCallbacks.OUTOFWINDOW, self, position.get_position())
             elif position.y < 0:
-                self.system.state.call(StateCallbacks.OUTOFWINDOW, self, position.get_position())
-            if position.x >= self.system.state.window.width - self.image.get_rect().width:
-                self.system.state.call(StateCallbacks.OUTOFWINDOW, self, position.get_position())
+                self.system.world.call(WorldCallbacks.OUTOFWINDOW, self, position.get_position())
+            if position.x >= self.system.world.window.width - self.image.get_rect().width:
+                self.system.world.call(WorldCallbacks.OUTOFWINDOW, self, position.get_position())
             elif position.x < 0:
-                self.system.state.call(StateCallbacks.OUTOFWINDOW, self, position.get_position())
+                self.system.world.call(WorldCallbacks.OUTOFWINDOW, self, position.get_position())
 
         if self.has_component(ControlComponent):
             self.get_component(ControlComponent).update()

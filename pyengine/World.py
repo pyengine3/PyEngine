@@ -1,40 +1,44 @@
 from enum import Enum
 
-__all__ = ["GameState", "StateCallbacks"]
+__all__ = ["World", "WorldCallbacks"]
 
 
-class StateCallbacks(Enum):
+class WorldCallbacks(Enum):
     OUTOFWINDOW = 1
 
 
 # StateCallbacks doit être défini avant les imports
 from pyengine.Exceptions import NoObjectError
-from pyengine.Systems import EntitySystem, MusicSystem, UISystem, SoundSystem
+from pyengine.Systems import EntitySystem, MusicSystem, UISystem, SoundSystem, CameraSystem
 
 
-class GameState:
-    def __init__(self, name):
-        self.name = name
+class World:
+    def __init__(self, window):
+        from pyengine import Window  # Define Window only on create world
 
-        self.window = None
+        if not isinstance(window, Window):
+            raise TypeError("Window have not Window as type")
+
+        self.window = window
         self.systems = {
             "Entity": EntitySystem(self),
             "Music": MusicSystem(),
             "UI": UISystem(self),
-            "Sound": SoundSystem()
+            "Sound": SoundSystem(),
+            "Camera": CameraSystem(self)
         }
         self.callbacks = {
-            StateCallbacks.OUTOFWINDOW: None
+            WorldCallbacks.OUTOFWINDOW: None
         }
 
     def set_callback(self, callback, function):
-        if type(callback) == StateCallbacks:
+        if type(callback) == WorldCallbacks:
             self.callbacks[callback] = function
         else:
             raise TypeError("Callback must be a StateCallback (from StateCallbacks Enum)")
 
     def call(self, callback, *param):
-        if type(callback) == StateCallbacks:
+        if type(callback) == WorldCallbacks:
             if self.callbacks[callback] is not None:
                 self.callbacks[callback](*param)  # Call function which is represented by the callback
         else:

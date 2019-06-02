@@ -7,8 +7,8 @@ __all__ = ["EntitySystem"]
 
 
 class EntitySystem:
-    def __init__(self, state):
-        self.state = state
+    def __init__(self, world):
+        self.world = world
         self.entities = pygame.sprite.Group()
         self.texts = pygame.sprite.Group()
 
@@ -80,5 +80,5 @@ class EntitySystem:
 
     def show_debug(self, screen):
         for i in self.entities:
-            render = self.state.window.debugfont.render("ID : "+str(i.id), 1, (255, 255, 0))
+            render = self.world.window.debugfont.render("ID : "+str(i.id), 1, (255, 255, 0))
             screen.blit(render, (i.rect.x + i.rect.width / 2 - render.get_width()/2, i.rect.y - 20))

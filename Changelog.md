@@ -1,5 +1,8 @@
 # Changelog
 
+    - GameState : Rename to World
+    - Window : Modify management of Worlds
+
 ## V 1.1.2 : Patch Update 2 - 01/06/19
 
     - UISystem : Add a show_debug function

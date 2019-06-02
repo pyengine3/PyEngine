@@ -1,5 +1,4 @@
-from pyengine.Exceptions import NoObjectError
-from pyengine.Components import SpriteComponent, PositionComponent
+from pyengine.Components import PositionComponent
 import pygame
 from enum import Enum
 

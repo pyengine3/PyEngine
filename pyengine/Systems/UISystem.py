@@ -6,8 +6,8 @@ __all__ = ["UISystem"]
 
 
 class UISystem:
-    def __init__(self, state):
-        self.state = state
+    def __init__(self, world):
+        self.world = world
         self.widgets = pygame.sprite.Group()
         self.focus = None
 
@@ -34,7 +34,7 @@ class UISystem:
         if widget in self.widgets:
             self.widgets.remove(widget)
         else:
-            raise ValueError("Entity has not in EntitySystem")
+            raise ValueError("Widget has not in UISystem")
 
     def mousepress(self, evt):
         focustemp = None
@@ -73,5 +73,5 @@ class UISystem:
 
     def show_debug(self, screen):
         for i in self.widgets:
-            render = self.state.window.debugfont.render("ID : "+str(i.id), 1, (255, 255, 0))
+            render = self.world.window.debugfont.render("ID : "+str(i.id), 1, (255, 255, 0))
             screen.blit(render, (i.rect.x + i.rect.width / 2 - render.get_width()/2, i.rect.y - 20))
