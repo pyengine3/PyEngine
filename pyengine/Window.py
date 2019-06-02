@@ -7,11 +7,12 @@ __all__ = ["Window"]
 
 
 class Window:
-    def __init__(self, width, height, color=Colors.BLACK.value, icon=None, debug=False):
+    def __init__(self, width, height, color=Colors.BLACK.value, title="PyEngine", icon=None, debug=False):
         if icon is not None:
             pygame.display.set_icon(pygame.image.load(icon))
 
         pygame.init()
+        pygame.display.set_caption(title)
 
         self.screen = pygame.display.set_mode((width, height))
         self.clock = pygame.time.Clock()
@@ -25,38 +26,45 @@ class Window:
 
         pygame.key.set_repeat(1, 1)
 
-    @staticmethod
-    def set_title(title):
+    @property
+    def title(self):
+        return pygame.display.get_caption()
+
+    @title.setter
+    def title(self, title):
         pygame.display.set_caption(title)
 
-    @staticmethod
-    def get_title():
-        pygame.display.get_caption()
+    @property
+    def color(self):
+        return self.__color
 
-    def get_color(self):
-        return self.color
-
-    def set_color(self, color):
-        if isinstance(color, Color):
+    @color.setter
+    def color(self, color):
+        if not isinstance(color, Color):
             raise TypeError("Color have not a Color type")
-        self.color = color
+        self.__color = color
 
-    def get_size(self):
+    @property
+    def size(self):
         return [self.width, self.height]
 
-    def get_debug(self):
-        return self.debug
+    @property
+    def debug(self):
+        return self.__debug
 
-    def set_debug(self, debug):
-        self.debug = debug
+    @debug.setter
+    def debug(self, debug):
+        self.__debug = debug
 
-    def set_world(self, world):
-        self.world = world
+    @property
+    def world(self):
+        return self.__world
 
-    def get_world(self):
-        return self.world
+    @world.setter
+    def world(self, world):
+        self.__world = world
 
-    def process_event(self, evt):
+    def __process_event(self, evt):
         if evt.type == const.QUIT:
             self.launch = False
         elif evt.type == const.KEYDOWN:
@@ -74,7 +82,7 @@ class Window:
     def run(self):
         while self.launch:
             for event in pygame.event.get():
-                self.process_event(event)
+                self.__process_event(event)
 
             self.screen.fill(self.color.get())
             self.clock.tick(60)

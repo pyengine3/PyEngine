@@ -20,11 +20,11 @@ class UISystem:
         if not isinstance(widget, Widget):
             raise TypeError("Argument is not type of "+str(Widget)+" but "+str(type(widget))+".")
         if len(self.widgets):
-            widget.set_id(self.widgets.sprites()[-1].id + 1)
+            widget.identity = self.widgets.sprites()[-1].identity + 1
         else:
-            widget.set_id(0)
+            widget.identity = 0
         self.widgets.add(widget)
-        widget.set_system(self)
+        widget.system = self
         return widget
 
     def has_widget(self, widget):
@@ -73,5 +73,5 @@ class UISystem:
 
     def show_debug(self, screen):
         for i in self.widgets:
-            render = self.world.window.debugfont.render("ID : "+str(i.id), 1, (255, 255, 0))
+            render = self.world.window.debugfont.render("ID : "+str(i.identity), 1, (255, 255, 0))
             screen.blit(render, (i.rect.x + i.rect.width / 2 - render.get_width()/2, i.rect.y - 20))

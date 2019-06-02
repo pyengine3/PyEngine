@@ -9,23 +9,27 @@ __all__ = ["Entity"]
 class Entity(pygame.sprite.Sprite):
     def __init__(self):
         super(Entity, self).__init__()
-        self.id = -1
+        self.identity = -1
         self.components = []
         self.attachedentities = []
         self.system = None
         self.image = None
 
-    def set_id(self, identity):
-        self.id = identity
+    @property
+    def identity(self):
+        return self.__identity
 
-    def get_id(self):
-        return self.id
+    @identity.setter
+    def identity(self, identity):
+        self.__identity = identity
 
-    def set_system(self, system):
-        self.system = system
+    @property
+    def system(self):
+        return self.__system
 
-    def get_system(self):
-        return self.system
+    @system.setter
+    def system(self, system):
+        self.__system = system
 
     def attach_entity(self, entity):
         self.attachedentities.append(entity)
@@ -39,7 +43,7 @@ class Entity(pygame.sprite.Sprite):
                 break
         if not found:
             raise WrongObjectError("Entity can't have "+str(component)+" as component.")
-        component.set_entity(self)
+        component.entity = self
         self.components.append(component)
         return component
 
@@ -62,13 +66,13 @@ class Entity(pygame.sprite.Sprite):
             # Verify if entity is not out of window
             position = self.get_component(PositionComponent)
             if position.y >= self.system.world.window.height - self.image.get_rect().height:
-                self.system.world.call(WorldCallbacks.OUTOFWINDOW, self, position.get_position())
+                self.system.world.call(WorldCallbacks.OUTOFWINDOW, self, position.position)
             elif position.y < 0:
-                self.system.world.call(WorldCallbacks.OUTOFWINDOW, self, position.get_position())
+                self.system.world.call(WorldCallbacks.OUTOFWINDOW, self, position.position)
             if position.x >= self.system.world.window.width - self.image.get_rect().width:
-                self.system.world.call(WorldCallbacks.OUTOFWINDOW, self, position.get_position())
+                self.system.world.call(WorldCallbacks.OUTOFWINDOW, self, position.position)
             elif position.x < 0:
-                self.system.world.call(WorldCallbacks.OUTOFWINDOW, self, position.get_position())
+                self.system.world.call(WorldCallbacks.OUTOFWINDOW, self, position.position)
 
         if self.has_component(ControlComponent):
             self.get_component(ControlComponent).update()

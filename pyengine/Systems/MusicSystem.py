@@ -11,6 +11,24 @@ class MusicSystem:
         self.loop = False
         pygame.mixer.music.set_endevent(self.ENDSOUND)
 
+    @property
+    def loop(self):
+        return self.__loop
+
+    @loop.setter
+    def loop(self, loop):
+        self.__loop = loop
+
+    @property
+    def volume(self):
+        return pygame.mixer.music.get_volume()
+
+    @volume.setter
+    def volume(self, volume):
+        if volume < 0 or volume > 100:
+            raise ValueError("Volume can't be lower than 0 and bigger than 100")
+        pygame.mixer.music.set_volume(volume/100)
+
     def next_song(self):
         if len(self.queue):
             pygame.mixer.music.load(self.queue[0])
@@ -21,9 +39,6 @@ class MusicSystem:
 
     def clear_queue(self):
         self.queue = []
-
-    def set_loop(self, loop):
-        self.loop = loop
 
     def play(self):
         if len(self.queue):
@@ -37,16 +52,6 @@ class MusicSystem:
 
     def add(self, file):
         self.queue.append(file)
-
-    @staticmethod
-    def set_volume(volume):
-        if volume < 0 or volume > 100:
-            raise ValueError("Volume can't be lower than 0 and bigger than 100")
-        pygame.mixer.music.set_volume(volume/100)
-
-    @staticmethod
-    def get_volume():
-        return pygame.mixer.music.get_volume()
 
     @staticmethod
     def stop():

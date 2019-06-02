@@ -43,6 +43,22 @@ class ControlComponent:
             Controls.DOWN: const.K_DOWN
         }
 
+    @property
+    def entity(self):
+        return self.__entity
+
+    @entity.setter
+    def entity(self, entity):
+        self.__entity = entity
+
+    @property
+    def speed(self):
+        return self.__speed
+
+    @speed.setter
+    def speed(self, speed):
+        self.__speed = speed
+
     def set_control(self, name, key):
         if not isinstance(name, Controls):
             raise TypeError("Name must be a Controls type")
@@ -52,15 +68,6 @@ class ControlComponent:
         if not isinstance(name, Controls):
             raise TypeError("Name must be a Controls type")
         return self.controles[name]
-
-    def get_speed(self):
-        return self.speed
-
-    def set_speed(self, speed):
-        self.speed = speed
-
-    def set_entity(self, entity):
-        self.entity = entity
 
     def update(self):
         if self.controltype == ControlType.CLICKFOLLOW and self.goto != (-1, -1):
@@ -83,7 +90,7 @@ class ControlComponent:
                     if self.entity.has_component(PhysicsComponent):
                         cango = self.entity.get_component(PhysicsComponent).can_go(pos)
                     if cango:
-                        self.entity.get_component(PositionComponent).set_position(pos)
+                        self.entity.get_component(PositionComponent).position = pos
 
     def mousepress(self, evt):
         if self.controltype == ControlType.CLICKFOLLOW and evt.button == MouseButton.LEFTCLICK.value:
@@ -99,7 +106,7 @@ class ControlComponent:
         eventkey = evt.key
         if self.entity.has_component(PositionComponent):
             position = self.entity.get_component(PositionComponent)
-            pos = position.get_position()
+            pos = position.position
             cango = True
             if eventkey == self.controles[Controls.LEFT]:
                 if self.controltype == ControlType.FOURDIRECTION or self.controltype == ControlType.CLASSICJUMP \
@@ -125,7 +132,7 @@ class ControlComponent:
                     if phys.grounded and not self.jumping:
                         phys.grounded = False
                         self.jumping = True
-                        phys.gravity_force = -phys.max_gravity_force
+                        phys.gravity = -phys.max_gravity_force
                 elif self.controltype == ControlType.DOUBLEJUMP:
                     if not self.entity.has_component(PhysicsComponent):
                         raise NoObjectError("Entity must have PhysicsComponent")
@@ -135,7 +142,7 @@ class ControlComponent:
                             phys.doublejump = False
                         phys.grounded = False
                         self.jumping = True
-                        phys.gravity_force = -phys.max_gravity_force
+                        phys.gravity = -phys.max_gravity_force
             if eventkey == self.controles[Controls.DOWN]:
                 if self.controltype == ControlType.FOURDIRECTION or self.controltype == ControlType.UPDOWN:
                     pos = [position.x, position.y + self.speed]
@@ -143,4 +150,4 @@ class ControlComponent:
                         cango = self.entity.get_component(PhysicsComponent).can_go(pos, CollisionCauses.DOWNCONTROL)
 
             if cango:
-                self.entity.get_component(PositionComponent).set_position(pos)
+                self.entity.get_component(PositionComponent).position = pos

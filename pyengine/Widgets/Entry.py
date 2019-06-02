@@ -30,20 +30,31 @@ class Entry(Widget):
         self.typing = False
         self.update_render()
 
-    def get_text(self):
+    @property
+    def text(self):
         if self.cursor:
-            return self.label.get_text()[:-1]
-        return self.label.get_text()
+            return self.label.text[:-1]
+        return self.label.text
 
-    def set_text(self, text):
+    @text.setter
+    def text(self, text):
         if self.cursor:
-            self.label.set_text(text+"I")
+            self.label.text = text+"I"
         else:
-            self.label.set_text(text)
+            self.label.text = text
+
+    @property
+    def system(self):
+        return self.__system
+
+    @system.setter
+    def system(self, system):
+        self.__system = system
+        system.add_widget(self.label)
 
     def focusout(self):
         if self.cursor:
-            self.label.set_text(self.label.get_text()[:-1])
+            self.label.text = self.label.text[:-1]
         self.cursor = False
         self.typing = False
 
@@ -52,41 +63,35 @@ class Entry(Widget):
 
     def keypress(self, evt):
         if evt.key == const.K_BACKSPACE and not self.typing:
-            if len(self.label.get_text()):
+            if len(self.label.text):
                 if self.cursor:
-                    self.label.set_text(self.label.get_text()[:-2]+"I")
+                    self.label.text = self.label.text[:-2]+"I"
                 else:
-                    self.label.set_text(self.label.get_text()[:-1])
+                    self.label.text = self.label.text[:-1]
         elif evt.unicode and not self.typing:
             if self.cursor:
                 if self.label.rect.width + 10 < self.rect.width:
-                    self.label.set_text(self.label.get_text()[:-1]+evt.unicode+"I")
+                    self.label.text = self.label.text[:-1]+evt.unicode+"I"
             else:
                 if self.label.rect.width + 10 < self.rect.width:
-                    self.label.set_text(self.label.get_text() + evt.unicode)
+                    self.label.text = self.label.text + evt.unicode
         self.typing = True
 
     def update_render(self):
         self.update_rect()
         if self.hasimage:
-            self.label.set_position([self.label.get_position()[0],
-                                     self.rect.y + self.image.get_rect().height / 2
-                                     - self.label.rect.height / 2])
+            self.label.position = [self.label.position[0],
+                                   self.rect.y + self.image.get_rect().height / 2 - self.label.rect.height / 2]
         else:
-            self.label.set_position([self.label.get_position()[0],
-                                     self.rect.y + 4 + self.iiwhite.get_rect().height / 2
-                                     - self.label.rect.height / 2])
-
-    def set_system(self, system):
-        super(Entry, self).set_system(system)
-        system.add_widget(self.label)
+            self.label.position = [self.label.position[0],
+                                   self.rect.y + 4 + self.iiwhite.get_rect().height / 2 - self.label.rect.height / 2]
 
     def update(self):
         if self.cursortimer <= 0:
             if self.cursor:
-                self.label.set_text(self.label.get_text()[:-1])
+                self.label.text = self.label.text[:-1]
             else:
-                self.label.set_text(self.label.get_text()+"I")
+                self.label.text = self.label.text+"I"
             self.cursor = not self.cursor
             self.cursortimer = 20
         self.cursortimer -= 1

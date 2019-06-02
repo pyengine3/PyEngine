@@ -11,33 +11,38 @@ class Font:
         self.italic = italic
         self.parent = None
 
-    def set_name(self, name):
-        self.name = name
+    @property
+    def name(self):
+        return self.__name
+
+    @name.setter
+    def name(self, name):
+        self.__name = name
         return self
 
-    def get_name(self):
-        return self.name
+    @property
+    def size(self):
+        return self.__size
 
-    def set_size(self, size):
-        self.size = size
-        return self
+    @size.setter
+    def size(self, size):
+        self.__size = size
 
-    def get_size(self):
-        return self.size
+    @property
+    def bold(self):
+        return self.__bold
 
-    def set_bold(self, bold):
-        self.bold = bold
-        return self
+    @bold.setter
+    def bold(self, bold):
+        self.__bold = bold
 
-    def is_bold(self):
-        return self.bold
+    @property
+    def italic(self):
+        return self.__italic
 
-    def set_italic(self, italic):
-        self.italic = italic
-        return self
-
-    def is_italic(self):
-        return self.italic
+    @italic.setter
+    def italic(self, italic):
+        self.__italic = italic
 
     def render(self):
         return pygame.font.SysFont(self.name, self.size, self.bold, self.italic)

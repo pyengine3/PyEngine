@@ -19,24 +19,36 @@ class PhysicsComponent:
     def __init__(self, affectbygravity=True, gravity_force=5):
         self.entity = None
         self.affectbygravity = affectbygravity
-        self.gravity_force = gravity_force
+        self.gravity = gravity_force
         self.max_gravity_force = gravity_force
         self.timegravity = 5
         self.grounded = False
         self.doublejump = True
         self.callback = None
 
-    def get_gravity(self):
-        return self.gravity_force
+    @property
+    def gravity(self):
+        return self.__gravity
 
-    def set_gravity(self, gravity):
-        self.gravity_force = gravity
+    @gravity.setter
+    def gravity(self, gravity):
+        self.__gravity = gravity
 
-    def set_entity(self, entity):
-        self.entity = entity
+    @property
+    def entity(self):
+        return self.__entity
 
-    def set_callback(self, function):
-        self.callback = function
+    @entity.setter
+    def entity(self, entity):
+        self.__entity = entity
+
+    @property
+    def callback(self):
+        return self.__callback
+
+    @callback.setter
+    def callback(self, function):
+        self.__callback = function
 
     def can_go(self, position, createdby=CollisionCauses.UNKNOWN):
         gosprite = pygame.sprite.Sprite()
@@ -44,7 +56,7 @@ class PhysicsComponent:
                                          self.entity.image.get_height())
         collision = pygame.sprite.spritecollide(gosprite, self.entity.system.entities, False, None)
         for i in collision:
-            if i.has_component(PhysicsComponent) and i.id != self.entity.id:
+            if i.has_component(PhysicsComponent) and i.identity != self.entity.identity:
                 if self.callback is not None:
                     self.callback(i, createdby)
                 return False
@@ -54,15 +66,15 @@ class PhysicsComponent:
         if self.entity.has_component(PositionComponent):
             position = self.entity.get_component(PositionComponent)
             if self.affectbygravity:
-                if self.can_go([position.x, position.y + self.gravity_force], CollisionCauses.GRAVITY):
+                if self.can_go([position.x, position.y + self.gravity], CollisionCauses.GRAVITY):
                     self.grounded = False
-                    position.set_position([position.x, position.y + self.gravity_force])
-                elif self.gravity_force > 0:
+                    position.position = [position.x, position.y + self.gravity]
+                elif self.gravity > 0:
                     self.grounded = True
                     self.doublejump = True
-                    self.gravity_force = 2
+                    self.gravity = 2
 
-                if self.timegravity <= 0 and self.gravity_force < self.max_gravity_force and not self.grounded:
-                    self.gravity_force += 1
+                if self.timegravity <= 0 and self.gravity < self.max_gravity_force and not self.grounded:
+                    self.gravity += 1
                     self.timegravity = 5
                 self.timegravity -= 1

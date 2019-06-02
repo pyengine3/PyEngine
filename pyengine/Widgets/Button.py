@@ -18,11 +18,13 @@ class Button(Widget):
             image = pygame.image.load(image)
             image = pygame.transform.scale(image, size)
 
-        self.size = size
         self.image = image
-        self.command = command
+        self.rect = self.image.get_rect()
         self.label = Label(position, text)
         self.label.parent = self
+        self.position = position
+        self.size = size
+        self.command = command
         self.update_render()
 
     def get_label(self):
@@ -30,31 +32,47 @@ class Button(Widget):
 
     def update_render(self):
         self.update_rect()
-        self.label.set_position([self.rect.x+self.rect.width/2-self.label.rect.width/2,
-                                 self.rect.y+self.rect.height/2-self.label.rect.height/2])
+        self.label.position = [self.rect.x+self.rect.width/2-self.label.rect.width/2,
+                               self.rect.y+self.rect.height/2-self.label.rect.height/2]
 
-    def get_size(self):
-        return self.size
+    @property
+    def size(self):
+        return self.__size
 
-    def set_size(self, size):
-        self.size = size
+    @size.setter
+    def size(self, size):
+        self.__size = size
         self.image = pygame.transform.scale(self.image, size)
         self.update_render()
 
-    def set_command(self, command):
-        self.command = command
+    @property
+    def command(self):
+        return self.__command
 
-    def get_command(self):
-        return self.command
+    @command.setter
+    def command(self, command):
+        self.__command = command
 
-    def set_system(self, system):
-        super(Button, self).set_system(system)
+    @property
+    def system(self):
+        return self.__system
+
+    @system.setter
+    def system(self, system):
+        self.__system = system
         system.add_widget(self.label)
 
-    def set_position(self, position):
-        super(Button, self).set_position(position)
-        self.label.set_position([self.rect.x+self.rect.width/2-self.label.rect.width/2,
-                                 self.rect.y+self.rect.height/2-self.label.rect.height/2])
+    @property
+    def position(self):
+        return self.__position
+
+    @position.setter
+    def position(self, position):
+        self.__position = position
+        self.rect.x = self.position[0]
+        self.rect.y = self.position[1]
+        self.label.position = [self.rect.x+self.rect.width/2-self.label.rect.width/2,
+                               self.rect.y+self.rect.height/2-self.label.rect.height/2]
 
     def mousepress(self, evt):
         if self.rect.x <= evt.pos[0] <= self.rect.x + self.rect.width and self.rect.y <= evt.pos[1] <= self.rect.y +\

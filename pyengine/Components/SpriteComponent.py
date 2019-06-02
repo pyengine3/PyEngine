@@ -7,66 +7,83 @@ __all__ = ["SpriteComponent"]
 
 class SpriteComponent:
     def __init__(self, image, scale=1, rotation=0):
-        self.entity = None
-        self.sprite = image
-        self.scale = scale
+        self.__entity = None
+        self.__sprite = image
+        self.__scale = scale
         self.firstrotation = rotation
-        self.rotation = 0
+        self.__rotation = 0
         self.width = 0
         self.height = 0
 
-    def set_entity(self, entity):
+    @property
+    def entity(self):
+        return self.__entity
 
+    @entity.setter
+    def entity(self, entity):
         from pyengine.Components.TextComponent import TextComponent
 
         if entity.has_component(TextComponent):
             raise CompatibilityError("SpriteComponent is not compatible with TextComponent")
 
-        self.entity = entity
-        self.entity.image = pygame.image.load(self.sprite)
-        self.entity.rect = self.entity.image.get_rect()
+        self.__entity = entity
+        self.__entity.image = pygame.image.load(self.sprite)
+        self.__entity.rect = self.entity.image.get_rect()
         self.width = self.entity.rect.width
         self.height = self.entity.rect.height
-        self.set_scale(self.scale)
-        self.set_rotation(self.firstrotation)
+        self.scale = self.scale
+        self.rotation = self.firstrotation
 
-    def set_scale(self, scale):
-        self.scale = scale
+    @property
+    def scale(self):
+        return self.__scale
+
+    @scale.setter
+    def scale(self, scale):
+        self.__scale = scale
         self.entity.image = pygame.transform.scale(self.entity.image, (self.width*scale, self.height*scale))
-        self.entity.rect = self.entity.image.get_rect()
-        if self.entity.has_component(PositionComponent):
-            position = self.entity.get_component(PositionComponent)
-            self.entity.rect.x = position.x
-            self.entity.rect.y = position.y
+        self.update_entity()
 
-    def set_size(self, size):
+    @property
+    def size(self):
+        return [self.width, self.height]
+
+    @size.setter
+    def size(self, size):
         self.width, self.height = size
-        self.scale = 1
         self.entity.image = pygame.transform.scale(self.entity.image, size)
-        self.entity.rect = self.entity.image.get_rect()
-        if self.entity.has_component(PositionComponent):
-            position = self.entity.get_component(PositionComponent)
-            self.entity.rect.x = position.x
-            self.entity.rect.y = position.y
+        self.scale = 1
 
-    def set_rotation(self, rotation):
-        self.rotation = rotation - self.rotation
-        self.entity.image = pygame.transform.rotate(self.entity.image, self.rotation)
-        self.entity.rect = self.entity.image.get_rect()
-        if self.entity.has_component(PositionComponent):
-            position = self.entity.get_component(PositionComponent)
-            self.entity.rect.x = position.x
-            self.entity.rect.y = position.y
+    @property
+    def rotation(self):
+        return self.__rotation
 
-    def set_sprite(self, sprite, scale=1):
-        self.sprite = sprite
+    @rotation.setter
+    def rotation(self, rotation):
+        self.__rotation = rotation - self.__rotation
+        self.entity.image = pygame.transform.rotate(self.entity.image, self.__rotation)
+        self.update_entity()
+
+    @property
+    def sprite(self):
+        return self.__sprite
+
+    @sprite.setter
+    def sprite(self, sprite,):
+        self.__sprite = sprite
         self.entity.image = pygame.image.load(sprite)
         self.entity.rect = self.entity.image.get_rect()
         self.width = self.entity.rect.width
         self.height = self.entity.rect.height
-        self.set_scale(scale)
 
     def update_position(self):
+        if self.entity.has_component(PositionComponent):
+            position = self.entity.get_component(PositionComponent)
+            self.entity.rect.x = position.x
+            self.entity.rect.y = position.y
+
+    def update_entity(self):
+        self.entity.rect = self.entity.image.get_rect()
         if self.entity.has_component(PositionComponent):
             position = self.entity.get_component(PositionComponent)
             self.entity.rect.x = position.x

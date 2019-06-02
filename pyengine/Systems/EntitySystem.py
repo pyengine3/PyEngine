@@ -25,10 +25,10 @@ class EntitySystem:
         if not entity.has_component(SpriteComponent) and not entity.has_component(TextComponent):
             raise NoObjectError("Entity must have SpriteComponent or TextComponent to be add in a world.")
         if len(self.entities):
-            entity.set_id(self.entities.sprites()[-1].id + 1)
+            entity.identity = self.entities.sprites()[-1].identity + 1
         else:
-            entity.set_id(0)
-        entity.set_system(self)
+            entity.identity = 0
+        entity.system = self
         if entity.has_component(SpriteComponent):
             self.entities.add(entity)
         else:
@@ -76,9 +76,9 @@ class EntitySystem:
         for i in self.texts:
             text = i.get_component(TextComponent)
             position = i.get_component(PositionComponent)
-            screen.blit(text.render(), position.get_position())
+            screen.blit(text.render(), position.position)
 
     def show_debug(self, screen):
         for i in self.entities:
-            render = self.world.window.debugfont.render("ID : "+str(i.id), 1, (255, 255, 0))
+            render = self.world.window.debugfont.render("ID : "+str(i.identity), 1, (255, 255, 0))
             screen.blit(render, (i.rect.x + i.rect.width / 2 - render.get_width()/2, i.rect.y - 20))

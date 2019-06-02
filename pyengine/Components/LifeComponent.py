@@ -7,17 +7,31 @@ class LifeComponent:
         self.life = maxlife
         self.maxlife = maxlife
 
-    def set_entity(self, entity):
-        self.entity = entity
+    @property
+    def entity(self):
+        return self.__entity
 
-    def get_life(self):
-        return self.life
+    @entity.setter
+    def entity(self, entity):
+        self.__entity = entity
 
-    def get_maxlife(self):
-        return self.maxlife
+    @property
+    def life(self):
+        return self.__life
 
-    def update_life(self, life):
+    @life.setter
+    def life(self, life):
         if life < 0:
-            self.life = 0
+            self.__life = 0
+        elif life > self.maxlife:
+            self.__life = self.maxlife
         else:
-            self.life = life
+            self.__life = life
+
+    @property
+    def maxlife(self):
+        return self.__maxlife
+
+    @maxlife.setter
+    def maxlife(self, max):
+        self.__maxlife = max
