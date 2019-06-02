@@ -1,5 +1,8 @@
 # Changelog
 
+## V 1.2.0 : XXX Update - XX/XX/19
+
+    - CameraSystem : Create
     - GameState : Rename to World
     - Window : Modify management of Worlds
 
