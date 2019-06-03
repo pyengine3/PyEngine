@@ -70,10 +70,10 @@ class Button(Widget):
     @position.setter
     def position(self, position):
         self.__position = position
-        self.rect.x = self.position[0]
-        self.rect.y = self.position[1]
-        self.label.position = [self.rect.x+self.rect.width/2-self.label.rect.width/2,
-                               self.rect.y+self.rect.height/2-self.label.rect.height/2]
+        self.rect.x = self.position.x
+        self.rect.y = self.position.y
+        self.label.position = Vec2(self.rect.x+self.rect.width/2-self.label.rect.width/2,
+                                   self.rect.y+self.rect.height/2-self.label.rect.height/2)
 
     def mousepress(self, evt):
         if self.rect.x <= evt.pos[0] <= self.rect.x + self.rect.width and self.rect.y <= evt.pos[1] <= self.rect.y +\
