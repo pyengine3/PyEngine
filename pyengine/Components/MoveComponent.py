@@ -6,10 +6,9 @@ __all__ = ["MoveComponent"]
 
 
 class MoveComponent:
-    def __init__(self, direction, speed=5):
+    def __init__(self, direction):
         self.entity = None
         self.direction = direction
-        self.speed = speed
 
     @property
     def entity(self):
@@ -18,14 +17,6 @@ class MoveComponent:
     @entity.setter
     def entity(self, entity):
         self.__entity = entity
-
-    @property
-    def speed(self):
-        return self.__speed
-
-    @speed.setter
-    def speed(self, speed):
-        self.__speed = speed
 
     @property
     def direction(self):
@@ -42,14 +33,9 @@ class MoveComponent:
         if self.entity.has_component(PositionComponent):
             position = self.entity.get_component(PositionComponent)
             pos = position.position
-            if self.direction[0] == 1:
-                pos[0] += self.speed
-            elif self.direction[0] == -1:
-                pos[0] -= self.speed
-            if self.direction[1] == 1:
-                pos[1] += self.speed
-            elif self.direction[1] == -1:
-                pos[1] -= self.speed
+
+            pos += self.direction
+
             cango = True
             if self.entity.has_component(PhysicsComponent):
                 cango = self.entity.get_component(PhysicsComponent).can_go(pos, CollisionCauses.MOVECOMPONENT)

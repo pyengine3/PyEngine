@@ -4,6 +4,7 @@
 
     - All : Use property decorator
 	- Vec2 : Create vector 2
+	- MoveComponent : Remove speed
     - CameraSystem : Create basic camera
     - GameState : Rename to World
     - Window : Modify management of Worlds
