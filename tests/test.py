@@ -1,79 +1,52 @@
-from pyengine import Window, Entity, const, Controls, ControlType, WorldCallbacks
-from pyengine.Components import PositionComponent, SpriteComponent, PhysicsComponent, MoveComponent, ControlComponent
-from pyengine.Systems import EntitySystem
-from pyengine.Utils import Colors, Vec2
+from pyengine import Window, World, Entity
+from pyengine.Systems import UISystem, EntitySystem
+from pyengine.Components import PositionComponent, TextComponent
+from pyengine.Widgets import Label, Button
+from pyengine.Utils import Colors, Font, Vec2
 
-from random import randint
 
-
-class Jeu:
+class Menu:
     def __init__(self):
-        self.window = Window(800, 400, Colors.WHITE.value.darker())
-        self.window.title = "Pong"
+        self.window = Window(300, 200, Colors.WHITE.value)
+        self.window.title = "Menu"
 
-        self.window.world.set_callback(WorldCallbacks.OUTOFWINDOW, self.outofwindow)
+        self.gameworld = World(self.window)
+        self.menuworld = World(self.window)
 
-        self.j1 = Entity()
-        self.j1.add_component(PositionComponent(Vec2(10, 175)))
-        spritej1 = self.j1.add_component(SpriteComponent("images/sprite0.png"))
-        spritej1.size = Vec2(20, 50)
-        controlj1 = self.j1.add_component(ControlComponent(ControlType.UPDOWN))
-        controlj1.set_control(Controls.UPJUMP, const.K_w)
-        controlj1.set_control(Controls.DOWN, const.K_s)
-        self.j1.add_component(PhysicsComponent(False))
+        self.labeljeu = Label(Vec2(10, 10), "JEU", Colors.BLACK.value, Font("arial", 18), Colors.GREEN.value)
+        self.button1jeu = Button(Vec2(10, 50), "Retour", self.menu)
+        self.button2jeu = Button(Vec2(150, 50), "Quitter", self.quitter)
 
-        self.j2 = Entity()
-        self.j2.add_component(PositionComponent(Vec2(770, 175)))
-        spritej2 = self.j2.add_component(SpriteComponent("images/sprite0.png"))
-        spritej2.size = Vec2(20, 50)
-        controlj2 = self.j2.add_component(ControlComponent(ControlType.UPDOWN))
-        controlj2.set_control(Controls.UPJUMP, const.K_UP)
-        controlj2.set_control(Controls.DOWN, const.K_DOWN)
-        self.j2.add_component(PhysicsComponent(False))
+        self.uisystemjeu = self.gameworld.get_system(UISystem)
+        self.uisystemjeu.add_widget(self.labeljeu)
+        self.uisystemjeu.add_widget(self.button1jeu)
+        self.uisystemjeu.add_widget(self.button2jeu)
 
-        self.ball = Entity()
-        self.ball.add_component(PositionComponent(Vec2(390, 190)))
-        spriteballe = self.ball.add_component(SpriteComponent("images/sprite0.png"))
-        spriteballe.size = Vec2(20, 20)
-        physball = self.ball.add_component(PhysicsComponent(False))
-        physball.callback = self.collision
-        self.ball.add_component(MoveComponent(Vec2(randint(4, 8), randint(4, 8))))
+        self.labelmenu = Entity()
+        self.labelmenu.add_component(PositionComponent(Vec2(10, 10)))
+        self.labelmenu.add_component(TextComponent("MENU", Colors.BLACK.value, Font("arial", 18, True),
+                                                   Colors.GREEN.value))
+        self.button1menu = Button(Vec2(10, 50), "Jouer", self.jouer)
+        self.button2menu = Button(Vec2(150, 50), "Quitter", self.quitter)
 
-        entitysystem = self.window.world.get_system(EntitySystem)
-        entitysystem.add_entity(self.j1)
-        entitysystem.add_entity(self.j2)
-        entitysystem.add_entity(self.ball)
+        self.uisystemmenu = self.menuworld.get_system(UISystem)
+        self.menuworld.get_system(EntitySystem).add_entity(self.labelmenu)
+        self.uisystemmenu.add_widget(self.button1menu)
+        self.uisystemmenu.add_widget(self.button2menu)
 
+        self.window.world = self.menuworld
         self.window.run()
 
-    def collision(self, obj, cause):
-        move = self.ball.get_component(MoveComponent)
-        move.direction = Vec2(-move.direction.x, move.direction.y)
+    def menu(self, widget, button):
+        self.window.world = self.menuworld
 
-    def outofwindow(self, obj, pos):
-        if obj == self.j1:
-            position = self.j1.get_component(PositionComponent)
-            if pos.y <= 0:
-                position.position = Vec2(10, 0)
-            else:
-                position.position = Vec2(10, 350)
+    # Fonction allant sur le jeu
+    def jouer(self, widget, button):
+        self.window.world = self.gameworld
 
-        elif obj == self.j2:
-            position = self.j2.get_component(PositionComponent)
-            if pos.y <= 0:
-                position.position = Vec2(770, 0)
-            else:
-                position.position = Vec2(770, 350)
-
-        else:
-            if pos.x < 10 or pos.x > 790:
-                position = self.ball.get_component(PositionComponent)
-                position.position = Vec2(390, 190)
-                move = self.ball.get_component(MoveComponent)
-                move.direction = Vec2(randint(4, 8), randint(4, 8))
-            else:
-                move = self.ball.get_component(MoveComponent)
-                move.direction = Vec2(move.direction.x, -move.direction.y)
+    def quitter(self, widget, button):
+        self.window.stop()
 
 
-Jeu()
+# Lance le menu
+Menu()

@@ -9,6 +9,11 @@
     - Window : Modify management of Worlds
     - Window : Created in middle of the screen
 	- Window : Can modify size
+    - GameState : Rename to World
+    - CameraSystem : Create basic camera
+	- MoveComponent : Remove speed
+	- TextComponent : Add background color
+	- Label : Add background color
 	- Vec2 : Create vector 2
 	- Color : Can be add and subtract
 

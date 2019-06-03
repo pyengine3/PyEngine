@@ -1,20 +1,35 @@
 from pyengine.Exceptions import CompatibilityError
 from pyengine.Utils import Font, Color, Colors
+import pygame
 
 __all__ = ["TextComponent"]
 
 
 class TextComponent:
-    def __init__(self, text, color=Colors.WHITE.value, font=Font):
+    def __init__(self, text, color=Colors.WHITE.value, font=Font, background=None):
         if not isinstance(font, Font):
             raise TypeError("Font have not a Font type")
         if not isinstance(color, Color):
             raise TypeError("Color have not a Color type")
+        if not isinstance(background, Color) and background is not None:
+            raise TypeError("Background must be a Color")
 
-        self.entity = None
+        self.__entity = None
         self.text = text
         self.font = font
         self.color = color
+        self.background = background
+
+    @property
+    def background(self):
+        return self.__background
+
+    @background.setter
+    def background(self, color):
+        if not isinstance(color, Color) and color is not None:
+            raise TypeError("Background must be a Color")
+
+        self.__background = color
 
     @property
     def text(self):
@@ -61,4 +76,11 @@ class TextComponent:
         self.__entity = entity
 
     def render(self):
-        return self.font.render().render(self.text, 1, self.color.get())
+        if self.background is None:
+            return self.font.render().render(self.text, 1, self.color.get())
+        else:
+            renderer = self.font.render().render(self.text, 1, self.color.get())
+            image = pygame.Surface([renderer.get_rect().width, renderer.get_rect().height])
+            image.fill(self.background.get())
+            image.blit(renderer, [0, 0])
+            return image
