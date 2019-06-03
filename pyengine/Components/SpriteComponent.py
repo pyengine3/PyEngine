@@ -1,6 +1,7 @@
 import pygame
 from pyengine.Exceptions import CompatibilityError
 from pyengine.Components.PositionComponent import PositionComponent
+from pyengine.Utils import Vec2
 
 __all__ = ["SpriteComponent"]
 
@@ -50,8 +51,10 @@ class SpriteComponent:
 
     @size.setter
     def size(self, size):
-        self.width, self.height = size
-        self.entity.image = pygame.transform.scale(self.entity.image, size)
+        if not isinstance(size, Vec2):
+            raise TypeError("Size must be a Vec2")
+        self.width, self.height = size.coords()
+        self.entity.image = pygame.transform.scale(self.entity.image, size.coords())
         self.scale = 1
 
     @property
@@ -79,12 +82,12 @@ class SpriteComponent:
     def update_position(self):
         if self.entity.has_component(PositionComponent):
             position = self.entity.get_component(PositionComponent)
-            self.entity.rect.x = position.x
-            self.entity.rect.y = position.y
+            self.entity.rect.x = position.position.x
+            self.entity.rect.y = position.position.y
 
     def update_entity(self):
         self.entity.rect = self.entity.image.get_rect()
         if self.entity.has_component(PositionComponent):
             position = self.entity.get_component(PositionComponent)
-            self.entity.rect.x = position.x
-            self.entity.rect.y = position.y
+            self.entity.rect.x = position.position.x
+            self.entity.rect.y = position.position.y

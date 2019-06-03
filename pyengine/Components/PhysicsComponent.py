@@ -1,4 +1,5 @@
 from pyengine.Components import PositionComponent
+from pyengine.Utils import Vec2
 import pygame
 from enum import Enum
 
@@ -52,7 +53,7 @@ class PhysicsComponent:
 
     def can_go(self, position, createdby=CollisionCauses.UNKNOWN):
         gosprite = pygame.sprite.Sprite()
-        gosprite.rect = pygame.rect.Rect(position[0], position[1], self.entity.image.get_width(),
+        gosprite.rect = pygame.rect.Rect(position.x, position.y, self.entity.image.get_width(),
                                          self.entity.image.get_height())
         collision = pygame.sprite.spritecollide(gosprite, self.entity.system.entities, False, None)
         for i in collision:
@@ -66,9 +67,9 @@ class PhysicsComponent:
         if self.entity.has_component(PositionComponent):
             position = self.entity.get_component(PositionComponent)
             if self.affectbygravity:
-                if self.can_go([position.x, position.y + self.gravity], CollisionCauses.GRAVITY):
+                if self.can_go(Vec2(position.position.x, position.position.y + self.gravity), CollisionCauses.GRAVITY):
                     self.grounded = False
-                    position.position = [position.x, position.y + self.gravity]
+                    position.position = Vec2(position.position.x, position.position.y + self.gravity)
                 elif self.gravity > 0:
                     self.grounded = True
                     self.doublejump = True

@@ -1,44 +1,79 @@
-from pyengine import Window, Entity, ControlType
-from pyengine.Components import *
-from pyengine.Systems import EntitySystem, UISystem, CameraSystem
-from pyengine.Widgets import *
+from pyengine import Window, Entity, const, Controls, ControlType, WorldCallbacks
+from pyengine.Components import PositionComponent, SpriteComponent, PhysicsComponent, MoveComponent, ControlComponent
+from pyengine.Systems import EntitySystem
+from pyengine.Utils import Colors, Vec2
+
+from random import randint
 
 
-def move_cam(pos, click):
-    if game.world.get_system(CameraSystem).entity_follow == e2:
-        game.world.get_system(CameraSystem).entity_follow = e3
-    else:
-        game.world.get_system(CameraSystem).entity_follow = e2
+class Jeu:
+    def __init__(self):
+        self.window = Window(800, 400, Colors.WHITE.value)
+        self.window.title = "Pong"
+
+        self.window.world.set_callback(WorldCallbacks.OUTOFWINDOW, self.outofwindow)
+
+        self.j1 = Entity()
+        self.j1.add_component(PositionComponent(Vec2(10, 175)))
+        spritej1 = self.j1.add_component(SpriteComponent("images/sprite0.png"))
+        spritej1.size = Vec2(20, 50)
+        controlj1 = self.j1.add_component(ControlComponent(ControlType.UPDOWN))
+        controlj1.set_control(Controls.UPJUMP, const.K_w)
+        controlj1.set_control(Controls.DOWN, const.K_s)
+        self.j1.add_component(PhysicsComponent(False))
+
+        self.j2 = Entity()
+        self.j2.add_component(PositionComponent(Vec2(770, 175)))
+        spritej2 = self.j2.add_component(SpriteComponent("images/sprite0.png"))
+        spritej2.size = Vec2(20, 50)
+        controlj2 = self.j2.add_component(ControlComponent(ControlType.UPDOWN))
+        controlj2.set_control(Controls.UPJUMP, const.K_UP)
+        controlj2.set_control(Controls.DOWN, const.K_DOWN)
+        self.j2.add_component(PhysicsComponent(False))
+
+        self.ball = Entity()
+        self.ball.add_component(PositionComponent(Vec2(390, 190)))
+        spriteballe = self.ball.add_component(SpriteComponent("images/sprite0.png"))
+        spriteballe.size = Vec2(20, 20)
+        physball = self.ball.add_component(PhysicsComponent(False))
+        physball.callback = self.collision
+        self.ball.add_component(MoveComponent(Vec2(randint(4, 8), randint(4, 8))))
+
+        entitysystem = self.window.world.get_system(EntitySystem)
+        entitysystem.add_entity(self.j1)
+        entitysystem.add_entity(self.j2)
+        entitysystem.add_entity(self.ball)
+
+        self.window.run()
+
+    def collision(self, obj, cause):
+        move = self.ball.get_component(MoveComponent)
+        move.direction = Vec2(-move.direction.x, move.direction.y)
+
+    def outofwindow(self, obj, pos):
+        if obj == self.j1:
+            position = self.j1.get_component(PositionComponent)
+            if pos.y <= 0:
+                position.position = Vec2(10, 0)
+            else:
+                position.position = Vec2(10, 350)
+
+        elif obj == self.j2:
+            position = self.j2.get_component(PositionComponent)
+            if pos.y <= 0:
+                position.position = Vec2(770, 0)
+            else:
+                position.position = Vec2(770, 350)
+
+        else:
+            if pos.x < 10 or pos.x > 790:
+                position = self.ball.get_component(PositionComponent)
+                position.position = Vec2(390, 190)
+                move = self.ball.get_component(MoveComponent)
+                move.direction = Vec2(randint(4, 8), randint(4, 8))
+            else:
+                move = self.ball.get_component(MoveComponent)
+                move.direction = Vec2(move.direction.x, -move.direction.y)
 
 
-game = Window(300, 300, debug=True)
-
-e = Entity()
-e.add_component(PositionComponent([100, 100]))
-sprite = e.add_component(SpriteComponent("images/sprite0.png"))
-sprite.size = [100, 20]
-e2 = Entity()
-e2.add_component(PositionComponent([100, 130]))
-sprite = e2.add_component(SpriteComponent("images/sprite0.png"))
-sprite.size = [100, 20]
-e2.add_component(ControlComponent(ControlType.FOURDIRECTION))
-e3 = Entity()
-e3.add_component(PositionComponent([100, 160]))
-sprite = e3.add_component(SpriteComponent("images/sprite0.png"))
-sprite.size = [100, 20]
-e3.add_component(PhysicsComponent(False))
-
-w = Image([100, 100], "images/sprite0.png", [100, 20])
-b = Button([10, 10], "Camera", move_cam)
-
-game.world.get_system(EntitySystem).add_entity(e)
-game.world.get_system(EntitySystem).add_entity(e2)
-game.world.get_system(EntitySystem).remove_entity(e)
-game.world.get_system(EntitySystem).add_entity(e3)
-
-game.world.get_system(UISystem).add_widget(w)
-game.world.get_system(UISystem).add_widget(b)
-
-game.world.get_system(CameraSystem).entity_follow = e2
-
-game.run()
+Jeu()

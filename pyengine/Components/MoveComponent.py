@@ -1,5 +1,6 @@
 from pyengine.Components.PositionComponent import PositionComponent
 from pyengine.Components.PhysicsComponent import PhysicsComponent, CollisionCauses
+from pyengine.Utils import Vec2
 
 __all__ = ["MoveComponent"]
 
@@ -32,6 +33,9 @@ class MoveComponent:
 
     @direction.setter
     def direction(self, direction):
+        if not isinstance(direction, Vec2):
+            raise TypeError("Direction must be a Vec2")
+
         self.__direction = direction
 
     def update(self):

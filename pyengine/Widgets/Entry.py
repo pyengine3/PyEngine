@@ -1,6 +1,7 @@
 import pygame
 from pyengine.Widgets.Widget import Widget
 from pyengine.Widgets import Label
+from pyengine.Utils import Vec2
 from pygame import locals as const
 
 __all__ = ["Entry"]
@@ -23,7 +24,7 @@ class Entry(Widget):
             self.iiwhite.fill((255, 255, 255))
             self.image.blit(self.iiwhite, (4, 4))
             self.hasimage = False
-        self.label = Label([position[0]+5, position[1]+5], "", (0, 0, 0), ["arial", 17])
+        self.label = Label([position.x+5, position.y+5], "", (0, 0, 0), ["arial", 17])
         self.label.parent = self
         self.cursortimer = 20
         self.cursor = False
@@ -80,11 +81,12 @@ class Entry(Widget):
     def update_render(self):
         self.update_rect()
         if self.hasimage:
-            self.label.position = [self.label.position[0],
-                                   self.rect.y + self.image.get_rect().height / 2 - self.label.rect.height / 2]
+            self.label.position = Vec2(self.label.position.x,
+                                       self.rect.y + self.image.get_rect().height / 2 - self.label.rect.height / 2)
         else:
-            self.label.position = [self.label.position[0],
-                                   self.rect.y + 4 + self.iiwhite.get_rect().height / 2 - self.label.rect.height / 2]
+            self.label.position = Vec2(self.label.position.x,
+                                       self.rect.y + 4 + self.iiwhite.get_rect().height / 2 -
+                                       self.label.rect.height / 2)
 
     def update(self):
         if self.cursortimer <= 0:

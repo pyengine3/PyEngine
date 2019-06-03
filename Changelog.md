@@ -3,6 +3,7 @@
 ## V 1.2.0 : XXX Update - XX/XX/19
 
     - All : Use property decorator
+	- Vec2 : Create vector 2
     - CameraSystem : Create basic camera
     - GameState : Rename to World
     - Window : Modify management of Worlds

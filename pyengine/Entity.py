@@ -65,13 +65,13 @@ class Entity(pygame.sprite.Sprite):
         if self.has_component(PositionComponent):
             # Verify if entity is not out of window
             position = self.get_component(PositionComponent)
-            if position.y >= self.system.world.window.height - self.image.get_rect().height:
+            if position.position.y >= self.system.world.window.height - self.image.get_rect().height:
                 self.system.world.call(WorldCallbacks.OUTOFWINDOW, self, position.position)
-            elif position.y < 0:
+            elif position.position.y < 0:
                 self.system.world.call(WorldCallbacks.OUTOFWINDOW, self, position.position)
-            if position.x >= self.system.world.window.width - self.image.get_rect().width:
+            if position.position.x >= self.system.world.window.width - self.image.get_rect().width:
                 self.system.world.call(WorldCallbacks.OUTOFWINDOW, self, position.position)
-            elif position.x < 0:
+            elif position.position.x < 0:
                 self.system.world.call(WorldCallbacks.OUTOFWINDOW, self, position.position)
 
         if self.has_component(ControlComponent):

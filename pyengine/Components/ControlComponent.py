@@ -1,6 +1,7 @@
 from pyengine.Exceptions import NoObjectError
 from pyengine.Components.PositionComponent import PositionComponent
 from pyengine.Components.PhysicsComponent import PhysicsComponent, CollisionCauses
+from pyengine.Utils import Vec2
 from pygame import locals as const
 from enum import Enum
 
@@ -34,7 +35,7 @@ class ControlComponent:
         self.entity = None
         self.controltype = controltype
         self.speed = speed
-        self.goto = (-1, -1)
+        self.goto = Vec2(-1, -1)
         self.jumping = False
         self.controles = {
             Controls.UPJUMP: const.K_UP,
@@ -73,18 +74,18 @@ class ControlComponent:
         if self.controltype == ControlType.CLICKFOLLOW and self.goto != (-1, -1):
             if self.entity.has_component(PositionComponent):
                 position = self.entity.get_component(PositionComponent)
-                if position.x-10 < self.goto[0] < position.x+10 and position.y-10 < self.goto[1] < position.y+10:
-                    self.goto = (-1, -1)
+                if position.x-10 < self.goto.x < position.x+10 and position.y-10 < self.goto.y < position.y+10:
+                    self.goto = Vec2(-1, -1)
                 else:
-                    pos = [position.x, position.y]
-                    if position.x-10 > self.goto[0]:
-                        pos[0] = position.x - self.speed
-                    elif position.x+10 < self.goto[0]:
-                        pos[0] = position.x + self.speed
-                    if position.y-10 > self.goto[1]:
-                        pos[1] = position.y - self.speed
-                    elif position.y+10 < self.goto[1]:
-                        pos[1] = position.y + self.speed
+                    pos = position.position
+                    if position.x-10 > self.goto.x:
+                        pos.x = position.x - self.speed
+                    elif position.x+10 < self.goto.x:
+                        pos.x = position.x + self.speed
+                    if position.y-10 > self.goto.y:
+                        pos.y = position.y - self.speed
+                    elif position.y+10 < self.goto.y:
+                        pos.y = position.y + self.speed
 
                     cango = True
                     if self.entity.has_component(PhysicsComponent):
@@ -94,7 +95,7 @@ class ControlComponent:
 
     def mousepress(self, evt):
         if self.controltype == ControlType.CLICKFOLLOW and evt.button == MouseButton.LEFTCLICK.value:
-            self.goto = evt.pos
+            self.goto = Vec2(evt.pos[0], evt.pos[1])
 
     def keyup(self, evt):
         eventkey = evt.key
@@ -111,18 +112,18 @@ class ControlComponent:
             if eventkey == self.controles[Controls.LEFT]:
                 if self.controltype == ControlType.FOURDIRECTION or self.controltype == ControlType.CLASSICJUMP \
                         or self.controltype == ControlType.DOUBLEJUMP or self.controltype == ControlType.LEFTRIGHT:
-                    pos = [position.x - self.speed, position.y]
+                    pos = Vec2(pos.x - self.speed, pos.y)
                     if self.entity.has_component(PhysicsComponent):
                         cango = self.entity.get_component(PhysicsComponent).can_go(pos, CollisionCauses.LEFTCONTROL)
             if eventkey == self.controles[Controls.RIGHT]:
                 if self.controltype == ControlType.FOURDIRECTION or self.controltype == ControlType.CLASSICJUMP \
                         or self.controltype == ControlType.DOUBLEJUMP or self.controltype == ControlType.LEFTRIGHT:
-                    pos = [position.x + self.speed, position.y]
+                    pos = Vec2(pos.x + self.speed, pos.y)
                     if self.entity.has_component(PhysicsComponent):
                         cango = self.entity.get_component(PhysicsComponent).can_go(pos, CollisionCauses.RIGHTCONTROL)
             if eventkey == self.controles[Controls.UPJUMP]:
                 if self.controltype == ControlType.FOURDIRECTION or self.controltype == ControlType.UPDOWN:
-                    pos = [position.x, position.y - self.speed]
+                    pos = Vec2(pos.x, pos.y - self.speed)
                     if self.entity.has_component(PhysicsComponent):
                         cango = self.entity.get_component(PhysicsComponent).can_go(pos, CollisionCauses.UPCONTROL)
                 elif self.controltype == ControlType.CLASSICJUMP:
@@ -145,7 +146,7 @@ class ControlComponent:
                         phys.gravity = -phys.max_gravity_force
             if eventkey == self.controles[Controls.DOWN]:
                 if self.controltype == ControlType.FOURDIRECTION or self.controltype == ControlType.UPDOWN:
-                    pos = [position.x, position.y + self.speed]
+                    pos = Vec2(pos.x, pos.y + self.speed)
                     if self.entity.has_component(PhysicsComponent):
                         cango = self.entity.get_component(PhysicsComponent).can_go(pos, CollisionCauses.DOWNCONTROL)
 

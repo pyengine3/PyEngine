@@ -1,6 +1,7 @@
 import pygame
 from pyengine.Widgets.Widget import Widget
 from pyengine.Widgets import Label
+from pyengine.Utils import Vec2
 
 __all__ = ["Button"]
 
@@ -32,8 +33,8 @@ class Button(Widget):
 
     def update_render(self):
         self.update_rect()
-        self.label.position = [self.rect.x+self.rect.width/2-self.label.rect.width/2,
-                               self.rect.y+self.rect.height/2-self.label.rect.height/2]
+        self.label.position = Vec2(self.rect.x+self.rect.width/2-self.label.rect.width/2,
+                                   self.rect.y+self.rect.height/2-self.label.rect.height/2)
 
     @property
     def size(self):

@@ -1,5 +1,6 @@
 from pyengine.Systems import EntitySystem
 from pyengine.Components import PositionComponent
+from pyengine.Utils import Vec2
 
 __all__ = ["CameraSystem"]
 
@@ -7,8 +8,8 @@ __all__ = ["CameraSystem"]
 class CameraSystem:
     def __init__(self, world):
         self.world = world
-        self.__position = [0, 0]
-        self.offset = [0, 0]
+        self.__position = Vec2()
+        self.offset = Vec2()
         self.entity_follow = None
 
     @property
@@ -20,15 +21,15 @@ class CameraSystem:
         self.__ef = entity
         if entity is not None:
             if entity.rect:
-                self.offset = [
+                self.offset = Vec2(
                     self.world.window.size[0] / 2 - entity.rect.width / 2,
                     self.world.window.size[1] / 2 - entity.rect.height / 2
-                ]
+                )
             else:
-                self.offset = [
+                self.offset = Vec2(
                     self.world.window.size[0] / 2,
                     self.world.window.size[1] / 2
-                ]
+                )
 
     @property
     def position(self):
@@ -36,15 +37,16 @@ class CameraSystem:
 
     @position.setter
     def position(self, position):
+        if not isinstance(position, Vec2):
+            raise TypeError("Position must be a Vec2")
+
         self.__position = position
         for i in self.world.get_system(EntitySystem).entities:
             pos = i.get_component(PositionComponent)
-            pos.position = [pos.position[0] - self.position[0] + self.offset[0],
-                            pos.position[1] - self.position[1] + self.offset[1]]
         for i in self.world.get_system(EntitySystem).texts:
             pos = i.get_component(PositionComponent)
-            pos.position = [pos.position[0] - self.position[0] + self.offset[0],
-                            pos.position[1] - self.position[1] + self.offset[1]]
+            pos.position = [pos.position.x - self.position.x + self.offset.x,
+                            pos.position.y - self.position.y + self.offset.y]
 
     @property
     def offset(self):

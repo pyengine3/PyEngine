@@ -1,4 +1,5 @@
 import pygame
+from pyengine.Utils import Vec2
 
 __all__ = ["Widget"]
 
@@ -6,6 +7,10 @@ __all__ = ["Widget"]
 class Widget(pygame.sprite.Sprite):
     def __init__(self, position):
         super(Widget, self).__init__()
+
+        if not isinstance(position, Vec2):
+            raise TypeError("Position must be a Vec2")
+
         self.identity = -1
         self.__position = position
         self.__system = None
@@ -37,9 +42,11 @@ class Widget(pygame.sprite.Sprite):
 
     @position.setter
     def position(self, position):
+        if not isinstance(position, Vec2):
+            raise TypeError("Position must be a Vec2")
+
         self.__position = position
-        self.rect.x = self.position[0]
-        self.rect.y = self.position[1]
+        self.update_rect()
 
     def focusin(self):
         pass
@@ -58,8 +65,8 @@ class Widget(pygame.sprite.Sprite):
 
     def update_rect(self):
         self.rect = self.image.get_rect()
-        self.rect.x = self.position[0]
-        self.rect.y = self.position[1]
+        self.rect.x = self.position.x
+        self.rect.y = self.position.y
 
     def mousepress(self, evt):
         if self.rect.x <= evt.pos[0] <= self.rect.x + self.rect.width and self.rect.y <= evt.pos[1] <= self.rect.y +\
