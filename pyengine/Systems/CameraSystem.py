@@ -21,8 +21,8 @@ class CameraSystem:
         if entity is not None:
             if entity.rect:
                 self.offset = [
-                    self.world.window.size[0] / 2 - entity.rect.x / 2,
-                    self.world.window.size[1] / 2 - entity.rect.y / 2
+                    self.world.window.size[0] / 2 - entity.rect.width / 2,
+                    self.world.window.size[1] / 2 - entity.rect.height / 2
                 ]
             else:
                 self.offset = [
