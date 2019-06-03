@@ -3,11 +3,12 @@
 ## V 1.2.0 : XXX Update - XX/XX/19
 
     - All : Use property decorator
-	- Vec2 : Create vector 2
 	- MoveComponent : Remove speed
     - CameraSystem : Create basic camera
     - GameState : Rename to World
     - Window : Modify management of Worlds
+	- Vec2 : Create vector 2
+	- Color : Can be add and subtract
 
 ## V 1.1.2 : Patch Update 2 - 01/06/19
 

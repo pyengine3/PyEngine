@@ -8,7 +8,7 @@ from random import randint
 
 class Jeu:
     def __init__(self):
-        self.window = Window(800, 400, Colors.WHITE.value)
+        self.window = Window(800, 400, Colors.WHITE.value.darker())
         self.window.title = "Pong"
 
         self.window.world.set_callback(WorldCallbacks.OUTOFWINDOW, self.outofwindow)
