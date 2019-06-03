@@ -1,4 +1,5 @@
 import pygame
+import os
 from pyengine.World import World
 from pyengine.Utils import Color, Colors
 from pygame import locals as const
@@ -11,6 +12,7 @@ class Window:
         if icon is not None:
             pygame.display.set_icon(pygame.image.load(icon))
 
+        os.environ['SDL_VIDEO_CENTERED'] = '1'
         pygame.init()
         pygame.display.set_caption(title)
 
@@ -47,6 +49,11 @@ class Window:
     @property
     def size(self):
         return [self.width, self.height]
+
+    @size.setter
+    def size(self, size):
+        self.width, self.height = size
+        pygame.display.set_mode(size)
 
     @property
     def debug(self):

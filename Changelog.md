@@ -7,6 +7,8 @@
     - CameraSystem : Create basic camera
     - GameState : Rename to World
     - Window : Modify management of Worlds
+    - Window : Created in middle of the screen
+	- Window : Can modify size
 	- Vec2 : Create vector 2
 	- Color : Can be add and subtract
 
