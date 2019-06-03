@@ -3,9 +3,6 @@
 ## V 1.2.0 : XXX Update - XX/XX/19
 
     - All : Use property decorator
-	- MoveComponent : Remove speed
-    - CameraSystem : Create basic camera
-    - GameState : Rename to World
     - Window : Modify management of Worlds
     - Window : Created in middle of the screen
 	- Window : Can modify size
