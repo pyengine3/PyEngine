@@ -76,7 +76,7 @@ class EntitySystem:
         for i in self.texts:
             text = i.get_component(TextComponent)
             position = i.get_component(PositionComponent)
-            screen.blit(text.render(), position.position)
+            screen.blit(text.render(), position.position.coords)
 
     def show_debug(self, screen):
         for i in self.entities:
