@@ -1,5 +1,5 @@
 from pyengine.Systems import EntitySystem
-from pyengine.Components import PositionComponent
+from pyengine.Components import PositionComponent, SpriteComponent, TextComponent
 from pyengine.Utils import Vec2
 
 __all__ = ["CameraSystem"]
@@ -11,6 +11,7 @@ class CameraSystem:
         self.__position = Vec2()
         self.offset = Vec2()
         self.entity_follow = None
+        self.__zoom = 1
 
     @property
     def entity_follow(self):
@@ -43,10 +44,25 @@ class CameraSystem:
         self.__position = position
         for i in self.world.get_system(EntitySystem).entities:
             pos = i.get_component(PositionComponent)
+            pos.position = [pos.position.x - self.position.x + self.offset.x,
+                            pos.position.y - self.position.y + self.offset.y]
         for i in self.world.get_system(EntitySystem).texts:
             pos = i.get_component(PositionComponent)
             pos.position = [pos.position.x - self.position.x + self.offset.x,
                             pos.position.y - self.position.y + self.offset.y]
+
+    @property
+    def zoom(self):
+        return self.__zoom
+
+    @zoom.setter
+    def zoom(self, val):
+        self.__zoom = val
+        for i in self.world.get_system(EntitySystem).entities:
+            sprite = i.get_component(SpriteComponent)
+            sprite.scale = val
+        for i in self.world.get_system(EntitySystem).texts:
+            pass  # Text has not compatible for now
 
     @property
     def offset(self):

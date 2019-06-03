@@ -42,7 +42,7 @@ class SpriteComponent:
     @scale.setter
     def scale(self, scale):
         self.__scale = scale
-        self.entity.image = pygame.transform.scale(self.entity.image, (self.width*scale, self.height*scale))
+        self.entity.image = pygame.transform.scale(self.entity.image, (int(self.width*scale), int(self.height*scale)))
         self.update_entity()
 
     @property

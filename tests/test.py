@@ -1,6 +1,6 @@
 from pyengine import Window, World, Entity
-from pyengine.Systems import UISystem, EntitySystem
-from pyengine.Components import PositionComponent, TextComponent
+from pyengine.Systems import UISystem, EntitySystem, CameraSystem
+from pyengine.Components import PositionComponent, TextComponent, SpriteComponent
 from pyengine.Widgets import Label, Button
 from pyengine.Utils import Colors, Font, Vec2
 
@@ -14,11 +14,17 @@ class Menu:
         self.menuworld = World(self.window)
 
         self.labeljeu = Label(Vec2(10, 10), "JEU", Colors.BLACK.value, Font("arial", 18), Colors.GREEN.value)
+        self.buttonzoom = Button(Vec2(150, 10), "Zoom", self.zoom)
         self.button1jeu = Button(Vec2(10, 50), "Retour", self.menu)
         self.button2jeu = Button(Vec2(150, 50), "Quitter", self.quitter)
+        self.ejeu = Entity()
+        self.ejeu.add_component(PositionComponent(Vec2(100, 100)))
+        self.ejeu.add_component(SpriteComponent("images/sprite0.png"))
 
         self.uisystemjeu = self.gameworld.get_system(UISystem)
+        self.gameworld.get_system(EntitySystem).add_entity(self.ejeu)
         self.uisystemjeu.add_widget(self.labeljeu)
+        self.uisystemjeu.add_widget(self.buttonzoom)
         self.uisystemjeu.add_widget(self.button1jeu)
         self.uisystemjeu.add_widget(self.button2jeu)
 
@@ -39,6 +45,12 @@ class Menu:
 
     def menu(self, widget, button):
         self.window.world = self.menuworld
+
+    def zoom(self, widget, button):
+        if self.gameworld.get_system(CameraSystem).zoom == 1:
+            self.gameworld.get_system(CameraSystem).zoom = 2
+        else:
+            self.gameworld.get_system(CameraSystem).zoom = 1
 
     # Fonction allant sur le jeu
     def jouer(self, widget, button):
