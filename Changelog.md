@@ -13,6 +13,8 @@
 	- Label : Add background color
 	- Vec2 : Create vector 2
 	- Color : Can be add and subtract
+	
+	- Bug Fix : Entity Text is not updated
 
 ## V 1.1.2 : Patch Update 2 - 01/06/19
 

@@ -36,7 +36,7 @@ class EntitySystem:
         return entity
 
     def has_entity(self, entity):
-        return entity in self.entities
+        return entity in self.entities or entity in self.texts
 
     def remove_entity(self, entity):
         if entity.has_component(SpriteComponent):
@@ -53,21 +53,21 @@ class EntitySystem:
             raise ValueError("Entity has not in EntitySystem")
 
     def update(self):
-        for i in self.entities:
+        for i in self.entities.sprites() + self.texts.sprites():
             i.update()
 
     def keypress(self, evt):
-        for i in self.entities:
+        for i in self.entities.sprites() + self.texts.sprites():
             if i.has_component(ControlComponent):
                 i.get_component(ControlComponent).keypress(evt)
 
     def keyup(self, evt):
-        for i in self.entities:
+        for i in self.entities.sprites() + self.texts.sprites():
             if i.has_component(ControlComponent):
                 i.get_component(ControlComponent).keyup(evt)
 
     def mousepress(self, evt):
-        for i in self.entities:
+        for i in self.entities.sprites() + self.texts.sprites():
             if i.has_component(ControlComponent):
                 i.get_component(ControlComponent).mousepress(evt)
 
@@ -79,6 +79,6 @@ class EntitySystem:
             screen.blit(text.render(), position.position.coords)
 
     def show_debug(self, screen):
-        for i in self.entities:
+        for i in self.entities.sprites() + self.texts.sprites():
             render = self.world.window.debugfont.render("ID : "+str(i.identity), 1, (255, 255, 0))
             screen.blit(render, (i.rect.x + i.rect.width / 2 - render.get_width()/2, i.rect.y - 20))
