@@ -62,7 +62,8 @@ class CameraSystem:
             sprite = i.get_component(SpriteComponent)
             sprite.scale = val
         for i in self.world.get_system(EntitySystem).texts:
-            pass  # Text has not compatible for now
+            text = i.get_component(TextComponent)
+            text.scale = val
 
     @property
     def offset(self):
