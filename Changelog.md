@@ -10,6 +10,7 @@
     - CameraSystem : Create basic camera
 	- MoveComponent : Remove speed
 	- TextComponent : Add background color
+	- TextComponent : Add scale
 	- Label : Add background color
 	- Vec2 : Create vector 2
 	- Color : Can be add and subtract

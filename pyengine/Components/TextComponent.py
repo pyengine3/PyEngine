@@ -6,7 +6,7 @@ __all__ = ["TextComponent"]
 
 
 class TextComponent:
-    def __init__(self, text, color=Colors.WHITE.value, font=Font, background=None):
+    def __init__(self, text, color=Colors.WHITE.value, font=Font, background=None, scale=1):
         if not isinstance(font, Font):
             raise TypeError("Font have not a Font type")
         if not isinstance(color, Color):
@@ -17,8 +17,17 @@ class TextComponent:
         self.__entity = None
         self.text = text
         self.font = font
+        self.scale = scale
         self.color = color
         self.background = background
+
+    @property
+    def scale(self):
+        return self.__scale
+
+    @scale.setter
+    def scale(self, val):
+        self.__scale = val
 
     @property
     def background(self):
@@ -74,13 +83,15 @@ class TextComponent:
             raise CompatibilityError("TextComponent is not compatible with SpriteComponent")
 
         self.__entity = entity
+        self.__entity.image = self.render()
 
     def render(self):
         if self.background is None:
-            return self.font.render().render(self.text, 1, self.color.get())
+            image = self.font.render().render(self.text, 1, self.color.get())
         else:
             renderer = self.font.render().render(self.text, 1, self.color.get())
             image = pygame.Surface([renderer.get_rect().width, renderer.get_rect().height])
             image.fill(self.background.get())
             image.blit(renderer, [0, 0])
-            return image
+        image = pygame.transform.scale(image, (self.scale*image.get_rect().width, self.scale*image.get_rect().height))
+        return image
