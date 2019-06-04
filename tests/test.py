@@ -39,6 +39,7 @@ class Menu:
         self.menuworld.get_system(EntitySystem).add_entity(self.labelmenu)
         self.uisystemmenu.add_widget(self.button1menu)
         self.uisystemmenu.add_widget(self.button2menu)
+        self.uisystemmenu.add_widget(self.buttonzoom)
 
         self.window.world = self.menuworld
         self.window.run()
@@ -47,10 +48,10 @@ class Menu:
         self.window.world = self.menuworld
 
     def zoom(self, widget, button):
-        if self.gameworld.get_system(CameraSystem).zoom == 1:
-            self.gameworld.get_system(CameraSystem).zoom = 2
+        if self.window.world.get_system(CameraSystem).zoom == 1:
+            self.window.world.get_system(CameraSystem).zoom = 2
         else:
-            self.gameworld.get_system(CameraSystem).zoom = 1
+            self.window.world.get_system(CameraSystem).zoom = 1
 
     # Fonction allant sur le jeu
     def jouer(self, widget, button):
