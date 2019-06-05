@@ -42,7 +42,9 @@ class SpriteComponent:
     @scale.setter
     def scale(self, scale):
         self.__scale = scale
-        self.entity.image = pygame.transform.scale(self.entity.image, (int(self.width*scale), int(self.height*scale)))
+        self.width = int(self.width*scale)
+        self.height = int(self.height*scale)
+        self.entity.image = pygame.transform.scale(self.entity.image, (self.width, self.height))
         self.update_entity()
 
     @property
@@ -63,8 +65,9 @@ class SpriteComponent:
 
     @rotation.setter
     def rotation(self, rotation):
-        self.__rotation = rotation - self.__rotation
-        self.entity.image = pygame.transform.rotate(self.entity.image, self.__rotation)
+        temp = self.__rotation
+        self.__rotation = rotation
+        self.entity.image = pygame.transform.rotate(self.entity.image, self.__rotation - temp)
         self.update_entity()
 
     @property
