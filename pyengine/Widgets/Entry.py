@@ -1,7 +1,7 @@
 import pygame
 from pyengine.Widgets.Widget import Widget
 from pyengine.Widgets import Label
-from pyengine.Utils import Vec2
+from pyengine.Utils import Vec2, Colors, Font
 from pygame import locals as const
 
 __all__ = ["Entry"]
@@ -24,7 +24,7 @@ class Entry(Widget):
             self.iiwhite.fill((255, 255, 255))
             self.image.blit(self.iiwhite, (4, 4))
             self.hasimage = False
-        self.label = Label([position.x+5, position.y+5], "", (0, 0, 0), ["arial", 17])
+        self.label = Label(Vec2(position.x+5, position.y+5), "", Colors.BLACK.value, Font("arial", 17))
         self.label.parent = self
         self.cursortimer = 20
         self.cursor = False
