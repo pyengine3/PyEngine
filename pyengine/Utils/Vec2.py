@@ -23,7 +23,7 @@ class Vec2:
 
     @length.setter
     def length(self, value):
-        length = self.get_length()
+        length = self.length
         self.x *= value/length
         self.y *= value/length
 
