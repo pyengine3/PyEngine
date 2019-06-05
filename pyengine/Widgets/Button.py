@@ -28,9 +28,6 @@ class Button(Widget):
         self.command = command
         self.update_render()
 
-    def get_label(self):
-        return self.label
-
     def update_render(self):
         self.update_rect()
         self.label.position = Vec2(self.rect.x+self.rect.width/2-self.label.rect.width/2,
