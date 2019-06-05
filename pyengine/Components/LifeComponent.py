@@ -4,8 +4,8 @@ __all__ = ["LifeComponent"]
 class LifeComponent:
     def __init__(self, maxlife=100):
         self.entity = None
-        self.life = maxlife
         self.maxlife = maxlife
+        self.life = maxlife
 
     @property
     def entity(self):
