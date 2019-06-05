@@ -53,8 +53,8 @@ class SpriteComponent:
     def size(self, size):
         if not isinstance(size, Vec2):
             raise TypeError("Size must be a Vec2")
-        self.width, self.height = size.coords()
-        self.entity.image = pygame.transform.scale(self.entity.image, size.coords())
+        self.width, self.height = size.coords
+        self.entity.image = pygame.transform.scale(self.entity.image, size.coords)
         self.scale = 1
 
     @property
