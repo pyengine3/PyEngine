@@ -5,11 +5,11 @@ __all__ = ["Image"]
 
 
 class Image(Widget):
-    def __init__(self, position, image, size=None):
+    def __init__(self, position, sprite, size=None):
         super(Image, self).__init__(position)
 
-        self.istr = image
-        self.image = pygame.image.load(image)
+        self.sprite = sprite
+        self.image = pygame.image.load(sprite)
 
         if size is not None:
             self.size = size
@@ -23,10 +23,12 @@ class Image(Widget):
         self.image = pygame.transform.scale(self.image, size)
         self.update_rect()
 
-    def get_image(self):
-        return self.istr
+    @property
+    def sprite(self):
+        return self.__sprite
 
-    def set_image(self, image):
-        self.istr = image
-        self.image = pygame.image.load(image)
+    @sprite.setter
+    def sprite(self, sprite):
+        self.__sprite = sprite
+        self.image = pygame.image.load(sprite)
         self.update_rect()
