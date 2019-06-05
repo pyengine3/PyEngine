@@ -70,7 +70,7 @@ class Vec2:
         return self.x == other.x and self.y == other.y
 
     def __ne__(self, other):
-        return self.x != other.x or self.y != other.y
+        return not self == other
 
     def __neg__(self):
         return Vec2(-self.x, -self.y)
