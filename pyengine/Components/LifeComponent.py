@@ -33,5 +33,5 @@ class LifeComponent:
         return self.__maxlife
 
     @maxlife.setter
-    def maxlife(self, max):
-        self.__maxlife = max
+    def maxlife(self, maxi):
+        self.__maxlife = maxi
