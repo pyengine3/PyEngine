@@ -13,7 +13,8 @@
 	- TextComponent : Add scale
 	- Label : Add background color
 	- Vec2 : Create vector 2
-	- Color : Can be add and subtract
+	- Color : Can be add, substact and compared
+	- Font : Can be compared
 	
 	- Bug Fix : Entity Text is not updated
 
