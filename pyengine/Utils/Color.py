@@ -72,6 +72,12 @@ class Color:
             b = 0
         return Color(r, g, b)
 
+    def __eq__(self, other):
+        return self.r == other.r and self.g == other.g and self.b == other.b
+
+    def __ne__(self, other):
+        return not self == other
+
 
 class Colors(Enum):
     WHITE = Color(255, 255, 255)
