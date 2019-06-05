@@ -33,16 +33,6 @@ class Vec2:
         else:
             return Vec2(self.x + other, self.y + other)
 
-    __radd__ = __add__
-
-    def __iadd__(self, other):
-        if isinstance(other, Vec2):
-            self.x += other.x
-            self.y += other.y
-        else:
-            self.x += other
-            self.y += other
-
     def __sub__(self, other):
         if isinstance(other, Vec2):
             return Vec2(self.x - other.x, self.y - other.y)
@@ -55,29 +45,11 @@ class Vec2:
         else:
             return Vec2(other - self.x, other - self.y)
 
-    def __isub__(self, other):
-        if isinstance(other, Vec2):
-            self.x -= other.x
-            self.y -= other.y
-        else:
-            self.x -= other
-            self.y -= other
-
     def __mul__(self, other):
         if isinstance(other, Vec2):
             return Vec2(self.x * other.x, self.y * other.y)
         else:
             return Vec2(self.x * other, self.y * other)
-
-    __rmul__ = __mul__
-
-    def __imul__(self, other):
-        if isinstance(other, Vec2):
-            self.x *= other.x
-            self.y *= other.y
-        else:
-            self.x *= other
-            self.y *= other
 
     def __truediv__(self, other):
         if isinstance(other, Vec2):
@@ -91,16 +63,8 @@ class Vec2:
         else:
             return Vec2(other // self.x, other // self.y)
 
-    def __itruediv__(self, other):
-        if isinstance(other, Vec2):
-            self.x //= other.x
-            self.y //= other.y
-        else:
-            self.x //= other
-            self.y //= other
-
     def __repr__(self):
-        return str(self.coords())
+        return str(self.coords)
 
     def __eq__(self, other):
         return self.x == other.x and self.y == other.y
