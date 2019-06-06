@@ -7,24 +7,24 @@ __all__ = ["Button"]
 
 
 class Button(Widget):
-    def __init__(self, position, text, command=None, size=None, image=None):
+    def __init__(self, position, text, command=None, size=None, sprite=None):
         super(Button, self).__init__(position)
 
         if size is None:
             size = [100, 40]
-        if image is None:
-            image = pygame.Surface(size)
-            image.fill((50, 50, 50))
+        if sprite is None:
+            self.image = pygame.Surface(size)
+            self.image.fill((50, 50, 50))
         else:
-            image = pygame.image.load(image)
-            image = pygame.transform.scale(image, size)
+            image = pygame.image.load(sprite)
+            self.image = pygame.transform.scale(image, size)
 
-        self.image = image
         self.rect = self.image.get_rect()
         self.label = Label(position, text)
         self.label.parent = self
         self.position = position
         self.size = size
+        self.sprite = sprite
         self.ishover = False
         self.command = command
         self.update_render()
@@ -33,6 +33,22 @@ class Button(Widget):
         self.update_rect()
         self.label.position = Vec2(self.rect.x+self.rect.width/2-self.label.rect.width/2,
                                    self.rect.y+self.rect.height/2-self.label.rect.height/2)
+
+    @property
+    def sprite(self):
+        return self.__sprite
+
+    @sprite.setter
+    def sprite(self, val):
+        self.__sprite = val
+        if val is None:
+            self.image = pygame.Surface(self.size)
+            self.image .fill((50, 50, 50))
+        else:
+            image = pygame.image.load(val)
+            self.image = pygame.transform.scale(image, self.size)
+        self.update_render()
+
 
     @property
     def size(self):
