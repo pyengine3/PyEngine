@@ -13,8 +13,8 @@ class EntitySystem:
         self.texts = pygame.sprite.Group()
 
     def get_entity(self, identity):
-        for i in self.entities:
-            if i.id == identity:
+        for i in self.entities.sprites() + self.texts.sprites():
+            if i.identity == identity:
                 return i
 
     def add_entity(self, entity):
