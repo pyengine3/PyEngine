@@ -8,6 +8,7 @@
 	- Window : Can modify size
     - GameState : Rename to World
 	- World : Remove has system function
+	- Entity-Exception : Replace WrongObjectError to TypeError
     - CameraSystem : Create basic camera
 	- MoveComponent : Remove speed
 	- TextComponent : Add background color

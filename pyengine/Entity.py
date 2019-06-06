@@ -1,5 +1,4 @@
 import pygame
-from pyengine.Exceptions import WrongObjectError
 from pyengine.Components import *
 from pyengine.World import WorldCallbacks
 
@@ -42,7 +41,7 @@ class Entity(pygame.sprite.Sprite):
                 found = True
                 break
         if not found:
-            raise WrongObjectError("Entity can't have "+str(component)+" as component.")
+            raise TypeError("Entity can't have "+str(component)+" as component.")
         component.entity = self
         self.components.append(component)
         return component
