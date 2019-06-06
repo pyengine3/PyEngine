@@ -57,15 +57,6 @@ class World:
             if type(i) == classe:
                 return i
 
-    def has_system(self, classe):
-        for i in self.systems.values():
-            if type(i) == classe:
-                return True
-        return False
-
-    def set_window(self, window):
-        self.window = window
-
     def run(self):
         if self.window is None:
             raise NoObjectError("GameState is attached to any Window.")
