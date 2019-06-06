@@ -8,6 +8,7 @@ class MusicSystem:
     def __init__(self):
         self.queue = []
         self.ENDSOUND = 231
+        self.volume = 100
         self.loop = False
         pygame.mixer.music.set_endevent(self.ENDSOUND)
 
@@ -21,7 +22,7 @@ class MusicSystem:
 
     @property
     def volume(self):
-        return pygame.mixer.music.get_volume()
+        return round(pygame.mixer.music.get_volume()*100)
 
     @volume.setter
     def volume(self, volume):
