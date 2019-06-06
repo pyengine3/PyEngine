@@ -30,7 +30,7 @@ class Window:
 
     @property
     def title(self):
-        return pygame.display.get_caption()
+        return pygame.display.get_caption()[0]
 
     @title.setter
     def title(self, title):
@@ -48,7 +48,7 @@ class Window:
 
     @property
     def size(self):
-        return [self.width, self.height]
+        return self.width, self.height
 
     @size.setter
     def size(self, size):
