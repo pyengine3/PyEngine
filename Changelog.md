@@ -7,6 +7,7 @@
     - Window : Created in middle of the screen
 	- Window : Can modify size
     - GameState : Rename to World
+	- World : Remove has system function
     - CameraSystem : Create basic camera
 	- MoveComponent : Remove speed
 	- TextComponent : Add background color
@@ -17,6 +18,15 @@
 	- Font : Can be compared
 	
 	- Bug Fix : Entity Text is not updated
+	- Bug Fix : Entity Text is not count in get_entity
+	- Bug Fix : MusicSystem return wrong volume
+	- Bug Fix : Window return wrong title
+	
+	- Crash Fix : Crash when use Entry
+	- Crash Fix : Crash when use length setter of Vec2
+	- Crash Fix : Crash when use TextComponent
+	- Crash Fix : Crash when we use size of SpriteComponent
+	- Crash Fix : Crash when we use LifeComponent
 
 ## V 1.1.2 : Patch Update 2 - 01/06/19
 
