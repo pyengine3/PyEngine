@@ -31,6 +31,14 @@ class World:
             WorldCallbacks.OUTOFWINDOW: None
         }
 
+    @property
+    def window(self):
+        return self.__window
+
+    @window.setter
+    def window(self, val):
+        self.__window = val
+
     def set_callback(self, callback, function):
         if type(callback) == WorldCallbacks:
             self.callbacks[callback] = function
