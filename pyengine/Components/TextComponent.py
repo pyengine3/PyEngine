@@ -85,6 +85,14 @@ class TextComponent:
         self.__entity = entity
         self.__entity.image = self.render()
 
+    @property
+    def rendered_size(self):
+        return self.render().get_rect().width, self.render().get_rect().height
+
+    @rendered_size.setter
+    def rendered_size(self, val):
+        pass
+
     def render(self):
         if self.background is None:
             image = self.font.render().render(self.text, 1, self.color.get())

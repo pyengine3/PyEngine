@@ -12,6 +12,7 @@
 	- MoveComponent : Remove speed
 	- TextComponent : Add background color
 	- TextComponent : Add scale
+	- TextComponent : Add rendered_size
 	- Label : Add background color
 	- Button : Add white filter when it is hovered
 	- Button : Can change image
