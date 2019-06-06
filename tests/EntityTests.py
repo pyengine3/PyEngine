@@ -1,7 +1,7 @@
 import unittest
 from pyengine import Entity, ControlType
 from pyengine.Components import *
-from pyengine.Exceptions import WrongObjectError, CompatibilityError
+from pyengine.Exceptions import CompatibilityError
 from pyengine.Utils import Vec2
 
 
@@ -23,7 +23,7 @@ class EntityTests(unittest.TestCase):
         self.assertTrue(e2 in self.e.attachedentities)
 
     def test_components(self):
-        with self.assertRaises(WrongObjectError):
+        with self.assertRaises(TypeError):
             self.e.add_component(1)
         for i in self.components:
             self.e.add_component(i)

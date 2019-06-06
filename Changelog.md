@@ -16,6 +16,7 @@
 	- Vec2 : Create vector 2
 	- Color : Can be add, substact and compared
 	- Font : Can be compared
+	- Unit Tests : Create
 	
 	- Bug Fix : Entity Text is not updated
 	- Bug Fix : Entity Text is not count in get_entity

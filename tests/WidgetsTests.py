@@ -68,6 +68,11 @@ class ButtonTests(WidgetTests):
         self.widget.label.text = "OUI"
         self.assertEqual(self.widget.label.text, "OUI")
 
+    def test_sprite(self):
+        self.assertEqual(self.widget.sprite, None)
+        self.widget.sprite = "files/sprite1.png"
+        self.assertEqual(self.widget.sprite, "files/sprite1.png")
+
     def test_size(self):
         self.assertEqual(self.widget.size, [100, 40])
         self.widget.size = [100, 50]
