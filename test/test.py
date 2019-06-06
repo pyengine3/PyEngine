@@ -4,6 +4,8 @@ from pyengine.Components import PositionComponent, TextComponent, SpriteComponen
 from pyengine.Widgets import Label, Button
 from pyengine.Utils import Colors, Font, Vec2
 
+import pygame
+
 
 class Menu:
     def __init__(self):
@@ -30,8 +32,9 @@ class Menu:
 
         self.labelmenu = Entity()
         self.labelmenu.add_component(PositionComponent(Vec2(10, 10)))
-        self.labelmenu.add_component(TextComponent("MENU", Colors.BLACK.value, Font("arial", 18, True),
-                                                   Colors.GREEN.value))
+        textlmenu = self.labelmenu.add_component(TextComponent("MENU", Colors.BLACK.value, Font("arial", 18, True),
+                                                               Colors.GREEN.value))
+        print(textlmenu.rendered_size)
         self.button1menu = Button(Vec2(10, 50), "Jouer", self.jouer)
         self.button2menu = Button(Vec2(150, 50), "Quitter", self.quitter)
 
