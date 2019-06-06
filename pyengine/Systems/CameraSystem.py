@@ -71,6 +71,9 @@ class CameraSystem:
 
     @offset.setter
     def offset(self, offset):
+        if not isinstance(offset, Vec2):
+            raise TypeError("Offset must be a Vec2")
+
         self.__offset = offset
 
     def update(self):
