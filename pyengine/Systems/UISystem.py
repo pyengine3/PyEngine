@@ -1,5 +1,5 @@
 import pygame
-from pyengine.Widgets import Entry
+from pyengine.Widgets import Entry, Button
 from pyengine.Widgets.Widget import Widget
 
 __all__ = ["UISystem"]
@@ -48,6 +48,11 @@ class UISystem:
                 if self.focus == i:
                     self.focus.focusout()
         self.focus = focustemp
+
+    def mousemotion(self, evt):
+        for i in self.widgets.sprites():
+            if isinstance(i, Button):
+                i.mousemotion(evt)
 
     def keypress(self, evt):
         for i in self.widgets.sprites():

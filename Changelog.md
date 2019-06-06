@@ -13,6 +13,7 @@
 	- TextComponent : Add background color
 	- TextComponent : Add scale
 	- Label : Add background color
+	- Button : Add white filter when it is hovered
 	- Vec2 : Create vector 2
 	- Color : Can be add, substact and compared
 	- Font : Can be compared

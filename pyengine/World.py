@@ -82,6 +82,9 @@ class World:
         self.systems["Entity"].keyup(evt)
         self.systems["UI"].keyup(evt)
 
+    def mousemotion(self, evt):
+        self.systems["UI"].mousemotion(evt)
+
     def event(self, evt):
         if evt.type == self.systems["Music"].ENDSOUND:
             self.systems["Music"].next_song()

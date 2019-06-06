@@ -80,6 +80,8 @@ class Window:
             self.world.mousepress(evt)
         elif evt.type == const.KEYUP:
             self.world.keyup(evt)
+        elif evt.type == const.MOUSEMOTION:
+            self.world.mousemotion(evt)
         else:
             self.world.event(evt)
 

@@ -25,6 +25,7 @@ class Button(Widget):
         self.label.parent = self
         self.position = position
         self.size = size
+        self.ishover = False
         self.command = command
         self.update_render()
 
@@ -77,5 +78,23 @@ class Button(Widget):
                 self.rect.height and self.command:
             self.command(self, evt.button)
             return True
+
+    def mousemotion(self, evt):
+        if self.rect.x <= evt.pos[0] <= self.rect.x + self.rect.width and self.rect.y <= evt.pos[1] <= self.rect.y + \
+                self.rect.height:
+            if not self.ishover:
+                t = pygame.surfarray.array3d(self.image)
+                for i in t:
+                    for j in i:
+                        j += 10
+                pygame.surfarray.blit_array(self.image, t)
+                self.ishover = True
+        elif self.ishover:
+            t = pygame.surfarray.array3d(self.image)
+            for i in t:
+                for j in i:
+                    j -= 10
+            pygame.surfarray.blit_array(self.image, t)
+            self.ishover = False
 
 
