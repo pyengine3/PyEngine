@@ -4,7 +4,7 @@ __all__ = ["Font"]
 
 
 class Font:
-    def __init__(self, name="arial", size=15, bold=False, italic=False):
+    def __init__(self, name="Arial", size=15, bold=False, italic=False):
         self.name = name
         self.size = size
         self.bold = bold
@@ -18,7 +18,6 @@ class Font:
     @name.setter
     def name(self, name):
         self.__name = name
-        return self
 
     @property
     def size(self):
@@ -47,9 +46,6 @@ class Font:
     def __eq__(self, other):
         return self.name == other.name and self.size == other.size and\
                self.bold == other.bold and self.italic == other.italic
-
-    def __ne__(self, other):
-        return not self == other
 
     def render(self):
         return pygame.font.SysFont(self.name, self.size, self.bold, self.italic)
