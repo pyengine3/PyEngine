@@ -52,6 +52,11 @@ class Entity(pygame.sprite.Sprite):
         self.components.append(component)
         return component
 
+    def remove_component(self, component: ctypes) -> None:
+        for i in self.components:
+            if isinstance(i, component):
+                del self.components[self.components.index(i)]
+
     def has_component(self, component: ctypes) -> bool:
         for i in self.components:
             if isinstance(i, component):

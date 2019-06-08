@@ -10,6 +10,7 @@
     - GameState : Rename to World
 	- World : Remove has system function
 	- Entity-Exception : Replace WrongObjectError to TypeError
+	- Entity : Can remove component
     - CameraSystem : Create basic camera
 	- MoveComponent : Remove speed
 	- TextComponent : Add background color

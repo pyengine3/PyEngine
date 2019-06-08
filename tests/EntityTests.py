@@ -34,3 +34,5 @@ class EntityTests(unittest.TestCase):
         self.assertFalse(self.e.has_component(TextComponent))
         for i in self.components:
             self.assertEqual(self.e.get_component(type(i)), i)
+        self.e.remove_component(PhysicsComponent)
+        self.assertFalse(self.e.has_component(PhysicsComponent))
