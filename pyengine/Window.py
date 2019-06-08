@@ -3,12 +3,14 @@ import os
 from pyengine.World import World
 from pyengine.Utils import Color, Colors
 from pygame import locals as const
+from typing import Union
 
 __all__ = ["Window"]
 
 
 class Window:
-    def __init__(self, width, height, color=Colors.BLACK.value, title="PyEngine", icon=None, debug=False):
+    def __init__(self, width: int, height: int, color: Color =Colors.BLACK.value,
+                 title: str = "PyEngine", icon: Union[None, str] = None, debug: bool = False):
         if icon is not None:
             pygame.display.set_icon(pygame.image.load(icon))
 
@@ -85,10 +87,10 @@ class Window:
         else:
             self.world.event(evt)
 
-    def stop(self):
+    def stop(self) -> None:
         self.launch = False
 
-    def run(self):
+    def run(self) -> None:
         while self.launch:
             for event in pygame.event.get():
                 self.__process_event(event)

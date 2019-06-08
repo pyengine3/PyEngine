@@ -10,6 +10,10 @@ class WorldCallbacks(Enum):
 # StateCallbacks doit être défini avant les imports
 from pyengine.Exceptions import NoObjectError
 from pyengine.Systems import EntitySystem, MusicSystem, UISystem, SoundSystem, CameraSystem
+from typing import Any, Type, Union
+
+sunion = Union[EntitySystem, MusicSystem, UISystem, SoundSystem, CameraSystem]
+stypes = Union[Type[EntitySystem], Type[MusicSystem], Type[UISystem], Type[SoundSystem], Type[CameraSystem]]
 
 
 class World:
@@ -39,20 +43,20 @@ class World:
     def window(self, val):
         self.__window = val
 
-    def set_callback(self, callback, function):
+    def set_callback(self, callback: WorldCallbacks, function: Any) -> None:
         if type(callback) == WorldCallbacks:
             self.callbacks[callback] = function
         else:
             raise TypeError("Callback must be a StateCallback (from StateCallbacks Enum)")
 
-    def call(self, callback, *param):
+    def call(self, callback: WorldCallbacks, *param) -> None:
         if type(callback) == WorldCallbacks:
             if self.callbacks[callback] is not None:
                 self.callbacks[callback](*param)  # Call function which is represented by the callback
         else:
             raise TypeError("Callback must be a StateCallback (from StateCallbacks Enum)")
 
-    def get_system(self, classe):
+    def get_system(self, classe: stypes) -> sunion:
         for i in self.systems.values():
             if type(i) == classe:
                 return i

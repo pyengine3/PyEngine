@@ -2,7 +2,7 @@ __all__ = ["LifeComponent"]
 
 
 class LifeComponent:
-    def __init__(self, maxlife=100):
+    def __init__(self, maxlife: int = 100):
         self.entity = None
         self.maxlife = maxlife
         self.life = maxlife

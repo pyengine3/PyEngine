@@ -7,7 +7,7 @@ __all__ = ["SpriteComponent"]
 
 
 class SpriteComponent:
-    def __init__(self, image, scale=1, rotation=0):
+    def __init__(self, image: str, scale: int = 1, rotation: int = 0):
         self.__entity = None
         self.__sprite = image
         self.__scale = scale

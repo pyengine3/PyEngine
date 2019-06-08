@@ -1,6 +1,12 @@
 import pygame
 from pyengine.Components import *
 from pyengine.World import WorldCallbacks
+from typing import Union, Type
+
+cunion = Union[PositionComponent, SpriteComponent, ControlComponent,
+               PhysicsComponent, TextComponent, LifeComponent, MoveComponent]
+ctypes = Union[Type[PositionComponent], Type[SpriteComponent], Type[ControlComponent],
+               Type[PhysicsComponent], Type[TextComponent], Type[LifeComponent], Type[MoveComponent]]
 
 __all__ = ["Entity"]
 
@@ -33,7 +39,7 @@ class Entity(pygame.sprite.Sprite):
     def attach_entity(self, entity):
         self.attachedentities.append(entity)
 
-    def add_component(self, component):
+    def add_component(self, component: cunion) -> cunion:
         found = False
         for i in [PositionComponent, SpriteComponent, ControlComponent, PhysicsComponent,
                   TextComponent, LifeComponent, MoveComponent]:
@@ -46,13 +52,13 @@ class Entity(pygame.sprite.Sprite):
         self.components.append(component)
         return component
 
-    def has_component(self, component):
+    def has_component(self, component: ctypes) -> bool:
         for i in self.components:
             if isinstance(i, component):
                 return True
         return False
 
-    def get_component(self, component):
+    def get_component(self, component: ctypes) -> cunion:
         for i in self.components:
             if isinstance(i, component):
                 return i

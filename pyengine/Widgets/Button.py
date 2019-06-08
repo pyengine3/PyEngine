@@ -2,12 +2,14 @@ import pygame
 from pyengine.Widgets.Widget import Widget
 from pyengine.Widgets import Label
 from pyengine.Utils import Vec2
+from typing import Union, Callable, Tuple
 
 __all__ = ["Button"]
 
 
 class Button(Widget):
-    def __init__(self, position, text, command=None, size=None, sprite=None):
+    def __init__(self, position: Vec2, text: str, command: Union[None, Callable[[int], None]] = None,
+                 size: Union[None, Tuple[int, int]] = None, sprite: Union[None, str] = None):
         super(Button, self).__init__(position)
 
         if size is None:
@@ -48,7 +50,6 @@ class Button(Widget):
             image = pygame.image.load(val)
             self.image = pygame.transform.scale(image, self.size)
         self.update_render()
-
 
     @property
     def size(self):

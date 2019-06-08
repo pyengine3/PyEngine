@@ -1,12 +1,14 @@
 from pyengine.Exceptions import CompatibilityError
 from pyengine.Utils import Font, Color, Colors
 import pygame
+from typing import Union
 
 __all__ = ["TextComponent"]
 
 
 class TextComponent:
-    def __init__(self, text, color=Colors.WHITE.value, font=Font(), background=None, scale=1):
+    def __init__(self, text: str, color: Color = Colors.WHITE.value, font: Font = Font(),
+                 background: Union[None, Color] = None, scale: int = 1):
         if not isinstance(font, Font):
             raise TypeError("Font have not a Font type")
         if not isinstance(color, Color):
@@ -93,7 +95,7 @@ class TextComponent:
     def rendered_size(self, val):
         pass
 
-    def render(self):
+    def render(self) -> pygame.Surface:
         if self.background is None:
             image = self.font.render().render(self.text, 1, self.color.get())
         else:

@@ -3,6 +3,7 @@
 ## V 1.2.0 : XXX Update - XX/XX/19
 
     - All : Use property decorator
+	- All : Add annotation on function will be used by users
     - Window : Modify management of Worlds
     - Window : Created in middle of the screen
 	- Window : Can modify size

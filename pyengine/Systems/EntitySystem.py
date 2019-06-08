@@ -1,23 +1,24 @@
 import pygame
 from pyengine.Exceptions import NoObjectError
 from pyengine.Components import PositionComponent, SpriteComponent, TextComponent, ControlComponent
+from pyengine import World
 from pyengine.Entity import Entity
 
 __all__ = ["EntitySystem"]
 
 
 class EntitySystem:
-    def __init__(self, world):
+    def __init__(self, world: World):
         self.world = world
         self.entities = pygame.sprite.Group()
         self.texts = pygame.sprite.Group()
 
-    def get_entity(self, identity):
+    def get_entity(self, identity: int) -> Entity:
         for i in self.entities.sprites() + self.texts.sprites():
             if i.identity == identity:
                 return i
 
-    def add_entity(self, entity):
+    def add_entity(self, entity: Entity) -> Entity:
         if not isinstance(entity, Entity):
             raise TypeError("Argument is not type of "+str(Entity)+" but "+str(type(entity))+".")
         if not entity.has_component(PositionComponent):
@@ -35,10 +36,10 @@ class EntitySystem:
             self.texts.add(entity)
         return entity
 
-    def has_entity(self, entity):
+    def has_entity(self, entity: Entity) -> bool:
         return entity in self.entities or entity in self.texts
 
-    def remove_entity(self, entity):
+    def remove_entity(self, entity: Entity) -> None:
         if entity.has_component(SpriteComponent):
             if entity in self.entities:
                 self.entities.remove(entity)

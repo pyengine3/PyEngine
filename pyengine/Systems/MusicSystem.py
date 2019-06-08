@@ -30,7 +30,7 @@ class MusicSystem:
             raise ValueError("Volume can't be lower than 0 and bigger than 100")
         pygame.mixer.music.set_volume(volume/100)
 
-    def next_song(self):
+    def next_song(self) -> None:
         if len(self.queue):
             pygame.mixer.music.load(self.queue[0])
             pygame.mixer.music.play()
@@ -38,10 +38,10 @@ class MusicSystem:
                 self.queue.append(self.queue[0])
             del self.queue[0]
 
-    def clear_queue(self):
+    def clear_queue(self) -> None:
         self.queue = []
 
-    def play(self):
+    def play(self) -> None:
         if len(self.queue):
             pygame.mixer.music.load(self.queue[0])
             pygame.mixer.music.play()
@@ -51,18 +51,18 @@ class MusicSystem:
         else:
             raise NoObjectError("MusicSystem have any music to play")
 
-    def add(self, file):
+    def add(self, file: str) -> None:
         self.queue.append(file)
 
     @staticmethod
-    def stop():
+    def stop() -> None:
         pygame.mixer.music.stop()
 
     @staticmethod
-    def pause():
+    def pause() -> None:
         pygame.mixer.music.pause()
 
     @staticmethod
-    def unpause():
+    def unpause() -> None:
         pygame.mixer.music.unpause()
 

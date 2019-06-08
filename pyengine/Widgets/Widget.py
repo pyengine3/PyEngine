@@ -5,7 +5,7 @@ __all__ = ["Widget"]
 
 
 class Widget(pygame.sprite.Sprite):
-    def __init__(self, position):
+    def __init__(self, position: Vec2):
         super(Widget, self).__init__()
 
         if not isinstance(position, Vec2):
@@ -54,13 +54,13 @@ class Widget(pygame.sprite.Sprite):
     def focusout(self):
         pass
 
-    def is_show(self):
+    def is_show(self) -> bool:
         return self.isshow
 
-    def show(self):
+    def show(self) -> None:
         self.isshow = True
 
-    def hide(self):
+    def hide(self) -> None:
         self.isshow = False
 
     def update_rect(self):

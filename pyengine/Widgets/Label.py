@@ -1,12 +1,14 @@
 from pyengine.Widgets.Widget import Widget
-from pyengine.Utils import Font, Color, Colors
+from pyengine.Utils import Font, Color, Colors, Vec2
 import pygame
+from typing import Union
 
 __all__ = ["Label"]
 
 
 class Label(Widget):
-    def __init__(self, position, text, color=Colors.WHITE.value, font=Font(), background=None):
+    def __init__(self, position: Vec2, text: str, color: Color = Colors.WHITE.value,
+                 font: Font = Font(), background: Union[None, Color] = None):
         super(Label, self).__init__(position)
 
         if not isinstance(font, Font):

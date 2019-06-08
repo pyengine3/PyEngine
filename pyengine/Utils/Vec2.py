@@ -1,19 +1,20 @@
 import math
+from typing import Tuple
 
 __all__ = ["Vec2"]
 
 
 class Vec2:
-    def __init__(self, x=0, y=0):
+    def __init__(self, x: int = 0, y: int = 0):
         self.x = x
         self.y = y
 
     @property
-    def coords(self):
+    def coords(self) -> Tuple[int, int]:
         return self.x, self.y
 
     @coords.setter
-    def coords(self, dic):
+    def coords(self, dic: Tuple[int, int]) -> None:
         self.x = dic[0]
         self.y = dic[1]
 
@@ -49,10 +50,10 @@ class Vec2:
         else:
             return Vec2(self.x * other, self.y * other)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return str(self.coords)
 
-    def __eq__(self, other):
+    def __eq__(self, other) -> bool:
         return self.x == other.x and self.y == other.y
 
     def __neg__(self):

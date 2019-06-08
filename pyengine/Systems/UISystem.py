@@ -1,22 +1,23 @@
 import pygame
 from pyengine.Widgets import Entry, Button
 from pyengine.Widgets.Widget import Widget
+from pyengine import World
 
 __all__ = ["UISystem"]
 
 
 class UISystem:
-    def __init__(self, world):
+    def __init__(self, world: World):
         self.world = world
         self.widgets = pygame.sprite.Group()
         self.focus = None
 
-    def get_widget(self, identity):
+    def get_widget(self, identity: int) -> Widget:
         for i in self.widgets:
             if i.identity == identity:
                 return i
 
-    def add_widget(self, widget):
+    def add_widget(self, widget: Widget) -> Widget:
         if not isinstance(widget, Widget):
             raise TypeError("Argument is not type of "+str(Widget)+" but "+str(type(widget))+".")
         if len(self.widgets):
@@ -27,10 +28,10 @@ class UISystem:
         widget.system = self
         return widget
 
-    def has_widget(self, widget):
+    def has_widget(self, widget: Widget) -> bool:
         return widget in self.widgets
 
-    def remove_widget(self, widget):
+    def remove_widget(self, widget: Widget) -> None:
         if widget in self.widgets:
             self.widgets.remove(widget)
         else:

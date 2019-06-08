@@ -4,7 +4,7 @@ __all__ = ["Font"]
 
 
 class Font:
-    def __init__(self, name="Arial", size=15, bold=False, italic=False):
+    def __init__(self, name: str = "Arial", size: int = 15, bold: bool = False, italic: bool = False):
         self.name = name
         self.size = size
         self.bold = bold
@@ -43,9 +43,12 @@ class Font:
     def italic(self, italic):
         self.__italic = italic
 
-    def __eq__(self, other):
+    def __eq__(self, other) -> bool:
         return self.name == other.name and self.size == other.size and\
                self.bold == other.bold and self.italic == other.italic
 
-    def render(self):
+    def __repr__(self) -> str:
+        return str([self.name, self.size, self.bold, self.italic])
+
+    def render(self) -> pygame.font:
         return pygame.font.SysFont(self.name, self.size, self.bold, self.italic)

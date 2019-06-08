@@ -4,7 +4,7 @@ __all__ = ["PositionComponent"]
 
 
 class PositionComponent:
-    def __init__(self, position, offset=Vec2()):
+    def __init__(self, position: Vec2, offset: Vec2 = Vec2()):
         self.__entity = None
 
         if not isinstance(position, Vec2):

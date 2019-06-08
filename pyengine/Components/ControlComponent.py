@@ -31,7 +31,7 @@ class MouseButton(Enum):
 
 
 class ControlComponent:
-    def __init__(self, controltype, speed=5):
+    def __init__(self, controltype: ControlType, speed: int = 5):
         self.entity = None
         self.controltype = controltype
         self.speed = speed
@@ -60,12 +60,12 @@ class ControlComponent:
     def speed(self, speed):
         self.__speed = speed
 
-    def set_control(self, name, key):
+    def set_control(self, name: Controls, key: const) -> None:
         if not isinstance(name, Controls):
             raise TypeError("Name must be a Controls type")
         self.controles[name] = key
 
-    def get_control(self, name):
+    def get_control(self, name: Controls) -> const:
         if not isinstance(name, Controls):
             raise TypeError("Name must be a Controls type")
         return self.controles[name]

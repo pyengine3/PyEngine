@@ -6,7 +6,7 @@ __all__ = ["MoveComponent"]
 
 
 class MoveComponent:
-    def __init__(self, direction):
+    def __init__(self, direction: Vec2):
         self.entity = None
         self.direction = direction
 

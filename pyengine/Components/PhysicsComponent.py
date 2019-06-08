@@ -17,7 +17,7 @@ class CollisionCauses(Enum):
 
 
 class PhysicsComponent:
-    def __init__(self, affectbygravity=True, gravity_force=5):
+    def __init__(self, affectbygravity: bool = True, gravity_force: int = 5):
         self.entity = None
         self.affectbygravity = affectbygravity
         self.gravity = gravity_force
@@ -51,7 +51,7 @@ class PhysicsComponent:
     def callback(self, function):
         self.__callback = function
 
-    def can_go(self, position, createdby=CollisionCauses.UNKNOWN):
+    def can_go(self, position: Vec2, createdby: CollisionCauses = CollisionCauses.UNKNOWN) -> bool:
         gosprite = pygame.sprite.Sprite()
         gosprite.rect = pygame.rect.Rect(position.x, position.y, self.entity.image.get_width(),
                                          self.entity.image.get_height())

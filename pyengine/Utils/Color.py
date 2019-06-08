@@ -1,15 +1,16 @@
 from enum import Enum
+from typing import Tuple
 
 __all__ = ["Color", "Colors"]
 
 
 class Color:
-    def __init__(self, r=255, g=255, b=255):
+    def __init__(self, r: int = 255, g: int = 255, b: int = 255):
         self.r = r
         self.g = g
         self.b = b
 
-    def get(self):
+    def get(self) -> Tuple[int, int, int]:
         return self.r, self.g, self.b
 
     def set(self, color):
@@ -72,15 +73,18 @@ class Color:
             b = 0
         return Color(r, g, b)
 
-    def __eq__(self, other):
+    def __eq__(self, other) -> bool:
         return self.r == other.r and self.g == other.g and self.b == other.b
+
+    def __repr__(self) -> str:
+        return str(self.get())
 
 
 class Colors(Enum):
-    WHITE = Color(255, 255, 255)
-    BLACK = Color(0, 0, 0)
-    RED = Color(255, 0, 0)
-    GREEN = Color(0, 255, 0)
-    BLUE = Color(0, 0, 255)
+    WHITE: Color = Color(255, 255, 255)
+    BLACK: Color = Color(0, 0, 0)
+    RED: Color = Color(255, 0, 0)
+    GREEN: Color = Color(0, 255, 0)
+    BLUE: Color = Color(0, 0, 255)
 
 

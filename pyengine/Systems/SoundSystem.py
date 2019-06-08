@@ -25,7 +25,7 @@ class SoundSystem:
     def number_channel(self, nb):
         pygame.mixer.set_num_channels(nb)
 
-    def play(self, file):
+    def play(self, file: str) -> None:
         sound = pygame.mixer.Sound(file)
         sound.set_volume(self.volume/100)
         sound.play()

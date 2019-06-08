@@ -1,11 +1,13 @@
 import pygame
 from pyengine.Widgets.Widget import Widget
+from pyengine.Utils import Vec2
+from typing import Union, Tuple
 
 __all__ = ["Image"]
 
 
 class Image(Widget):
-    def __init__(self, position, sprite, size=None):
+    def __init__(self, position: Vec2, sprite: str, size: Union[None, Tuple[int, int]] = None):
         super(Image, self).__init__(position)
 
         self.sprite = sprite

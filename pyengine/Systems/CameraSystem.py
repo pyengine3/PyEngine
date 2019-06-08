@@ -1,12 +1,13 @@
 from pyengine.Systems import EntitySystem
 from pyengine.Components import PositionComponent, SpriteComponent, TextComponent
 from pyengine.Utils import Vec2
+from pyengine import World
 
 __all__ = ["CameraSystem"]
 
 
 class CameraSystem:
-    def __init__(self, world):
+    def __init__(self, world: World):
         self.world = world
         self.__position = Vec2()
         self.offset = Vec2()

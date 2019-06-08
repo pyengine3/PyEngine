@@ -3,12 +3,13 @@ from pyengine.Widgets.Widget import Widget
 from pyengine.Widgets import Label
 from pyengine.Utils import Vec2, Colors, Font
 from pygame import locals as const
+from typing import Union
 
 __all__ = ["Entry"]
 
 
 class Entry(Widget):
-    def __init__(self, position, width=200, image=None):
+    def __init__(self, position: Vec2, width: int = 200, image: Union[None, str] = None):
         super(Entry, self).__init__(position)
 
         self.width = width
