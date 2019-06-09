@@ -1,6 +1,6 @@
 # Changelog
 
-## V 1.2.0 : XXX Update - XX/XX/19
+## V 1.2.0 : Property Update - 09/06/19
 
     - All : Use property decorator
 	- All : Add annotation on function will be used by users
