@@ -1,5 +1,9 @@
 # Changelog
 
+## V 1.3.0 : XXX Update - XX/XX/19
+
+    - loggers : Create logging System
+
 ## V 1.2.0 : Property Update - 09/06/19
 
     - All : Use property decorator

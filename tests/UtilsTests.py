@@ -97,3 +97,22 @@ class Vec2Tests(unittest.TestCase):
     def test_repr(self):
         self.assertEqual(self.vec.__repr__(), "(0, 0)")
 
+
+class LoggersTests(unittest.TestCase):
+    def setUp(self):
+        self.log = loggers.create_logger("Test", "logs/test.log", False)
+
+    def test_loggers(self):
+        with self.assertRaises(KeyError):
+            loggers.get_logger("B")
+        self.assertEqual(self.log, loggers.get_logger("Test"))
+
+    def test_write(self):
+        self.log.info("TEST")
+        with open("logs/test.log") as f:
+            self.assertEqual(f.readlines()[-1].split(" ")[-1], "TEST\n")
+        loggers.get_logger("PyEngine").info("TEST")
+        with open("logs/pyengine.log") as f:
+            self.assertEqual(f.readlines()[-1].split(" ")[-1], "TEST\n")
+
+

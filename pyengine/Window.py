@@ -1,7 +1,8 @@
 import pygame
 import os
+import logging
 from pyengine.World import World
-from pyengine.Utils import Color, Colors
+from pyengine.Utils import Color, Colors, loggers
 from pygame import locals as const
 from typing import Union
 
@@ -9,7 +10,7 @@ __all__ = ["Window"]
 
 
 class Window:
-    def __init__(self, width: int, height: int, color: Color =Colors.BLACK.value,
+    def __init__(self, width: int, height: int, color: Color = Colors.BLACK.value,
                  title: str = "PyEngine", icon: Union[None, str] = None, debug: bool = False):
         if icon is not None:
             pygame.display.set_icon(pygame.image.load(icon))
@@ -29,6 +30,8 @@ class Window:
         self.debugfont = pygame.font.SysFont("arial", 15)
 
         pygame.key.set_repeat(1, 1)
+
+        loggers.get_logger("PyEngine").info("Window created")
 
     @property
     def title(self):
@@ -65,6 +68,11 @@ class Window:
     def debug(self, debug):
         self.__debug = debug
 
+        if debug:
+            loggers.get_logger("PyEngine").setLevel(logging.DEBUG)
+        else:
+            loggers.get_logger("PyEngine").setLevel(logging.INFO)
+
     @property
     def world(self):
         return self.__world
@@ -75,7 +83,7 @@ class Window:
 
     def __process_event(self, evt):
         if evt.type == const.QUIT:
-            self.launch = False
+            self.stop()
         elif evt.type == const.KEYDOWN:
             self.world.keypress(evt)
         elif evt.type == const.MOUSEBUTTONDOWN:
@@ -88,9 +96,11 @@ class Window:
             self.world.event(evt)
 
     def stop(self) -> None:
+        loggers.get_logger("PyEngine").info("Stop Window")
         self.launch = False
 
     def run(self) -> None:
+        loggers.get_logger("PyEngine").info("Run Window")
         while self.launch:
             for event in pygame.event.get():
                 self.__process_event(event)

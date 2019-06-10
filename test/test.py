@@ -2,15 +2,16 @@ from pyengine import Window, World, Entity
 from pyengine.Systems import UISystem, EntitySystem, CameraSystem
 from pyengine.Components import PositionComponent, TextComponent, SpriteComponent
 from pyengine.Widgets import Label, Button
-from pyengine.Utils import Colors, Font, Vec2
-
-import pygame
+from pyengine.Utils import Colors, Font, Vec2, loggers
 
 
 class Menu:
     def __init__(self):
         self.window = Window(300, 200, Colors.WHITE.value)
         self.window.title = "Menu"
+
+        logs = loggers.create_logger("Game", "logs/game.log", True)
+        logs.info("Window of Game created")
 
         self.gameworld = World(self.window)
         self.menuworld = World(self.window)
