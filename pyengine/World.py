@@ -63,7 +63,7 @@ class World:
 
     def run(self):
         if self.window is None:
-            raise NoObjectError("GameState is attached to any Window.")
+            raise NoObjectError("World is attached to any Window.")
 
         self.systems["Entity"].update()
         self.systems["UI"].update()
