@@ -48,6 +48,7 @@ class Loggers:
 
     def create_logger(self, name, file=None, stream=False):
         self.loggers[name] = Logger(name, file, stream)
+        self.loggers[name].setLevel(self.loggers["PyEngine"].getEffectiveLevel())
         return self.loggers[name]
 
     def get_logger(self, name):

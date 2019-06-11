@@ -67,7 +67,16 @@ class Window:
         self.__debug = debug
 
         if debug:
+            os.environ['SDL_DEBUG'] = '1'
+            for n, l in loggers.get_all():
+                l.setLevel(logging.DEBUG)
         else:
+            try:
+                del os.environ['SDL_DEBUG']
+            except KeyError:
+                pass
+            for n, l in loggers.get_all():
+                l.setLevel(logging.INFO)
 
     @property
     def world(self):
