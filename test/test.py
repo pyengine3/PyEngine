@@ -11,6 +11,7 @@ class Menu:
         self.window.title = "Menu"
 
         logs = loggers.create_logger("Game", "logs/game.log", True)
+        logs.debug("Window of Game created")  # Don't be showed because Window isn't in debug mode
         logs.info("Window of Game created")
 
         self.gameworld = World(self.window)
