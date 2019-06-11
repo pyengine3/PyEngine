@@ -2,6 +2,7 @@ import pygame
 from pyengine.Components import *
 from pyengine.World import WorldCallbacks
 from typing import Union, Type
+from pyengine.Utils import loggers
 
 cunion = Union[PositionComponent, SpriteComponent, ControlComponent,
                PhysicsComponent, TextComponent, LifeComponent, MoveComponent]
@@ -57,7 +58,9 @@ class Entity(pygame.sprite.Sprite):
     def remove_component(self, component: ctypes) -> None:
         for i in self.components:
             if isinstance(i, component):
+                loggers.get_logger("PyEngine").debug("Deleting "+str(component))
                 del self.components[self.components.index(i)]
+        loggers.get_logger("PyEngine").info("Deleting component can be dangerous.")
 
     def has_component(self, component: ctypes) -> bool:
         for i in self.components:
@@ -69,6 +72,7 @@ class Entity(pygame.sprite.Sprite):
         for i in self.components:
             if isinstance(i, component):
                 return i
+        loggers.get_logger("PyEngine").warning("Try to get "+str(component)+" but Entity don't have it")
 
     def update(self):
         if self.has_component(PhysicsComponent):

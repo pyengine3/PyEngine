@@ -31,8 +31,6 @@ class Window:
 
         pygame.key.set_repeat(1, 1)
 
-        loggers.get_logger("PyEngine").info("Window created")
-
     @property
     def title(self):
         return pygame.display.get_caption()[0]
@@ -69,9 +67,7 @@ class Window:
         self.__debug = debug
 
         if debug:
-            loggers.get_logger("PyEngine").setLevel(logging.DEBUG)
         else:
-            loggers.get_logger("PyEngine").setLevel(logging.INFO)
 
     @property
     def world(self):
@@ -96,11 +92,9 @@ class Window:
             self.world.event(evt)
 
     def stop(self) -> None:
-        loggers.get_logger("PyEngine").info("Stop Window")
         self.launch = False
 
     def run(self) -> None:
-        loggers.get_logger("PyEngine").info("Run Window")
         while self.launch:
             for event in pygame.event.get():
                 self.__process_event(event)

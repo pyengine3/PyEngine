@@ -3,6 +3,7 @@ from pyengine.Exceptions import NoObjectError
 from pyengine.Components import PositionComponent, SpriteComponent, TextComponent, ControlComponent
 from pyengine import World
 from pyengine.Entity import Entity
+from pyengine.Utils import loggers
 
 __all__ = ["EntitySystem"]
 
@@ -17,6 +18,7 @@ class EntitySystem:
         for i in self.entities.sprites() + self.texts.sprites():
             if i.identity == identity:
                 return i
+        loggers.get_logger("PyEngine").warning("Try to get widget with id "+str(identity)+" but it doesn't exist")
 
     def add_entity(self, entity: Entity) -> Entity:
         if not isinstance(entity, Entity):

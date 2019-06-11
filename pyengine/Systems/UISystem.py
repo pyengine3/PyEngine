@@ -2,6 +2,7 @@ import pygame
 from pyengine.Widgets import Entry, Button
 from pyengine.Widgets.Widget import Widget
 from pyengine import World
+from pyengine.Utils import loggers
 
 __all__ = ["UISystem"]
 
@@ -16,6 +17,7 @@ class UISystem:
         for i in self.widgets:
             if i.identity == identity:
                 return i
+        loggers.get_logger("PyEngine").warning("Try to get widget with id "+str(identity)+" but it doesn't exist")
 
     def add_widget(self, widget: Widget) -> Widget:
         if not isinstance(widget, Widget):

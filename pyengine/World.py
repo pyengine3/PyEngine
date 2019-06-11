@@ -11,6 +11,7 @@ class WorldCallbacks(Enum):
 from pyengine.Exceptions import NoObjectError
 from pyengine.Systems import EntitySystem, MusicSystem, UISystem, SoundSystem, CameraSystem
 from typing import Any, Type, Union
+from pyengine.Utils import loggers
 
 sunion = Union[EntitySystem, MusicSystem, UISystem, SoundSystem, CameraSystem]
 stypes = Union[Type[EntitySystem], Type[MusicSystem], Type[UISystem], Type[SoundSystem], Type[CameraSystem]]
@@ -60,6 +61,7 @@ class World:
         for i in self.systems.values():
             if type(i) == classe:
                 return i
+        loggers.get_logger("PyEngine").warning("Try to get "+str(classe)+" but World don't have it")
 
     def run(self):
         if self.window is None:
