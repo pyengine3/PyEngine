@@ -56,6 +56,9 @@ class Loggers:
         except KeyError:
             raise KeyError("Logger '"+name+"' doesn't exist")
 
+    def get_all(self):
+        return [[k, v] for k, v in self.loggers.items()]
+
 
 loggers = Loggers()
 
