@@ -48,6 +48,8 @@ class Entity(pygame.sprite.Sprite):
                 break
         if not found:
             raise TypeError("Entity can't have "+str(component)+" as component.")
+        if component in [type(c) for c in self.components]:
+            raise TypeError("Entity already have "+str(component)+" as component.")
         component.entity = self
         self.components.append(component)
         return component
