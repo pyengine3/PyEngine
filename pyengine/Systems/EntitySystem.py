@@ -80,6 +80,12 @@ class EntitySystem:
             screen.blit(text.render(), position.position.coords)
 
     def show_debug(self, screen):
-        for i in self.entities.sprites() + self.texts.sprites():
+        for i in self.entities.sprites():
             render = self.world.window.debugfont.render("ID : "+str(i.identity), 1, (255, 255, 0))
             screen.blit(render, (i.rect.x + i.rect.width / 2 - render.get_width()/2, i.rect.y - 20))
+        for i in self.texts.sprites():
+            render = self.world.window.debugfont.render("ID : "+str(i.identity), 1, (255, 255, 0))
+            position = i.get_component(PositionComponent)
+            text = i.get_component(TextComponent)
+            screen.blit(render, (position.position.x + text.rendered_size[0] / 2 - render.get_width()/2,
+                                 position.position.y - 20))
