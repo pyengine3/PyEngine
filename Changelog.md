@@ -3,6 +3,7 @@
 ## V 1.3.0 : XXX Update - XX/XX/19
 
     - loggers : Create logging System
+    - Lang : Create translate system
     - Entity : Can't have the same type of component two times
     
     - Crash Fix : Crash when show id of Entity Texts
