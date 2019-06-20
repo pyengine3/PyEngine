@@ -60,6 +60,19 @@ class Loggers:
     def get_all(self):
         return [[k, v] for k, v in self.loggers.items()]
 
+    def to_all(self, action: str, message: str) -> None:
+        for i in self.loggers.values():
+            if action == "debug":
+                i.debug(message)
+            elif action == "warning":
+                i.warning(message)
+            elif action == "error":
+                i.error(message)
+            elif action == "critical":
+                i.critical(message)
+            else:
+                i.info(message)
+
 
 loggers = Loggers()
 
