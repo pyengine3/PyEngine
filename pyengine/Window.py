@@ -103,6 +103,9 @@ class Window:
     def stop(self) -> None:
         self.launch = False
 
+    def is_running(self):
+        return self.launch
+
     def run(self) -> None:
         while self.launch:
             for event in pygame.event.get():
