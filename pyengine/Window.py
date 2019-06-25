@@ -13,6 +13,8 @@ __all__ = ["Window", "WindowCallbacks"]
 
 class WindowCallbacks(Enum):
     OUTOFWINDOW = 1
+    STOPWINDOW = 2
+    CHANGEWORLD = 3
 
 
 class Window:
@@ -39,6 +41,9 @@ class Window:
 
         self.callbacks = {
             WindowCallbacks.OUTOFWINDOW: None,
+            WindowCallbacks.STOPWINDOW: None,
+            WindowCallbacks.CHANGEWORLD: None
+        }
 
     @property
     def title(self):
@@ -93,6 +98,7 @@ class Window:
 
     @world.setter
     def world(self, world):
+        self.call(WindowCallbacks.CHANGEWORLD, self.__world, world)
         self.__world = world
 
     def __process_event(self, evt):
@@ -123,6 +129,7 @@ class Window:
             raise TypeError("Callback must be a WindowCallback (from WindowCallback Enum)")
 
     def stop(self) -> None:
+        self.call(WindowCallbacks.STOPWINDOW)
         self.launch = False
 
     def is_running(self):

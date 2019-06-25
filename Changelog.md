@@ -3,6 +3,8 @@
 ## V 1.3.0 : XXX Update - XX/XX/19
 
     - Window : Add is_running function
+    - Window-World : Rename and move WorldCallbacks to WindowCallbacks
+    - WindowCallbacks : Add CHANGEWORLD and STOPWINDOW
     - loggers : Create logging System
     - Lang : Create translate system
     - Config : Create Config system
