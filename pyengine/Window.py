@@ -1,12 +1,18 @@
+from pyengine.World import World
+from pyengine.Utils import Color, Colors, loggers
+
 import pygame
 import os
 import logging
-from pyengine.World import World
-from pyengine.Utils import Color, Colors, loggers
 from pygame import locals as const
-from typing import Union
+from typing import Union, Any
+from enum import Enum
 
-__all__ = ["Window"]
+__all__ = ["Window", "WindowCallbacks"]
+
+
+class WindowCallbacks(Enum):
+    OUTOFWINDOW = 1
 
 
 class Window:
@@ -23,13 +29,16 @@ class Window:
         self.clock = pygame.time.Clock()
         self.width = width
         self.height = height
-        self.world = World(self)
+        self.__world = World(self)
         self.launch = True
         self.debug = debug
         self.color = color
         self.debugfont = pygame.font.SysFont("arial", 15)
 
         pygame.key.set_repeat(1, 1)
+
+        self.callbacks = {
+            WindowCallbacks.OUTOFWINDOW: None,
 
     @property
     def title(self):
@@ -99,6 +108,19 @@ class Window:
             self.world.mousemotion(evt)
         else:
             self.world.event(evt)
+
+    def set_callback(self, callback: WindowCallbacks, function: Any) -> None:
+        if type(callback) == WindowCallbacks:
+            self.callbacks[callback] = function
+        else:
+            raise TypeError("Callback must be a WindowCallback (from WindowCallback Enum)")
+
+    def call(self, callback: WindowCallbacks, *param) -> None:
+        if type(callback) == WindowCallbacks:
+            if self.callbacks[callback] is not None:
+                self.callbacks[callback](*param)  # Call function which is represented by the callback
+        else:
+            raise TypeError("Callback must be a WindowCallback (from WindowCallback Enum)")
 
     def stop(self) -> None:
         self.launch = False
