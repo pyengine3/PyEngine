@@ -9,5 +9,5 @@ except ModuleNotFoundError:
     pass
 
 __all__ = ["Window", "Entity", "ControlType", "const", "MouseButton", "CollisionCauses",
-__version__ = "1.2.0"
            "WindowCallbacks", "World", "Controls"]
+__version__ = "1.3.0"
