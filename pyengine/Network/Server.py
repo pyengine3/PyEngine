@@ -1,5 +1,6 @@
 import threading
 import socket
+from pyengine.Network.Packet import Packet
 
 
 class ClientThread(threading.Thread):
@@ -14,8 +15,10 @@ class ClientThread(threading.Thread):
         print("NEW CLIENT :", str(self.nb))
         while self.connected:
             try:
-                r = self.clientsocket.recv(2048).decode()
-                self.server.recieve(self.nb, r)
+                r = self.clientsocket.recv(2048)
+                r = Packet().from_recieve(r)
+                r.author = self.nb
+                self.server.recieve(r)
             except ConnectionAbortedError:
                 self.connected = False
             except ConnectionResetError:
@@ -37,12 +40,13 @@ class Server(threading.Thread):
             i.connected = False
         self.tcpsock.close()
 
-    def recieve(self, nb, message):
-        if len(message):
-            self.sendall(message, nb)
+    def recieve(self, packet):
+        if packet.message is not None and len(packet.message):
+            self.sendall(packet)
 
     def clientquit(self, nb):
-        print("FIN CLIENT :", str(nb))
+        print("END CLIENT :", str(nb))
+        self.sendall(Packet("END", nb, ""))
         del self.liste[nb]
 
     def run(self):
@@ -51,19 +55,20 @@ class Server(threading.Thread):
             (clientsocket, (ip, port)) = self.tcpsock.accept()
             newthread = ClientThread(self, clientsocket, self.nbclient)
             self.liste[self.nbclient] = newthread
+            self.sendall(Packet("NEW", self.nbclient, ""))
             self.nbclient += 1
             newthread.start()
 
-    def sendto(self, nb, message):
+    def sendto(self, nb, packet):
         try:
-            self.liste[nb].clientsocket.send(str.encode(message))
+            self.liste[nb].clientsocket.send(packet.to_send())
         except KeyError:
             pass
 
-    def sendall(self, message, sender=None):
+    def sendall(self, packet):
         temp = self.liste.copy()
         for i in temp.values():
-            if sender is None:
-                i.clientsocket.send(str.encode(message))
-            elif i != self.liste[sender]:
-                i.clientsocket.send(str.encode(str(sender)+": "+message))
+            if packet.author is None:
+                i.clientsocket.send(packet.to_send())
+            elif i != self.liste[packet.author]:
+                i.clientsocket.send(packet.to_send())
