@@ -1,5 +1,4 @@
-
-from pyengine.Network import NetworkManager
+from pyengine.Network import NetworkManager, Packet
 
 nw = NetworkManager()
 nw.create_server(1211)

@@ -26,19 +26,23 @@ class Game(Window):
     def stop_connexion(self):
         self.nw.stop_client()
 
-    def client_recieve(self, message):
-        nb, message = message.split(": ", 1)
-        pos = message.replace("(", "").replace(")", "").split(", ")
-        if len(pos) == 2:
-            try:
-                pos = Vec2(int(pos[0]), int(pos[1]))
-                if nb in self.entities:
-                    self.entities[nb].move_to(pos)
-                else:
-                    self.entities[nb] = Character(pos)
-                    self.esys.add_entity(self.entities[nb])
-            except ValueError:
-                pass
+    def client_recieve(self, type_, author, message):
+        if type_ == "pos":
+            pos = message.replace("(", "").replace(")", "").split(", ")
+            if len(pos) == 2:
+                try:
+                    pos = Vec2(int(pos[0]), int(pos[1]))
+                    if author in self.entities:
+                        self.entities[author].move_to(pos)
+                    else:
+                        self.entities[author] = Character(pos)
+                        self.esys.add_entity(self.entities[author])
+                except ValueError:
+                    pass
+        elif type_ == "END":
+            if author in self.entities:
+                self.esys.remove_entity(self.entities[author])
+                del self.entities[author]
 
 
 Game()

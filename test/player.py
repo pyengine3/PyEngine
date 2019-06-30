@@ -1,6 +1,7 @@
 from pyengine import Entity, ControlType
 from pyengine.Components import PositionComponent, PhysicsComponent, SpriteComponent, ControlComponent
 from pyengine.Utils import Vec2
+from pyengine.Network import Packet
 
 
 class Character(Entity):
@@ -27,4 +28,4 @@ class Player(Character):
         super(Player, self).update()
         poscomp = self.get_component(PositionComponent)
         if self.nw.client:
-            self.nw.client.send(poscomp.position)
+            self.nw.client.send(Packet("pos", None, str(poscomp.position)))
