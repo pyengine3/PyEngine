@@ -129,8 +129,8 @@ class Window:
             raise TypeError("Callback must be a WindowCallback (from WindowCallback Enum)")
 
     def stop(self) -> None:
-        self.call(WindowCallbacks.STOPWINDOW)
         self.launch = False
+        self.call(WindowCallbacks.STOPWINDOW)
 
     def is_running(self):
         return self.launch
