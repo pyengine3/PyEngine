@@ -12,6 +12,7 @@
     - Lang : Create translate system
     - Config : Create Config system
     - Entity : Can't have the same type of component two times
+	- Unit Tests : Update Window and World tests
     
     - Crash Fix : Crash when show id of Entity Texts
 

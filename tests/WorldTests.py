@@ -1,5 +1,5 @@
 import unittest
-from pyengine import World, WorldCallbacks, Window
+from pyengine import World, Window
 from pyengine.Systems import *
 
 
@@ -23,13 +23,5 @@ class WorldTests(unittest.TestCase):
         self.assertEqual(self.world.get_system(UISystem), self.world.systems["UI"])
         self.assertEqual(self.world.get_system(SoundSystem), self.world.systems["Sound"])
         self.assertEqual(self.world.get_system(CameraSystem), self.world.systems["Camera"])
-
-    def test_callback(self):
-        self.world.set_callback(WorldCallbacks.OUTOFWINDOW, self.callback)
-        self.world.call(WorldCallbacks.OUTOFWINDOW, None, None)
-
-    def callback(self, obj, pos):
-        self.assertIsNone(obj)
-        self.assertIsNone(pos)
 
 

@@ -1,5 +1,5 @@
 import unittest
-from pyengine import Window
+from pyengine import Window, WindowCallbacks
 from pyengine.Utils import Color
 
 
@@ -26,4 +26,21 @@ class WindowTests(unittest.TestCase):
         self.assertFalse(self.window.debug)
         self.window.debug = True
         self.assertTrue(self.window.debug)
-        
+
+    def test_callbacks(self):
+        self.window.set_callback(WindowCallbacks.STOPWINDOW, self.cstop)
+        self.window.set_callback(WindowCallbacks.CHANGEWORLD, self.cworld)
+        self.window.set_callback(WindowCallbacks.OUTOFWINDOW, self.cout)
+        self.window.call(WindowCallbacks.OUTOFWINDOW, None, None)
+        self.window.call(WindowCallbacks.CHANGEWORLD)
+        self.window.run()
+
+    def cstop(self):
+        self.assertEqual(self.window.is_running(), False)
+
+    def cworld(self):
+        pass
+
+    def cout(self, entity, pos):
+        self.assertIsNone(entity)
+        self.assertIsNone(pos)
