@@ -16,6 +16,12 @@ class CollisionCauses(Enum):
     MOVECOMPONENT = 7
 
 
+class CollisionInfos:
+    def __init__(self, cause: CollisionCauses, cote: str):
+        self.cause = cause
+        self.cote = cote
+
+
 class PhysicsComponent:
     def __init__(self, affectbygravity: bool = True, gravity_force: int = 5):
         self.entity = None
@@ -59,7 +65,18 @@ class PhysicsComponent:
         for i in collision:
             if i.has_component(PhysicsComponent) and i.identity != self.entity.identity:
                 if self.callback is not None:
-                    self.callback(i, createdby)
+                    entitypos = self.entity.get_component(PositionComponent).position
+                    ipos = i.get_component(PositionComponent).position
+                    if ipos.x - self.entity.image.get_width() < entitypos.x < ipos.x + i.image.get_width():
+                        if entitypos.y + self.entity.image.get_height() <= ipos.y:
+                            cinfos = CollisionInfos(createdby, "haut")
+                        else:
+                            cinfos = CollisionInfos(createdby, "bas")
+                    elif entitypos.x + self.entity.image.get_width() <= ipos.x:
+                        cinfos = CollisionInfos(createdby, "gauche")
+                    else:
+                        cinfos = CollisionInfos(createdby, "droite")
+                    self.callback(i, cinfos)
                 return False
         return True
 

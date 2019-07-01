@@ -5,6 +5,7 @@
     - Window : Add is_running function
     - Window-World : Rename and move WorldCallbacks to WindowCallbacks
     - WindowCallbacks : Add CHANGEWORLD and STOPWINDOW
+    - PhysicsComponent : Create CollisionInfos
     - Network : Create basic network system
     - loggers : Create logging System
     - Lang : Create translate system
