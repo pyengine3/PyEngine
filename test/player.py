@@ -22,7 +22,11 @@ class Player(Character):
         self.add_component(ControlComponent(ControlType.FOURDIRECTION))
         self.get_component(SpriteComponent).sprite = "images/sprite1.png"
         self.get_component(SpriteComponent).size = Vec2(20, 20)
+        self.get_component(PhysicsComponent).callback = self.collision
         self.nw = nw
+
+    def collision(self, obj, infos):
+        print(infos.cote)
 
     def update(self):
         super(Player, self).update()
