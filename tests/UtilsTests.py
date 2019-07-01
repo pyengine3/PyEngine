@@ -1,5 +1,6 @@
 import unittest
 from pyengine.Utils import *
+import os
 
 
 class ColorTests(unittest.TestCase):
@@ -115,4 +116,32 @@ class LoggersTests(unittest.TestCase):
         with open("logs/pyengine.log") as f:
             self.assertEqual(f.readlines()[-1].split(" ")[-1], "TEST\n")
 
+
+class LangTests(unittest.TestCase):
+    def setUp(self):
+        self.lang = Lang("files/fr.lang")
+
+    def test_lang(self):
+        self.assertEqual(self.lang.get_translate("accueil", "OUI"), "Bonjour")
+        self.assertEqual(self.lang.get_translate("wut", "OUI"), "OUI")
+        self.lang.file = "files/en.lang"
+        self.assertEqual(self.lang.get_translate("accueil", "OUI"), "Hello")
+        self.assertEqual(self.lang.get_translate("wut", "OUI"), "OUI")
+
+
+class ConfigTests(unittest.TestCase):
+    def setUp(self):
+        self.config = Config("config.conf")
+
+    def test_create(self):
+        self.config.create({"rep": "oui"})
+        self.assertEqual(self.config.get("rep"), "oui")
+        self.assertIsNone(self.config.get("wut"))
+        self.config.set("rep", "non")
+        self.assertEqual(self.config.get("rep"), "non")
+        self.config.save()
+        self.config.file = "config.conf"
+        self.assertEqual(self.config.get("rep"), "non")
+        self.assertIsNone(self.config.get("wut"))
+        os.remove("config.conf")
 

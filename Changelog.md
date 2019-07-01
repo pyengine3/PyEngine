@@ -5,13 +5,14 @@
     - Window : Add is_running function
     - Window-World : Rename and move WorldCallbacks to WindowCallbacks
     - WindowCallbacks : Add CHANGEWORLD and STOPWINDOW
+    - Entity : Can't have the same type of component two times
     - PhysicsComponent : Create CollisionInfos
     - MoveComponent : Unlock diagonal movement
     - Network : Create basic network system
     - loggers : Create logging System
     - Lang : Create translate system
     - Config : Create Config system
-    - Entity : Can't have the same type of component two times
+	- Unit Tests : Add loggers, config, lang tests
 	- Unit Tests : Update Window and World tests
     
     - Crash Fix : Crash when show id of Entity Texts
