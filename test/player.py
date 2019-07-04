@@ -1,5 +1,5 @@
 from pyengine import Entity, ControlType
-from pyengine.Components import PositionComponent, PhysicsComponent, SpriteComponent, ControlComponent
+from pyengine.Components import PositionComponent, PhysicsComponent, SpriteComponent, ControlComponent, AnimComponent
 from pyengine.Utils import Vec2
 from pyengine.Network import Packet
 
@@ -24,6 +24,7 @@ class Player(Character):
         self.get_component(SpriteComponent).size = Vec2(20, 20)
         self.get_component(PhysicsComponent).callback = self.collision
         self.nw = nw
+        self.add_component(AnimComponent(20, "images/sprite1.png", "images/sprite0.png"))
 
     def collision(self, obj, infos):
         print(infos.cote)
