@@ -4,9 +4,10 @@ from typing import Union, Type
 from pyengine.Utils import loggers
 
 cunion = Union[PositionComponent, SpriteComponent, ControlComponent,
-               PhysicsComponent, TextComponent, LifeComponent, MoveComponent]
+               PhysicsComponent, TextComponent, LifeComponent, MoveComponent, AnimComponent]
 ctypes = Union[Type[PositionComponent], Type[SpriteComponent], Type[ControlComponent],
-               Type[PhysicsComponent], Type[TextComponent], Type[LifeComponent], Type[MoveComponent]]
+               Type[PhysicsComponent], Type[TextComponent], Type[LifeComponent], Type[MoveComponent],
+               Type[AnimComponent]]
 
 __all__ = ["Entity"]
 
@@ -42,7 +43,7 @@ class Entity(pygame.sprite.Sprite):
     def add_component(self, component: cunion) -> cunion:
         found = False
         for i in [PositionComponent, SpriteComponent, ControlComponent, PhysicsComponent,
-                  TextComponent, LifeComponent, MoveComponent]:
+                  TextComponent, LifeComponent, MoveComponent, AnimComponent]:
             if isinstance(component, i):
                 found = True
                 break
@@ -95,3 +96,6 @@ class Entity(pygame.sprite.Sprite):
 
         if self.has_component(MoveComponent):
             self.get_component(MoveComponent).update()
+
+        if self.has_component(AnimComponent):
+            self.get_component(AnimComponent).update()
