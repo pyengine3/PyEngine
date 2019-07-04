@@ -16,6 +16,8 @@
     - Config : Create Config system
 	- Unit Tests : Add loggers, config, lang tests
 	- Unit Tests : Update Window and World tests
+	
+	- Bug Fix : Entry is update without focus
     
     - Crash Fix : Crash when show id of Entity Texts
 

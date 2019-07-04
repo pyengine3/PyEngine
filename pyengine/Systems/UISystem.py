@@ -55,7 +55,8 @@ class UISystem:
     def mousemotion(self, evt):
         for i in self.widgets.sprites():
             if isinstance(i, Button):
-                i.mousemotion(evt)
+                if self.focus == i:
+                    i.mousemotion(evt)
 
     def keypress(self, evt):
         for i in self.widgets.sprites():
@@ -72,7 +73,8 @@ class UISystem:
     def update(self):
         for i in self.widgets.sprites():
             if isinstance(i, Entry):
-                i.update()
+                if self.focus == i:
+                    i.update()
 
     def show(self, screen):
         for i in self.widgets.sprites():
