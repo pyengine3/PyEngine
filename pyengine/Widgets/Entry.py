@@ -22,6 +22,7 @@ class Entry(Widget):
         self.cursortimer = 20
         self.cursor = False
         self.typing = False
+        self.accepted = string.whitespace+string.ascii_letters+string.digits+string.punctuation
         self.update_render()
 
     @property
@@ -92,20 +93,21 @@ class Entry(Widget):
         self.typing = False
 
     def keypress(self, evt):
-        if evt.key == const.K_BACKSPACE and not self.typing:
-            if len(self.label.text):
+        if not self.typing:
+            if evt.key == const.K_BACKSPACE:
+                if len(self.label.text):
+                    if self.cursor:
+                        self.label.text = self.label.text[:-2]+"I"
+                    else:
+                        self.label.text = self.label.text[:-1]
+            elif evt.unicode in self.accepted:
                 if self.cursor:
-                    self.label.text = self.label.text[:-2]+"I"
+                    if self.label.rect.width + 15 < self.rect.width:
+                        self.label.text = self.label.text[:-1]+evt.unicode+"I"
                 else:
-                    self.label.text = self.label.text[:-1]
-        elif evt.unicode and not self.typing:
-            if self.cursor:
-                if self.label.rect.width + 10 < self.rect.width:
-                    self.label.text = self.label.text[:-1]+evt.unicode+"I"
-            else:
-                if self.label.rect.width + 10 < self.rect.width:
-                    self.label.text = self.label.text + evt.unicode
-        self.typing = True
+                    if self.label.rect.width + 20 < self.rect.width:
+                        self.label.text = self.label.text + evt.unicode
+            self.typing = True
 
     def update_render(self):
         self.update_rect()
@@ -126,4 +128,3 @@ class Entry(Widget):
             self.cursor = not self.cursor
             self.cursortimer = 20
         self.cursortimer -= 1
-
