@@ -10,6 +10,7 @@
     - MoveComponent : Unlock diagonal movement
     - AnimComponent : Create basic animator system
     - Entry : Add width and sprite property
+    - Entry : Add color and front parameters
     - Network : Create basic network system
     - loggers : Create logging System
     - Lang : Create translate system

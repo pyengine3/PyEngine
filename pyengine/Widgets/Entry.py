@@ -1,7 +1,8 @@
 import pygame
+import string
 from pyengine.Widgets.Widget import Widget
 from pyengine.Widgets import Label
-from pyengine.Utils import Vec2, Colors, Font
+from pyengine.Utils import Vec2, Colors, Font, Color
 from pygame import locals as const
 from typing import Union
 
@@ -9,13 +10,14 @@ __all__ = ["Entry"]
 
 
 class Entry(Widget):
-    def __init__(self, position: Vec2, width: int = 200, image: Union[None, str] = None):
+    def __init__(self, position: Vec2, width: int = 200, image: Union[None, str] = None,
+                 color: Union[None, Color] = Colors.BLACK.value, font: Union[None, Font] = Font()):
         super(Entry, self).__init__(position)
 
         self.__width = width
 
         self.sprite = image
-        self.label = Label(Vec2(position.x+5, position.y+5), "", Colors.BLACK.value, Font("arial", 17))
+        self.label = Label(Vec2(position.x+5, position.y+5), "", color, font)
         self.label.parent = self
         self.cursortimer = 20
         self.cursor = False
