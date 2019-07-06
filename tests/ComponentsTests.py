@@ -16,6 +16,38 @@ class PositionTests(unittest.TestCase):
         self.assertEqual(self.component.position, Vec2(11, 11))
 
 
+class AnimTests(unittest.TestCase):
+    def setUp(self):
+        self.entity = Entity()
+        self.sprite = self.entity.add_component(SpriteComponent("files/sprite0.png"))
+        self.component = self.entity.add_component(AnimComponent(5, "files/sprite0.png", "files/sprite1.png"))
+
+    def test_time(self):
+        self.assertEqual(self.component.time, 5)
+        self.component.time = 2
+        self.assertEqual(self.component.time, 2)
+
+    def test_images(self):
+        self.assertEqual(self.component.images, ("files/sprite0.png", "files/sprite1.png"))
+        self.component.images = ["files/sprite0.png"]
+        self.assertEqual(self.component.images, ["files/sprite0.png"])
+
+    def test_update(self):
+        self.component.time = 1
+        self.component.update()
+        self.assertEqual(self.component.current_sprite, 0)
+        self.assertEqual(self.component.timer, 0)
+        self.assertEqual(self.sprite.sprite, "files/sprite0.png")
+        self.component.update()
+        self.assertEqual(self.component.current_sprite, 1)
+        self.assertEqual(self.component.timer, 0)
+        self.assertEqual(self.sprite.sprite, "files/sprite1.png")
+        self.component.update()
+        self.assertEqual(self.component.current_sprite, 0)
+        self.assertEqual(self.component.timer, 0)
+        self.assertEqual(self.sprite.sprite, "files/sprite0.png")
+
+
 class LifeTests(unittest.TestCase):
     def setUp(self):
         self.entity = Entity()

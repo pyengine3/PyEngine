@@ -16,8 +16,8 @@
     - loggers : Create logging System
     - Lang : Create translate system
     - Config : Create Config system
-	- Unit Tests : Add loggers, config, lang tests
 	- Unit Tests : Update Window and World tests
+	- Unit Tests : Add AnimComponent, loggers, config and lang tests
 	
 	- Bug Fix : Entry is update without focus
     
