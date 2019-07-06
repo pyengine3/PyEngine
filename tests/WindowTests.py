@@ -12,6 +12,11 @@ class WindowTests(unittest.TestCase):
         self.window.title = "OUI"
         self.assertEqual(self.window.title, "OUI")
 
+    def test_is_running(self):
+        self.assertFalse(self.window.is_running)
+        self.window.run()
+        self.assertFalse(self.window.is_running)  # Code blocked while window run.
+
     def test_color(self):
         self.assertEqual(self.window.color, Color(0, 0, 0))
         self.window.color = Color(2, 4, 5)
@@ -36,7 +41,7 @@ class WindowTests(unittest.TestCase):
         self.window.run()
 
     def cstop(self):
-        self.assertEqual(self.window.is_running(), False)
+        self.assertFalse(self.window.is_running)
 
     def cworld(self):
         pass

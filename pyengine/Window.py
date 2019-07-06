@@ -32,7 +32,7 @@ class Window:
         self.width = width
         self.height = height
         self.__world = World(self)
-        self.launch = True
+        self.is_running = False
         self.debug = debug
         self.color = color
         self.debugfont = pygame.font.SysFont("arial", 15)
@@ -129,14 +129,12 @@ class Window:
             raise TypeError("Callback must be a WindowCallback (from WindowCallback Enum)")
 
     def stop(self) -> None:
-        self.launch = False
+        self.is_running = False
         self.call(WindowCallbacks.STOPWINDOW)
 
-    def is_running(self):
-        return self.launch
-
     def run(self) -> None:
-        while self.launch:
+        self.is_running = True
+        while self.is_running:
             for event in pygame.event.get():
                 self.__process_event(event)
 
