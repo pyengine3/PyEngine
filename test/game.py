@@ -1,7 +1,8 @@
-from pyengine import Window
-from pyengine.Systems import UISystem
+from pyengine import Window, Entity
+from pyengine.Systems import UISystem, EntitySystem
 from pyengine.Utils import Colors, Vec2, Font
 from pyengine.Widgets import Label, Button, Entry
+from pyengine.Components import PositionComponent, SpriteComponent, AnimComponent
 
 
 class Game(Window):
@@ -17,6 +18,15 @@ class Game(Window):
         self.uisys.add_widget(self.la)
         self.uisys.add_widget(self.b)
         self.uisys.add_widget(self.e)
+
+        self.esys = self.world.get_system(EntitySystem)
+
+        self.en = Entity()
+        self.en.add_component(PositionComponent(Vec2(400, 100)))
+        self.en.add_component(SpriteComponent("../tests/files/sprite0.png"))
+        self.en.add_component(AnimComponent(50, "../tests/files/sprite0.png", "../tests/files/sprite1.png"))
+
+        self.esys.add_entity(self.en)
 
         self.run()
 
