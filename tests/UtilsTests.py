@@ -12,6 +12,17 @@ class ColorTests(unittest.TestCase):
         self.color = Color(1, 2, 3)
         self.assertEqual(self.color.get(), (1, 2, 3))
 
+    def test_to_hex(self):
+        self.assertEqual(self.color.to_hex(), "#FFFFFF")
+        self.color = Color(21, 66, 19)
+        self.assertEqual(self.color.to_hex(), "#154213")
+
+    def test_from_hex(self):
+        with self.assertRaises(ValueError):
+            self.color.from_hex("#13")
+        self.color.from_hex("#154213")
+        self.assertEqual(self.color.get(), (21, 66, 19))
+
     def test_ope_arith(self):
         self.assertEqual(self.color.get(), (255, 255, 255))
         self.color -= Color(255, 0, 0)
