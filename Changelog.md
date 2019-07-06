@@ -3,6 +3,7 @@
 ## V 1.3.0 : XXX Update - XX/XX/19
 
     - Window : Add is_running property
+    - Window : In debug, show fps in console (must be around 60)
     - Window-World : Rename and move WorldCallbacks to WindowCallbacks
     - WindowCallbacks : Add CHANGEWORLD and STOPWINDOW
     - Entity : Can't have the same type of component two times

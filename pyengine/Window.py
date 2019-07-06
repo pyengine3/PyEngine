@@ -36,6 +36,11 @@ class Window:
         self.debug = debug
         self.color = color
         self.debugfont = pygame.font.SysFont("arial", 15)
+        if self.debug:
+            self.frames = 0
+            self.st = pygame.time.get_ticks()
+            self.fps = 0
+            self.ct = 0
 
         pygame.key.set_repeat(1, 1)
 
@@ -84,6 +89,10 @@ class Window:
             os.environ['SDL_DEBUG'] = '1'
             for n, l in loggers.get_all():
                 l.setLevel(logging.DEBUG)
+            self.frames = 0
+            self.st = pygame.time.get_ticks()
+            self.ct = 0
+            self.fps = 0
         else:
             try:
                 del os.environ['SDL_DEBUG']
@@ -139,9 +148,19 @@ class Window:
                 self.__process_event(event)
 
             self.screen.fill(self.color.get())
-            self.clock.tick(60)
+
+            if self.debug:
+                # Calculate and show FPS (must be around 60)
+                self.frames += 1
+                self.ct = pygame.time.get_ticks()
+                if (self.ct - self.st) >= 1000:
+                    self.fps = self.frames
+                    print(self.__class__.__name__+": "+str(self.fps)+" fps")
+                    self.frames = 0
+                    self.st += 1000
 
             self.world.run()
 
+            self.clock.tick(60)
             pygame.display.update()
         pygame.quit()
