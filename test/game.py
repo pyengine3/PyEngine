@@ -7,7 +7,7 @@ from pyengine.Components import PositionComponent, SpriteComponent, AnimComponen
 
 class Game(Window):
     def __init__(self):
-        super(Game, self).__init__(700, 600, Colors.WHITE.value)
+        super(Game, self).__init__(700, 600, Colors.WHITE.value, debug=True)
 
         self.uisys = self.world.get_system(UISystem)
 
