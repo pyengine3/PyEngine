@@ -13,6 +13,7 @@
     - Entry : Add color and front parameters
 	- Entry : Define accepted letters
     - Network : Create basic network system
+    - Color : Add to_hex and from_hex function
     - loggers : Create logging System
     - Lang : Create translate system
     - Config : Create Config system

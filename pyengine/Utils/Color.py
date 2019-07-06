@@ -21,6 +21,16 @@ class Color:
         self.b = color.b
         return self
 
+    def to_hex(self):
+        return ("#"+hex(self.r)[2:]+hex(self.g)[2:]+hex(self.b)[2:]).upper()
+
+    def from_hex(self, hexa: str):
+        if len(hexa) != 7:
+            raise ValueError("Hexa must be a 7 lenght string (#XXXXXX)")
+        self.r = int(hexa[1:3], 16)
+        self.g = int(hexa[3:5], 16)
+        self.b = int(hexa[5:7], 16)
+
     def darker(self):
         r = self.r
         b = self.b
