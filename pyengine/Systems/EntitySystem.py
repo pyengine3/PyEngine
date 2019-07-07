@@ -14,8 +14,11 @@ class EntitySystem:
         self.entities = pygame.sprite.Group()
         self.texts = pygame.sprite.Group()
 
+    def get_all_entities(self):
+        return self.entities.sprites() + self.texts.sprites()
+
     def get_entity(self, identity: int) -> Entity:
-        for i in self.entities.sprites() + self.texts.sprites():
+        for i in self.get_all_entities():
             if i.identity == identity:
                 return i
         loggers.get_logger("PyEngine").warning("Try to get entity with id "+str(identity)+" but it doesn't exist")
@@ -39,10 +42,10 @@ class EntitySystem:
         return entity
 
     def has_entity(self, entity: Entity) -> bool:
-        return entity in self.entities or entity in self.texts
+        return entity in self.get_all_entities()
 
     def remove_entity(self, entity: Entity) -> None:
-        if entity in self.texts.sprites() + self.entities.sprites():
+        if entity in self.get_all_entities():
             if entity in self.texts:
                 self.texts.remove(entity)
             else:
@@ -51,21 +54,21 @@ class EntitySystem:
             raise ValueError("Entity has not in EntitySystem")
 
     def update(self):
-        for i in self.entities.sprites() + self.texts.sprites():
+        for i in self.get_all_entities():
             i.update()
 
     def keypress(self, evt):
-        for i in self.entities.sprites() + self.texts.sprites():
+        for i in self.get_all_entities():
             if i.has_component(ControlComponent):
                 i.get_component(ControlComponent).keypress(evt)
 
     def keyup(self, evt):
-        for i in self.entities.sprites() + self.texts.sprites():
+        for i in self.get_all_entities():
             if i.has_component(ControlComponent):
                 i.get_component(ControlComponent).keyup(evt)
 
     def mousepress(self, evt):
-        for i in self.entities.sprites() + self.texts.sprites():
+        for i in self.get_all_entities():
             if i.has_component(ControlComponent):
                 i.get_component(ControlComponent).mousepress(evt)
 

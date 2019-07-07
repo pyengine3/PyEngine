@@ -8,6 +8,7 @@
     - WindowCallbacks : Add CHANGEWORLD and STOPWINDOW
     - Entity : Can't have the same type of component two times
     - EntitySystem-UISystem : Change debug color to blue for ui and red for entity
+    - EntitySystem : Add get_all_entities function
     - PhysicsComponent : Create CollisionInfos
     - MoveComponent : Unlock diagonal movement
     - LifeComponent : Use clamp function to set life
