@@ -26,6 +26,12 @@ class Vec2:
     def length(self, value):
         pass
 
+    def normalized(self):
+        if self.length == 0:
+            return Vec2(0, 0)
+        else:
+            return Vec2(int(self.x / self.length), int(self.y / self.length))
+
     def __add__(self, other):
         if isinstance(other, Vec2):
             return Vec2(self.x + other.x, self.y + other.y)

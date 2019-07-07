@@ -17,6 +17,7 @@
     - Entry : Add color and front parameters
 	- Entry : Define accepted letters
     - Network : Create basic network system
+    - Vec2 : Add normalized function
     - Color : Add to_hex and from_hex function
     - Colors : Add new colors
     - loggers : Create logging System

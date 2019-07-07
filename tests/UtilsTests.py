@@ -101,6 +101,11 @@ class Vec2Tests(unittest.TestCase):
         self.vec.coords = [0, 1]
         self.assertEqual(self.vec.length, 1)
 
+    def test_normalized(self):
+        self.assertEqual(self.vec.normalized(), Vec2(0, 0))
+        self.vec.coords = [0, 2]
+        self.assertEqual(self.vec.normalized(), Vec2(0, 1))
+
     def test_ope_arith(self):
         self.assertEqual(self.vec + Vec2(1, 0), Vec2(1, 0))
         self.assertEqual(self.vec + 2, Vec2(2, 2))
