@@ -8,6 +8,4 @@ try:
 except ModuleNotFoundError:
     pass
 
-__all__ = ["Window", "Entity", "ControlType", "const", "MouseButton", "CollisionCauses",
-           "WindowCallbacks", "World", "Controls"]
 __version__ = "1.3.0"

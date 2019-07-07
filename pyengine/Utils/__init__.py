@@ -4,5 +4,3 @@ from pyengine.Utils.Vec2 import Vec2
 from pyengine.Utils.Logger import loggers
 from pyengine.Utils.Lang import Lang
 from pyengine.Utils.Config import Config
-
-__all__ = ["Font", "Color", "Colors", "Vec2", "loggers", "Lang", "Config"]
