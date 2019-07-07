@@ -19,6 +19,7 @@
     - loggers : Create logging System
     - Lang : Create translate system
     - Config : Create Config system
+    - Maths : Create usefull functions (clamp)
 	- Unit Tests : Add AnimComponent, loggers, config and lang tests
 	- Unit Tests : Update Window, Color, Entry and World tests
 	
