@@ -7,6 +7,11 @@ class WindowTests(unittest.TestCase):
     def setUp(self):
         self.window = Window(100, 100)
 
+    def test_update_rate(self):
+        self.assertEqual(self.window.update_rate, 60)
+        self.window.update_rate = 120
+        self.assertEqual(self.window.update_rate, 120)
+
     def test_title(self):
         self.assertEqual(self.window.title, "PyEngine")
         self.window.title = "OUI"

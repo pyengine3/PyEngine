@@ -19,7 +19,8 @@ class WindowCallbacks(Enum):
 
 class Window:
     def __init__(self, width: int, height: int, color: Color = Colors.BLACK.value,
-                 title: str = "PyEngine", icon: Union[None, str] = None, debug: bool = False):
+                 title: str = "PyEngine", icon: Union[None, str] = None,
+                 update_rate: int = 60, debug: bool = False):
         if icon is not None:
             pygame.display.set_icon(pygame.image.load(icon))
 
@@ -31,6 +32,7 @@ class Window:
         self.clock = pygame.time.Clock()
         self.width = width
         self.height = height
+        self.update_rate= update_rate
         self.__world = World(self)
         self.is_running = False
         self.debug = debug
@@ -161,6 +163,6 @@ class Window:
 
             self.world.run()
 
-            self.clock.tick(60)
+            self.clock.tick(self.update_rate)
             pygame.display.update()
         pygame.quit()
