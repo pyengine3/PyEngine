@@ -1,8 +1,8 @@
-from pyengine import Window, Entity
-from pyengine.Systems import UISystem, EntitySystem
+from pyengine import Window, Entity, ControlType
+from pyengine.Systems import UISystem, EntitySystem, CameraSystem
 from pyengine.Utils import Colors, Vec2, Font
 from pyengine.Widgets import Label, Button, Entry
-from pyengine.Components import PositionComponent, SpriteComponent, AnimComponent
+from pyengine.Components import PositionComponent, SpriteComponent, AnimComponent, ControlComponent
 
 
 class Game(Window):
@@ -26,12 +26,19 @@ class Game(Window):
         self.en.add_component(SpriteComponent("../tests/files/sprite0.png"))
         self.en.add_component(AnimComponent(50, "../tests/files/sprite0.png", "../tests/files/sprite1.png"))
 
+        self.en2 = Entity()
+        self.en2.add_component(PositionComponent(Vec2(300, 100)))
+        self.en2.add_component(SpriteComponent("../tests/files/sprite0.png"))
+        self.en2.add_component(ControlComponent(ControlType.FOURDIRECTION))
+
         self.esys.add_entity(self.en)
+        self.esys.add_entity(self.en2)
 
         self.run()
 
     def show_entry(self, btn, click):
         self.la.text = self.e.text
+        self.world.get_system(CameraSystem).entity_follow = self.en2
 
 
 Game()
