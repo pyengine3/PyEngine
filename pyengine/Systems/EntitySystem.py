@@ -78,10 +78,10 @@ class EntitySystem:
 
     def show_debug(self, screen):
         for i in self.entities.sprites():
-            render = self.world.window.debugfont.render("ID : "+str(i.identity), 1, Colors.BLUE.value.get())
+            render = self.world.window.debugfont.render("ID : "+str(i.identity), 1, Colors.RED.value.get())
             screen.blit(render, (i.rect.x + i.rect.width / 2 - render.get_width()/2, i.rect.y - 20))
         for i in self.texts.sprites():
-            render = self.world.window.debugfont.render("ID : "+str(i.identity), 1, Colors.BLUE.value.get())
+            render = self.world.window.debugfont.render("ID : "+str(i.identity), 1, Colors.RED.value.get())
             position = i.get_component(PositionComponent)
             text = i.get_component(TextComponent)
             screen.blit(render, (position.position.x + text.rendered_size[0] / 2 - render.get_width()/2,
