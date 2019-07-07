@@ -43,14 +43,10 @@ class CameraSystem:
             raise TypeError("Position must be a Vec2")
 
         self.__position = position
-        for i in self.world.get_system(EntitySystem).entities:
+        for i in self.world.get_system(EntitySystem).get_all_entities():
             pos = i.get_component(PositionComponent)
-            pos.position = [pos.position.x - self.position.x + self.offset.x,
-                            pos.position.y - self.position.y + self.offset.y]
-        for i in self.world.get_system(EntitySystem).texts:
-            pos = i.get_component(PositionComponent)
-            pos.position = [pos.position.x - self.position.x + self.offset.x,
-                            pos.position.y - self.position.y + self.offset.y]
+            pos.position = Vec2(pos.position.x - self.position.x + self.offset.x,
+                                pos.position.y - self.position.y + self.offset.y)
 
     @property
     def zoom(self):

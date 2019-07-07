@@ -31,6 +31,7 @@
 	- Bug Fix : Entry is update without focus
     
     - Crash Fix : Crash when show id of Entity Texts
+    - Crash Fix : Crash when use entity_follow of CameraSystem
 
 ## V 1.2.0 : Property Update - 09/06/19
 
