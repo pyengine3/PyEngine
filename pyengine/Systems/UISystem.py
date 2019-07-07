@@ -2,7 +2,7 @@ import pygame
 from pyengine.Widgets import Entry, Button
 from pyengine.Widgets.Widget import Widget
 from pyengine import World
-from pyengine.Utils import loggers
+from pyengine.Utils import loggers, Colors
 
 __all__ = ["UISystem"]
 
@@ -83,5 +83,6 @@ class UISystem:
 
     def show_debug(self, screen):
         for i in self.widgets:
-            render = self.world.window.debugfont.render("ID : "+str(i.identity), 1, (255, 255, 0))
-            screen.blit(render, (i.rect.x + i.rect.width / 2 - render.get_width()/2, i.rect.y - 20))
+            if i.isshow:
+                render = self.world.window.debugfont.render("ID : "+str(i.identity), 1, Colors.BLUE.value.get())
+                screen.blit(render, (i.rect.x + i.rect.width / 2 - render.get_width()/2, i.rect.y - 20))

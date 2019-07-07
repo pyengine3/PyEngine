@@ -3,7 +3,7 @@ from pyengine.Exceptions import NoObjectError
 from pyengine.Components import PositionComponent, SpriteComponent, TextComponent, ControlComponent
 from pyengine import World
 from pyengine.Entity import Entity
-from pyengine.Utils import loggers
+from pyengine.Utils import loggers, Colors
 
 __all__ = ["EntitySystem"]
 
@@ -83,10 +83,10 @@ class EntitySystem:
 
     def show_debug(self, screen):
         for i in self.entities.sprites():
-            render = self.world.window.debugfont.render("ID : "+str(i.identity), 1, (255, 255, 0))
+            render = self.world.window.debugfont.render("ID : "+str(i.identity), 1, Colors.BLUE.value.get())
             screen.blit(render, (i.rect.x + i.rect.width / 2 - render.get_width()/2, i.rect.y - 20))
         for i in self.texts.sprites():
-            render = self.world.window.debugfont.render("ID : "+str(i.identity), 1, (255, 255, 0))
+            render = self.world.window.debugfont.render("ID : "+str(i.identity), 1, Colors.BLUE.value.get())
             position = i.get_component(PositionComponent)
             text = i.get_component(TextComponent)
             screen.blit(render, (position.position.x + text.rendered_size[0] / 2 - render.get_width()/2,
