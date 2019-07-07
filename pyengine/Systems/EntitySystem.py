@@ -18,7 +18,7 @@ class EntitySystem:
         for i in self.entities.sprites() + self.texts.sprites():
             if i.identity == identity:
                 return i
-        loggers.get_logger("PyEngine").warning("Try to get widget with id "+str(identity)+" but it doesn't exist")
+        loggers.get_logger("PyEngine").warning("Try to get entity with id "+str(identity)+" but it doesn't exist")
 
     def add_entity(self, entity: Entity) -> Entity:
         if not isinstance(entity, Entity):
@@ -42,16 +42,11 @@ class EntitySystem:
         return entity in self.entities or entity in self.texts
 
     def remove_entity(self, entity: Entity) -> None:
-        if entity.has_component(SpriteComponent):
-            if entity in self.entities:
-                self.entities.remove(entity)
-            else:
-                raise ValueError("Entity has not in EntitySystem")
-        elif entity.has_component(TextComponent):
+        if entity in self.texts.sprites() + self.entities.sprites():
             if entity in self.texts:
                 self.texts.remove(entity)
             else:
-                raise ValueError("Entity has not in EntitySystem")
+                self.entities.remove(entity)
         else:
             raise ValueError("Entity has not in EntitySystem")
 

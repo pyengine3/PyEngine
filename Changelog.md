@@ -24,6 +24,7 @@
     - Maths : Create usefull functions (clamp)
 	- Unit Tests : Add AnimComponent, loggers, config and lang tests
 	- Unit Tests : Update Window, Color, Entry and World tests
+	- Optimization and fix some little errors
 	
 	- Bug Fix : Entry is update without focus
     

@@ -78,6 +78,5 @@ class CameraSystem:
         self.__offset = offset
 
     def update(self):
-        if self.entity_follow is not None:
-            if self.entity_follow.has_component(PositionComponent):
-                self.position = self.entity_follow.get_component(PositionComponent).position
+        if self.entity_follow.has_component(PositionComponent):
+            self.position = self.entity_follow.get_component(PositionComponent).position
