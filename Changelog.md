@@ -9,6 +9,7 @@
     - Entity : Can't have the same type of component two times
     - PhysicsComponent : Create CollisionInfos
     - MoveComponent : Unlock diagonal movement
+    - LifeComponent : Use clamp function to set life
     - AnimComponent : Create basic animator system
     - Entry : Add width and sprite property
     - Entry : Add color and front parameters

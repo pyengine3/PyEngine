@@ -1,3 +1,5 @@
+from pyengine.Utils import clamp
+
 __all__ = ["LifeComponent"]
 
 
@@ -21,12 +23,7 @@ class LifeComponent:
 
     @life.setter
     def life(self, life):
-        if life < 0:
-            self.__life = 0
-        elif life > self.maxlife:
-            self.__life = self.maxlife
-        else:
-            self.__life = life
+        self.__life = clamp(life, 0, self.maxlife)
 
     @property
     def maxlife(self):
