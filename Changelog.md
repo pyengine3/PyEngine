@@ -1,6 +1,6 @@
 # Changelog
 
-## V 1.3.0 : XXX Update - XX/XX/19
+## V 1.3.0 : Utils Update - 07/07/19
 
     - Window : Add is_running and update_rate property
     - Window : In debug, show fps in console (must be around 60)
