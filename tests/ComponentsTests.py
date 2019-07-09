@@ -22,6 +22,11 @@ class AnimTests(unittest.TestCase):
         self.sprite = self.entity.add_component(SpriteComponent("files/sprite0.png"))
         self.component = self.entity.add_component(AnimComponent(5, "files/sprite0.png", "files/sprite1.png"))
 
+    def test_play(self):
+        self.assertTrue(self.component.play)
+        self.component.play = False
+        self.assertFalse(self.component.play)
+
     def test_time(self):
         self.assertEqual(self.component.time, 5)
         self.component.time = 2

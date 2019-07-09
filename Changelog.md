@@ -2,6 +2,7 @@
 
 ## V 1.4.0 : XXX Update - XX/XX/19
 
+    - AnimComponent : Add play attribute
     - Tilemap : Create basic tilemap (using Tiled)
     - Button-Image : size is now a Vec2
 	- Color : Use clamp function

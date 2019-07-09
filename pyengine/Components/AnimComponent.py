@@ -10,6 +10,7 @@ class AnimComponent:
         self.time = timer
         self.images = images
         self.current_sprite = 0
+        self.play: bool = True
 
     @property
     def entity(self):
@@ -50,12 +51,13 @@ class AnimComponent:
             self.timer = val
 
     def update(self):
-        if self.timer <= 0:
-            if self.current_sprite + 1 == len(self.images):
-                self.current_sprite = 0
-            else:
-                self.current_sprite += 1
-            self.entity.get_component(SpriteComponent).sprite = self.images[self.current_sprite]
-            self.timer = self.time
+        if self.play:
+            if self.timer <= 0:
+                if self.current_sprite + 1 == len(self.images):
+                    self.current_sprite = 0
+                else:
+                    self.current_sprite += 1
+                self.entity.get_component(SpriteComponent).sprite = self.images[self.current_sprite]
+                self.timer = self.time
 
-        self.timer -= 1
+            self.timer -= 1
