@@ -1,5 +1,9 @@
 # Changelog
 
+## V 1.4.0 : XXX Update - XX/XX/19
+
+    
+    - Crash Fix : Crash when import Vec2 at first
 ## V 1.3.0 : Utils Update - 07/07/19
 
     - Window : Add is_running and update_rate property
