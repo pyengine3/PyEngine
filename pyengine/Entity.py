@@ -18,7 +18,7 @@ class Entity(pygame.sprite.Sprite):
         self.identity = -1
         self.components = []
         self.attachedentities = []
-        self.system = None
+        self.__system = None
         self.image = None
 
     @property
