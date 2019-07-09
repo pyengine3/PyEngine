@@ -7,6 +7,7 @@
     - Tilemap : Create basic tilemap (using Tiled)
     - Button-Image : size is now a Vec2
 	- Color : Use clamp function
+	- Unit Tests : Add Tilemap and Network tests
     - Setup : Add numpy as dependances
     - README : Add version of pygame
     - README : Remove useless section
