@@ -59,6 +59,27 @@ class ImageTests(WidgetTests):
         self.assertEqual(Vec2(self.widget.image.get_rect().width, self.widget.image.get_rect().height), Vec2(10, 10))
 
 
+class CheckboxTests(WidgetTests):
+    def setUp(self):
+        super(CheckboxTests, self).setUp()
+        self.widget = Checkbox(Vec2(10, 10), "test")
+
+    def test_text(self):
+        self.assertEqual(self.widget.label.text, "test")
+        self.widget.label.text = "OUI"
+        self.assertEqual(self.widget.label.text, "OUI")
+
+    def test_scale(self):
+        self.assertEqual(self.widget.scale, 1)
+        self.widget.scale = 2
+        self.assertEqual(self.widget.scale, 2)
+
+    def test_checked(self):
+        self.assertFalse(self.widget.checked)
+        self.widget.checked = True
+        self.assertTrue(self.widget.checked)
+
+
 class ButtonTests(WidgetTests):
     def setUp(self):
         super(ButtonTests, self).setUp()

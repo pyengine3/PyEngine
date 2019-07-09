@@ -6,6 +6,7 @@
     - Network : If packet have "TOALL" as type, author will recieve the packet
     - Tilemap : Create basic tilemap (using Tiled)
     - Button-Image : size is now a Vec2
+    - Checkbox : Create checkbox widget
 	- Color : Use clamp function
 	- Unit Tests : Add Tilemap and Network tests
     - Setup : Add numpy as dependances
