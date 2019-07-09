@@ -1,13 +1,12 @@
 import pygame
 from pyengine.Widgets.Widget import Widget
 from pyengine.Utils import Vec2
-from typing import Union, Tuple
 
 __all__ = ["Image"]
 
 
 class Image(Widget):
-    def __init__(self, position: Vec2, sprite: str, size: Union[None, Tuple[int, int]] = None):
+    def __init__(self, position: Vec2, sprite: str, size: Vec2 = None):
         super(Image, self).__init__(position)
 
         self.sprite = sprite
@@ -18,11 +17,14 @@ class Image(Widget):
 
     @property
     def size(self):
-        return [self.rect.width, self.rect.height]
+        return Vec2(self.rect.width, self.rect.height)
 
     @size.setter
     def size(self, size):
-        self.image = pygame.transform.scale(self.image, size)
+        if not isinstance(size, Vec2):
+            raise TypeError("Position must be a Vec2")
+
+        self.image = pygame.transform.scale(self.image, size.coords)
         self.update_rect()
 
     @property

@@ -9,17 +9,15 @@ __all__ = ["Button"]
 
 class Button(Widget):
     def __init__(self, position: Vec2, text: str, command: Union[None, Callable[[int], None]] = None,
-                 size: Union[None, Tuple[int, int]] = None, sprite: Union[None, str] = None):
+                 size: Vec2 = Vec2(100, 40), sprite: Union[None, str] = None):
         super(Button, self).__init__(position)
 
-        if size is None:
-            size = [100, 40]
         if sprite is None:
-            self.image = pygame.Surface(size)
+            self.image = pygame.Surface(size.coords)
             self.image.fill((50, 50, 50))
         else:
             image = pygame.image.load(sprite)
-            self.image = pygame.transform.scale(image, size)
+            self.image = pygame.transform.scale(image, size.coords)
 
         self.rect = self.image.get_rect()
         self.label = Label(position, text)
@@ -44,11 +42,11 @@ class Button(Widget):
     def sprite(self, val):
         self.__sprite = val
         if val is None:
-            self.image = pygame.Surface(self.size)
+            self.image = pygame.Surface(self.size.coords)
             self.image .fill((50, 50, 50))
         else:
             image = pygame.image.load(val)
-            self.image = pygame.transform.scale(image, self.size)
+            self.image = pygame.transform.scale(image, self.size.coords)
         self.update_render()
 
     @property
@@ -57,8 +55,11 @@ class Button(Widget):
 
     @size.setter
     def size(self, size):
+        if not isinstance(size, Vec2):
+            raise TypeError("Position must be a Vec2")
+
         self.__size = size
-        self.image = pygame.transform.scale(self.image, size)
+        self.image = pygame.transform.scale(self.image, size.coords)
         self.update_render()
 
     @property

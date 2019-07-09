@@ -53,9 +53,10 @@ class ImageTests(WidgetTests):
         self.assertEqual(self.widget.sprite, "files/sprite1.png")
 
     def test_size(self):
-        self.assertEqual(self.widget.size, [self.widget.image.get_rect().width, self.widget.image.get_rect().height])
-        self.widget.size = [10, 10]
-        self.assertEqual([self.widget.image.get_rect().width, self.widget.image.get_rect().height], [10, 10])
+        self.assertEqual(self.widget.size,
+                         Vec2(self.widget.image.get_rect().width, self.widget.image.get_rect().height))
+        self.widget.size = Vec2(10, 10)
+        self.assertEqual(Vec2(self.widget.image.get_rect().width, self.widget.image.get_rect().height), Vec2(10, 10))
 
 
 class ButtonTests(WidgetTests):
@@ -74,9 +75,9 @@ class ButtonTests(WidgetTests):
         self.assertEqual(self.widget.sprite, "files/sprite1.png")
 
     def test_size(self):
-        self.assertEqual(self.widget.size, [100, 40])
-        self.widget.size = [100, 50]
-        self.assertEqual(self.widget.size, [100, 50])
+        self.assertEqual(self.widget.size, Vec2(100, 40))
+        self.widget.size = Vec2(100, 50)
+        self.assertEqual(self.widget.size, Vec2(100, 50))
 
     def test_command(self):
         self.assertEqual(self.widget.command, None)
