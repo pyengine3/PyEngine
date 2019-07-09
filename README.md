@@ -19,8 +19,7 @@ A lib to build 2D Games.
   - Version of Python :
     - 3.7.1 (V 0.1.0-DEV --> Latest)
   - Library :
-    - PyGame (V 0.1.0-DEV --> Latest)
 
 ## Known bugs of the developing version
 
-- X
+- X    - PyGame 1.9.6 (V 0.1.0-DEV --> Latest)
