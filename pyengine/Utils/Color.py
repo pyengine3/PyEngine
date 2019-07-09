@@ -1,5 +1,6 @@
 from enum import Enum
 from typing import Tuple
+from pyengine.Utils import clamp
 
 __all__ = ["Color", "Colors"]
 
@@ -58,29 +59,17 @@ class Color:
     def __add__(self, other):
         if not isinstance(other, Color):
             raise TypeError("Color can only be add with Color")
-        r = self.r + other.r
-        b = self.b + other.b
-        g = self.g + other.g
-        if r > 255:
-            r = 255
-        if g > 255:
-            g = 255
-        if b > 255:
-            b = 255
+        r = clamp(self.r + other.r, 0, 255)
+        b = clamp(self.b + other.b, 0, 255)
+        g = clamp(self.g + other.g, 0, 255)
         return Color(r, g, b)
 
     def __sub__(self, other):
         if not isinstance(other, Color):
             raise TypeError("Color can only be add with Color")
-        r = self.r - other.r
-        b = self.b - other.b
-        g = self.g - other.g
-        if r < 0:
-            r = 0
-        if g < 0:
-            g = 0
-        if b < 0:
-            b = 0
+        r = clamp(self.r - other.r, 0, 255)
+        b = clamp(self.b - other.b, 0, 255)
+        g = clamp(self.g - other.g, 0, 255)
         return Color(r, g, b)
 
     def __eq__(self, other) -> bool:
