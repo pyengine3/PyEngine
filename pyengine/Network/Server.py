@@ -70,5 +70,5 @@ class Server(threading.Thread):
         for i in temp.values():
             if packet.author is None:
                 i.clientsocket.send(packet.to_send())
-            elif i != self.liste[packet.author]:
+            elif i != self.liste[packet.author] or packet.type_ == "TOALL":
                 i.clientsocket.send(packet.to_send())
