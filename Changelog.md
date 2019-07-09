@@ -6,9 +6,12 @@
 	- Color : Use clamp function
     - Setup : Add numpy as dependances
     - README : Add version of pygame
+    - README : Remove useless section
+
     - Bug Fix : Button must be focused to be hover
     
     - Crash Fix : Crash when import Vec2 at first
+
 ## V 1.3.0 : Utils Update - 07/07/19
 
     - Window : Add is_running and update_rate property
