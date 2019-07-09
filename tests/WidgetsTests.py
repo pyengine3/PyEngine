@@ -105,7 +105,7 @@ class ButtonTests(WidgetTests):
         self.widget.command = self.command
         self.assertEqual(self.widget.command, self.command)
 
-    def command(self, btn, click):
+    def command(self, btn):
         pass
 
 

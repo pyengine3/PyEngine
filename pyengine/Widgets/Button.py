@@ -2,13 +2,13 @@ import pygame
 from pyengine.Widgets.Widget import Widget
 from pyengine.Widgets import Label
 from pyengine.Utils import Vec2
-from typing import Union, Callable, Tuple
+from typing import Union, Callable
 
 __all__ = ["Button"]
 
 
 class Button(Widget):
-    def __init__(self, position: Vec2, text: str, command: Union[None, Callable[[int], None]] = None,
+    def __init__(self, position: Vec2, text: str, command: Union[None, Callable[[], None]] = None,
                  size: Vec2 = Vec2(100, 40), sprite: Union[None, str] = None):
         super(Button, self).__init__(position)
 
@@ -19,9 +19,9 @@ class Button(Widget):
             image = pygame.image.load(sprite)
             self.image = pygame.transform.scale(image, size.coords)
 
-        self.rect = self.image.get_rect()
         self.label = Label(position, text)
         self.label.parent = self
+        self.rect = self.image.get_rect()
         self.position = position
         self.size = size
         self.sprite = sprite
@@ -92,9 +92,11 @@ class Button(Widget):
                                    self.rect.y+self.rect.height/2-self.label.rect.height/2)
 
     def mousepress(self, evt):
+        from pyengine import MouseButton  # Avoid import error
+
         if self.rect.x <= evt.pos[0] <= self.rect.x + self.rect.width and self.rect.y <= evt.pos[1] <= self.rect.y +\
-                self.rect.height and self.command:
-            self.command(self, evt.button)
+                self.rect.height and self.command and evt.button == MouseButton.LEFTCLICK.value:
+            self.command(self)
             return True
 
     def mousemotion(self, evt):
