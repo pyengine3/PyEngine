@@ -5,6 +5,7 @@
     - Button-Image : size is now a Vec2
 	- Color : Use clamp function
     - Setup : Add numpy as dependances
+    - Bug Fix : Button must be focused to be hover
     
     - Crash Fix : Crash when import Vec2 at first
 ## V 1.3.0 : Utils Update - 07/07/19
