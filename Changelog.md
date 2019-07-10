@@ -8,6 +8,7 @@
     - Button-Image : size is now a Vec2
     - Button : Only Left Button of Mouse trigger Button
     - Checkbox : Create checkbox widget
+	- ProgressBar : Create progressbar widget
 	- Color : Use clamp function
 	- Unit Tests : Add Tilemap and Network tests
     - Setup : Add numpy as dependances

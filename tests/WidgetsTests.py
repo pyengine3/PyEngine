@@ -80,6 +80,27 @@ class CheckboxTests(WidgetTests):
         self.assertTrue(self.widget.checked)
 
 
+class ProgressBarTests(WidgetTests):
+    def setUp(self):
+        super(ProgressBarTests, self).setUp()
+        self.widget = ProgressBar(Vec2(10, 10))
+
+    def test_value(self):
+        self.assertEqual(self.widget.value, 0)
+        self.widget.value = 2
+        self.assertEqual(self.widget.value, 2)
+
+    def test_size(self):
+        self.assertEqual(self.widget.size, Vec2(150, 10))
+        self.widget.size = Vec2(300, 20)
+        self.assertEqual(self.widget.size, Vec2(300, 20))
+
+    def test_sprites(self):
+        self.assertIsNone(self.widget.sprites)
+        self.widget.sprites = ["files/sprite0.png", "files/sprite1.png"]
+        self.assertEqual(self.widget.sprites, ["files/sprite0.png", "files/sprite1.png"])
+
+
 class ButtonTests(WidgetTests):
     def setUp(self):
         super(ButtonTests, self).setUp()
