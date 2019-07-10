@@ -107,14 +107,20 @@ class Button(Widget):
                 for i in t:
                     for j in i:
                         j += 10
-                pygame.surfarray.blit_array(self.image, t)
+                try:
+                    pygame.surfarray.blit_array(self.image, t)
+                except ValueError:
+                    pass
                 self.ishover = True
         elif self.ishover:
             t = pygame.surfarray.array3d(self.image)
             for i in t:
                 for j in i:
                     j -= 10
-            pygame.surfarray.blit_array(self.image, t)
+            try:
+                pygame.surfarray.blit_array(self.image, t)
+            except ValueError:
+                pass
             self.ishover = False
 
 

@@ -16,6 +16,7 @@
 
     - Bug Fix : Button must be focused to be hover
     
+    - Crash Fix : Crash sometimes to create hover button with sprite
     - Crash Fix : Crash when import Vec2 at first
 
 ## V 1.3.0 : Utils Update - 07/07/19
