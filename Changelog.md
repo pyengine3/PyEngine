@@ -7,6 +7,7 @@
     - Tilemap : Create basic tilemap (using Tiled)
     - Button-Image : size is now a Vec2
     - Button : Only Left Button of Mouse trigger Button
+    - Button : Remove btn argument on command of Button
     - Checkbox : Create checkbox widget
 	- ProgressBar : Create progressbar widget
 	- Color : Use clamp function

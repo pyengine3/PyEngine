@@ -15,7 +15,7 @@ class Game(Window):
         self.check = Checkbox(Vec2(500, 500), "TEST")
         self.check.label.color = Colors.BLACK.value
         self.progress = ProgressBar(Vec2(400, 300), Vec2(300, 20), ("tilemap/sprite0.png", "tilemap/sprite1.png"))
-        self.button = Button(Vec2(500, 100), "Add", self.click)
+        self.button = Button(Vec2(500, 100), "Add", self.add_progressbar)
 
         self.uisys.add_widget(self.check)
         self.uisys.add_widget(self.progress)
@@ -36,7 +36,7 @@ class Game(Window):
 
         self.run()
 
-    def click(self, btn):
+    def add_progressbar(self):
         self.progress.value += 5
 
 

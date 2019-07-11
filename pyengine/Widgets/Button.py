@@ -96,7 +96,7 @@ class Button(Widget):
 
         if self.rect.x <= evt.pos[0] <= self.rect.x + self.rect.width and self.rect.y <= evt.pos[1] <= self.rect.y +\
                 self.rect.height and self.command and evt.button == MouseButton.LEFTCLICK.value:
-            self.command(self)
+            self.command()
             return True
 
     def mousemotion(self, evt):
