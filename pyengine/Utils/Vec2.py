@@ -56,6 +56,12 @@ class Vec2:
         else:
             return Vec2(self.x * other, self.y * other)
 
+    def __truediv__(self, other):
+        if isinstance(other, Vec2):
+            return Vec2(int(self.x / other.x), int(self.y / other.y))
+        else:
+            return Vec2(int(self.x / other), int(self.y / other))
+
     def __repr__(self) -> str:
         return str(self.coords)
 

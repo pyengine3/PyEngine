@@ -111,8 +111,11 @@ class Vec2Tests(unittest.TestCase):
         self.assertEqual(self.vec + 2, Vec2(2, 2))
         self.assertEqual(self.vec - Vec2(1, 0), Vec2(-1, 0))
         self.assertEqual(self.vec - 2, Vec2(-2, -2))
-        self.assertEqual(self.vec * Vec2(1, 0), Vec2(0, 0))
+        self.assertEqual(Vec2(2, 2) * Vec2(1, 0), Vec2(2, 0))
+        self.assertEqual(Vec2(2, 2) * 2, Vec2(4, 4))
         self.assertEqual(-Vec2(1, 1), Vec2(-1, -1))
+        self.assertEqual(Vec2(2, 2) / 2, Vec2(1, 1))
+        self.assertEqual(Vec2(2, 2) / Vec2(1, 2), Vec2(2, 1))
 
     def test_ope_log(self):
         self.assertTrue(self.vec == Vec2())
