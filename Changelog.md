@@ -4,6 +4,7 @@
 
     - AnimComponent : Add play attribute
     - PositionComponent : Offset is now a property
+    - PositionComponent : position return the position without offset
     - SpriteComponent : Scale don't modify width and height
     - Network : If packet have "TOALL" as type, author will recieve the packet
     - Tilemap : Create basic tilemap (using Tiled)
@@ -14,11 +15,13 @@
 	- ProgressBar : Create progressbar widget
 	- Color : Use clamp function
 	- Unit Tests : Add Tilemap and Network tests
+	- Unit Tests : Update Components and Widgets tests
     - Setup : Add numpy as dependances
     - README : Add version of pygame
     - README : Remove useless section
 
     - Bug Fix : Button must be focused to be hover
+    - Bug Fix : Rescale SpriteComponent can make weird result
     
     - Crash Fix : Crash sometimes to create hover button with sprite
     - Crash Fix : Crash when import Vec2 at first

@@ -12,8 +12,8 @@ class PositionComponent:
         if not isinstance(offset, Vec2):
             raise TypeError("Offset must be a Vec2")
 
-        self.offset = offset
-        self.__position = position + offset
+        self.__offset = offset
+        self.__position = position
 
     @property
     def entity(self):
@@ -45,7 +45,7 @@ class PositionComponent:
         if not isinstance(position, Vec2):
             raise TypeError("Position must be a Vec2")
 
-        self.__position = position + self.offset
+        self.__position = position
         self.update_dependances()
 
     def update_dependances(self):
