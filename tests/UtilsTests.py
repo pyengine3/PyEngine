@@ -124,6 +124,10 @@ class Vec2Tests(unittest.TestCase):
     def test_repr(self):
         self.assertEqual(self.vec.__repr__(), "(0, 0)")
 
+    def test_iter(self):
+        for i in self.vec:
+            self.assertEqual(i, 0)
+
 
 class LoggersTests(unittest.TestCase):
     def setUp(self):

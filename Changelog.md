@@ -15,6 +15,7 @@
 	- ProgressBar : Create progressbar widget
 	- Color : Use clamp function
     - Vec2 : Add divide operator
+    - Vec2 : Add iterator
 	- Unit Tests : Add Tilemap, Prefabs and Network tests
 	- Unit Tests : Update Components and Widgets tests
     - Setup : Add numpy as dependances

@@ -62,6 +62,10 @@ class Vec2:
         else:
             return Vec2(int(self.x / other), int(self.y / other))
 
+    def __iter__(self):
+        yield self.x
+        yield self.y
+
     def __repr__(self) -> str:
         return str(self.coords)
 
