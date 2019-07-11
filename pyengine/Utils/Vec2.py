@@ -67,7 +67,7 @@ class Vec2:
         yield self.y
 
     def __repr__(self) -> str:
-        return str(self.coords)
+        return "Vec2"+str(self.coords)
 
     def __eq__(self, other) -> bool:
         return self.x == other.x and self.y == other.y

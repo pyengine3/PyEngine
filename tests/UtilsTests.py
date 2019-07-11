@@ -122,7 +122,7 @@ class Vec2Tests(unittest.TestCase):
         self.assertTrue(self.vec != Vec2(1, 0))
 
     def test_repr(self):
-        self.assertEqual(self.vec.__repr__(), "(0, 0)")
+        self.assertEqual(self.vec.__repr__(), "Vec2(0, 0)")
 
     def test_iter(self):
         for i in self.vec:

@@ -16,6 +16,7 @@
 	- Color : Use clamp function
     - Vec2 : Add divide operator
     - Vec2 : Add iterator
+    - Vec2 : Change representation in string to "Vec2(X, Y)"
 	- Unit Tests : Add Tilemap, Prefabs and Network tests
 	- Unit Tests : Update Components and Widgets tests
     - Setup : Add numpy as dependances
