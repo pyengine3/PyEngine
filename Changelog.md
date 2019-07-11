@@ -14,7 +14,8 @@
     - Checkbox : Create checkbox widget
 	- ProgressBar : Create progressbar widget
 	- Color : Use clamp function
-	- Unit Tests : Add Tilemap and Network tests
+    - Vec2 : Add divide operator
+	- Unit Tests : Add Tilemap, Prefabs and Network tests
 	- Unit Tests : Update Components and Widgets tests
     - Setup : Add numpy as dependances
     - README : Add version of pygame

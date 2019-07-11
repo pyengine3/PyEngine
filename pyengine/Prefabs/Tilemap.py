@@ -9,7 +9,7 @@ __all__ = ["Tilemap"]
 
 
 class Tilemap(Entity):
-    def __init__(self, pos, file):
+    def __init__(self, pos, file, scale = 1):
         super(Tilemap, self).__init__()
 
         self.folder = "/".join(file.split("/")[:-1])+"/"
@@ -27,10 +27,10 @@ class Tilemap(Entity):
         if len(datas["layers"]) > 1:
             loggers.get_logger("PyEngine").warning("Tilemap use only 1 layer.")
 
-        height = datas["height"]
-        width = datas["width"]
-        tileheight = datas["tileheight"]
-        tilewidth = datas["tilewidth"]
+        self.height = datas["height"]
+        self.width = datas["width"]
+        self.tileheight = datas["tileheight"]
+        self.tilewidth = datas["tilewidth"]
 
         tileset = ElementTree.parse(self.folder+datas["tilesets"][0]["source"])
         idtiles = {}
@@ -39,12 +39,28 @@ class Tilemap(Entity):
                 idtiles[tile.attrib["id"]] = tile[0].attrib["source"]
 
         self.tiles = []
-        for x in range(width):
-            for y in range(height):
-                if datas["layers"][0]["data"][y*width+x] - 1 != -1:
-                    offset = Vec2(x * tilewidth, y * tileheight)
-                    idtile = str(datas["layers"][0]["data"][y*width+x]-1)
-                    self.tiles.append(Tile(pos, offset, self.folder+idtiles[idtile]))
+        for x in range(self.width):
+            for y in range(self.height):
+                if datas["layers"][0]["data"][y*self.width+x] - 1 != -1:
+                    offset = Vec2(x * self.tilewidth, y * self.tileheight)
+                    idtile = str(datas["layers"][0]["data"][y*self.width+x]-1)
+                    self.tiles.append(Tile(pos, offset, self.folder+idtiles[idtile], [x, y]))
+
+        self.scale = scale
+
+    @property
+    def scale(self):
+        return self.__scale
+
+    @scale.setter
+    def scale(self, val):
+        for i in self.tiles:
+            i.get_component(SpriteComponent).scale = val
+            i.get_component(PositionComponent).offset = Vec2(
+                i.pos_in_grid[0] * self.tilewidth * val,
+                i.pos_in_grid[1] * self.tileheight * val
+            )
+        self.__scale = val
 
     @property
     def system(self):
@@ -59,9 +75,10 @@ class Tilemap(Entity):
 
 
 class Tile(Entity):
-    def __init__(self, pos, offset, sprite):
+    def __init__(self, pos, offset, sprite, pos_in_grid):
         super(Tile, self).__init__()
 
+        self.pos_in_grid = pos_in_grid
         self.add_component(PositionComponent(pos, offset))
         self.add_component(SpriteComponent(sprite))
         self.add_component(PhysicsComponent(False))
