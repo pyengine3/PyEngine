@@ -15,6 +15,11 @@ class PositionTests(unittest.TestCase):
         self.component.position = Vec2(11, 11)
         self.assertEqual(self.component.position, Vec2(11, 11))
 
+    def test_offset(self):
+        self.assertEqual(self.component.offset, Vec2(0, 0))
+        self.component.offset = Vec2(11, 11)
+        self.assertEqual(self.component.offset, Vec2(11, 11))
+
 
 class AnimTests(unittest.TestCase):
     def setUp(self):

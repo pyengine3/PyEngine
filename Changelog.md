@@ -3,6 +3,7 @@
 ## V 1.4.0 : XXX Update - XX/XX/19
 
     - AnimComponent : Add play attribute
+    - PositionComponent : Offset is now a property
     - SpriteComponent : Scale don't modify width and height
     - Network : If packet have "TOALL" as type, author will recieve the packet
     - Tilemap : Create basic tilemap (using Tiled)

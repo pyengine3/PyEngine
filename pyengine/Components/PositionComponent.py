@@ -25,6 +25,18 @@ class PositionComponent:
         self.update_dependances()
 
     @property
+    def offset(self):
+        return self.__offset
+
+    @offset.setter
+    def offset(self, val):
+        if not isinstance(val, Vec2):
+            raise TypeError("Offset must be a Vec2")
+
+        self.__offset = val
+        self.update_dependances()
+
+    @property
     def position(self):
         return self.__position
 
@@ -45,3 +57,4 @@ class PositionComponent:
         for i in self.entity.attachedentities:
             if i.has_component(PositionComponent):
                 i.get_component(PositionComponent).position = self.position
+                i.get_component(PositionComponent).offset = self.offset
