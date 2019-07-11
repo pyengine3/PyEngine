@@ -154,7 +154,8 @@ class SpriteTests(unittest.TestCase):
         self.assertEqual(self.component.scale, 1)
         self.component.scale = 2
         self.assertEqual(self.component.scale, 2)
-        self.assertEqual(self.component.size, [self.basesize[0]*2, self.basesize[1]*2])
+        self.assertEqual([x*self.component.scale for x in self.component.size],
+                         [self.basesize[0]*2, self.basesize[1]*2])
 
     def test_rotation(self):
         self.assertEqual(self.component.rotation, 0)

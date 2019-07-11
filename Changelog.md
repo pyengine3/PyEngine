@@ -3,6 +3,7 @@
 ## V 1.4.0 : XXX Update - XX/XX/19
 
     - AnimComponent : Add play attribute
+    - SpriteComponent : Scale don't modify width and height
     - Network : If packet have "TOALL" as type, author will recieve the packet
     - Tilemap : Create basic tilemap (using Tiled)
     - Button-Image : size is now a Vec2
