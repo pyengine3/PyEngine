@@ -8,14 +8,14 @@ from pyengine.Widgets import Checkbox, ProgressBar, Button
 
 class Game(Window):
     def __init__(self):
-        super(Game, self).__init__(700, 600, Colors.WHITE.value, debug=True)
+        super(Game, self).__init__(700, 600, Colors.WHITE.value)
 
         self.uisys = self.world.get_system(UISystem)
 
         self.check = Checkbox(Vec2(500, 500), "TEST")
         self.check.label.color = Colors.BLACK.value
         self.progress = ProgressBar(Vec2(400, 300), Vec2(300, 20), ("tilemap/sprite0.png", "tilemap/sprite1.png"))
-        self.button = Button(Vec2(500, 100), "Add", self.add_progressbar)
+        self.button = Button(Vec2(500, 100), "Add", self.btn)
 
         self.uisys.add_widget(self.check)
         self.uisys.add_widget(self.progress)
@@ -23,7 +23,7 @@ class Game(Window):
 
         self.esys = self.world.get_system(EntitySystem)
 
-        self.tilemap = Tilemap(Vec2(), "tilemap/TESTMAP.json")
+        self.tilemap = Tilemap(Vec2(), "tilemap/TESTMAP.json", 0.7)
 
         self.player = Entity()
         self.player.add_component(PositionComponent(Vec2(10, 10)))
@@ -36,8 +36,9 @@ class Game(Window):
 
         self.run()
 
-    def add_progressbar(self):
+    def btn(self):
         self.progress.value += 5
+        self.tilemap.scale = 1.2
 
 
 Game()
