@@ -63,12 +63,6 @@ class UISystem:
                 if self.focus == i:
                     i.keypress(evt)
 
-    def keyup(self, evt):
-        for i in self.widgets.sprites():
-            if isinstance(i, Entry):
-                if self.focus == i:
-                    i.keyup(evt)
-
     def update(self):
         for i in self.widgets.sprites():
             if isinstance(i, Entry):

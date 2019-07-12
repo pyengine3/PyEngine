@@ -27,6 +27,8 @@
     - Setup : Add numpy as dependances
     - README : Add version of pygame
     - README : Remove useless section
+    
+    - Optimization
 
     - Bug Fix : Button must be focused to be hover
     - Bug Fix : Rescale SpriteComponent can make weird result

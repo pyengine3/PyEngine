@@ -44,8 +44,6 @@ class Window:
             self.fps = 0
             self.ct = 0
 
-        pygame.key.set_repeat(1, 1)
-
         self.callbacks = {
             WindowCallbacks.OUTOFWINDOW: None,
             WindowCallbacks.STOPWINDOW: None,

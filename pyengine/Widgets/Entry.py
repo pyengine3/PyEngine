@@ -21,7 +21,6 @@ class Entry(Widget):
         self.label.parent = self
         self.cursortimer = 20
         self.cursor = False
-        self.typing = False
         self.accepted = "éèàçù€ "
         self.accepted += string.digits + string.ascii_letters + string.punctuation
         self.update_render()
@@ -88,28 +87,21 @@ class Entry(Widget):
         if self.cursor:
             self.label.text = self.label.text[:-1]
         self.cursor = False
-        self.typing = False
-
-    def keyup(self, evt):
-        self.typing = False
 
     def keypress(self, evt):
-        if not self.typing:
-            if evt.key == const.K_BACKSPACE:
-                if len(self.label.text):
-                    if self.cursor:
-                        self.label.text = self.label.text[:-2]+"I"
-                    else:
-                        self.label.text = self.label.text[:-1]
-                self.typing = True
-            elif evt.unicode != '' and evt.unicode in self.accepted:
+        if evt.key == const.K_BACKSPACE:
+            if len(self.label.text):
                 if self.cursor:
-                    if self.label.font.rendered_size(self.label.text[:-1]+evt.unicode+"I")[0] < self.rect.width - 10:
-                        self.label.text = self.label.text[:-1]+evt.unicode+"I"
+                    self.label.text = self.label.text[:-2]+"I"
                 else:
-                    if self.label.font.rendered_size(self.label.text+evt.unicode)[0] < self.rect.width - 10:
-                        self.label.text = self.label.text + evt.unicode
-                self.typing = True
+                    self.label.text = self.label.text[:-1]
+        elif evt.unicode != '' and evt.unicode in self.accepted:
+            if self.cursor:
+                if self.label.font.rendered_size(self.label.text[:-1]+evt.unicode+"I")[0] < self.rect.width - 10:
+                    self.label.text = self.label.text[:-1]+evt.unicode+"I"
+            else:
+                if self.label.font.rendered_size(self.label.text+evt.unicode)[0] < self.rect.width - 10:
+                    self.label.text = self.label.text + evt.unicode
 
     def update_render(self):
         self.update_rect()
