@@ -6,6 +6,7 @@
     - PositionComponent : Offset is now a property
     - PositionComponent : position return the position without offset
     - SpriteComponent : Scale don't modify width and height
+    - LifeComponent : Add callback which is trigger when entity has 0 pv
     - Network : If packet have "TOALL" as type, author will recieve the packet
     - Tilemap : Create basic tilemap (using Tiled)
     - Button-Image : size is now a Vec2

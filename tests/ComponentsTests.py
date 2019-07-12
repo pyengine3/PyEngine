@@ -61,7 +61,7 @@ class AnimTests(unittest.TestCase):
 class LifeTests(unittest.TestCase):
     def setUp(self):
         self.entity = Entity()
-        self.component = self.entity.add_component(LifeComponent(100))
+        self.component = self.entity.add_component(LifeComponent(100, self.die))
 
     def test_life(self):
         self.assertEqual(self.component.life, 100)
@@ -76,6 +76,9 @@ class LifeTests(unittest.TestCase):
         self.assertEqual(self.component.maxlife, 100)
         self.component.maxlife = 110
         self.assertEqual(self.component.maxlife, 110)
+
+    def die(self):
+        self.assertEqual(self.component.life, 0)
 
 
 class ControlTests(unittest.TestCase):
