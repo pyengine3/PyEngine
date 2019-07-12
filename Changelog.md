@@ -26,6 +26,7 @@
 
     - Bug Fix : Button must be focused to be hover
     - Bug Fix : Rescale SpriteComponent can make weird result
+    - Bug Fix : Shift-capitals must be typed twice in Entry to be writed
     - Bug Fix : Text can be more longer than the Entry
     
     - Crash Fix : Crash sometimes to create hover button with sprite
