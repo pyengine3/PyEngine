@@ -32,6 +32,7 @@
     - Bug Fix : Rescale SpriteComponent can make weird result
     - Bug Fix : Shift-capitals must be typed twice in Entry to be writed
     - Bug Fix : Text can be more longer than the Entry
+    - Bug Fix : Press an other key than the actuel break the movement with ControlComponent
     
     - Crash Fix : Crash sometimes to create hover button with sprite
     - Crash Fix : Crash when import Vec2 at first

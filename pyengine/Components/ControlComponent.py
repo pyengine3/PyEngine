@@ -37,6 +37,7 @@ class ControlComponent:
         self.speed = speed
         self.goto = Vec2(-1, -1)
         self.jumping = False
+        self.keypressed = []
         self.controles = {
             Controls.UPJUMP: const.K_UP,
             Controls.LEFT: const.K_LEFT,
@@ -72,39 +73,49 @@ class ControlComponent:
 
     def update(self):
         if self.controltype == ControlType.CLICKFOLLOW and self.goto != (-1, -1):
-            if self.entity.has_component(PositionComponent):
-                position = self.entity.get_component(PositionComponent)
-                if position.x-10 < self.goto.x < position.x+10 and position.y-10 < self.goto.y < position.y+10:
-                    self.goto = Vec2(-1, -1)
-                else:
-                    pos = position.position
-                    if position.x-10 > self.goto.x:
-                        pos.x = position.x - self.speed
-                    elif position.x+10 < self.goto.x:
-                        pos.x = position.x + self.speed
-                    if position.y-10 > self.goto.y:
-                        pos.y = position.y - self.speed
-                    elif position.y+10 < self.goto.y:
-                        pos.y = position.y + self.speed
-
-                    cango = True
-                    if self.entity.has_component(PhysicsComponent):
-                        cango = self.entity.get_component(PhysicsComponent).can_go(pos)
-                    if cango:
-                        self.entity.get_component(PositionComponent).position = pos
+            self.movebymouse()
+        else:
+            for i in self.keypressed:
+                self.movebykey(i)
 
     def mousepress(self, evt):
         if self.controltype == ControlType.CLICKFOLLOW and evt.button == MouseButton.LEFTCLICK.value:
             self.goto = Vec2(evt.pos[0], evt.pos[1])
 
     def keyup(self, evt):
-        eventkey = evt.key
+        if evt.key in self.keypressed:
+            self.keypressed.remove(evt.key)
         if self.controltype == ControlType.DOUBLEJUMP or self.controltype == ControlType.CLASSICJUMP:
-            if eventkey == self.controles[Controls.UPJUMP]:
+            if evt.key == self.controles[Controls.UPJUMP]:
                 self.jumping = False
 
     def keypress(self, evt):
-        eventkey = evt.key
+        if evt.key not in self.keypressed:
+            self.keypressed.append(evt.key)
+
+    def movebymouse(self):
+        if self.entity.has_component(PositionComponent):
+            position = self.entity.get_component(PositionComponent)
+            if position.x - 10 < self.goto.x < position.x + 10 and position.y - 10 < self.goto.y < position.y + 10:
+                self.goto = Vec2(-1, -1)
+            else:
+                pos = position.position
+                if position.x - 10 > self.goto.x:
+                    pos.x = position.x - self.speed
+                elif position.x + 10 < self.goto.x:
+                    pos.x = position.x + self.speed
+                if position.y - 10 > self.goto.y:
+                    pos.y = position.y - self.speed
+                elif position.y + 10 < self.goto.y:
+                    pos.y = position.y + self.speed
+
+                cango = True
+                if self.entity.has_component(PhysicsComponent):
+                    cango = self.entity.get_component(PhysicsComponent).can_go(pos)
+                if cango:
+                    self.entity.get_component(PositionComponent).position = pos
+
+    def movebykey(self, eventkey):
         if self.entity.has_component(PositionComponent):
             position = self.entity.get_component(PositionComponent)
             pos = position.position
