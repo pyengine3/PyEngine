@@ -22,7 +22,8 @@ class Entry(Widget):
         self.cursortimer = 20
         self.cursor = False
         self.typing = False
-        self.accepted = string.whitespace+string.ascii_letters+string.digits+string.punctuation
+        self.accepted = "éèàçù€ "
+        self.accepted += string.digits + string.ascii_letters + string.punctuation
         self.update_render()
 
     @property

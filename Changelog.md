@@ -14,6 +14,7 @@
     - Button : Remove btn argument on command of Button
     - Checkbox : Create checkbox widget
 	- ProgressBar : Create progressbar widget
+	- Entry : Add accents letters in accepted and remove some weird symbol
 	- Color : Use clamp function
 	- Font : Add rendered_size function
     - Vec2 : Add divide operator
