@@ -1,7 +1,7 @@
 from pyengine import Window, Entity, ControlType
 from pyengine.Systems import EntitySystem, UISystem
 from pyengine.Utils import Colors, Vec2
-from pyengine.Components import PositionComponent, SpriteComponent, PhysicsComponent, ControlComponent
+from pyengine.Components import PositionComponent, SpriteComponent, PhysicsComponent, ControlComponent, LifeComponent
 from pyengine.Prefabs import Tilemap
 from pyengine.Widgets import Checkbox, ProgressBar, Button, Entry, Label
 
@@ -27,13 +27,14 @@ class Game(Window):
 
         self.esys = self.world.get_system(EntitySystem)
 
-        self.tilemap = Tilemap(Vec2(), "tilemap/TESTMAP.json", 0.7)
+        self.tilemap = Tilemap(Vec2(), "tilemap/TESTMAP.json", 0.5)
 
         self.player = Entity()
         self.player.add_component(PositionComponent(Vec2(10, 10)))
         self.player.add_component(SpriteComponent("images/idle.png")).scale = 0.2
         self.player.add_component(PhysicsComponent())
         self.player.add_component(ControlComponent(ControlType.CLASSICJUMP))
+        self.player.add_component(LifeComponent(100, self.die))
 
         self.esys.add_entity(self.tilemap)
         self.esys.add_entity(self.player)
@@ -42,8 +43,12 @@ class Game(Window):
 
     def btn(self):
         self.progress.value += 5
-        self.tilemap.scale = 1.2
+        self.tilemap.scale = 1.5
         self.la.text = self.e.text
+        self.player.get_component(LifeComponent).life = -10
+
+    def die(self):
+        print("MON ENTITE EST MORTE !")
 
 
 Game()
