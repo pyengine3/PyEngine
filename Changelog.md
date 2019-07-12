@@ -14,6 +14,7 @@
     - Checkbox : Create checkbox widget
 	- ProgressBar : Create progressbar widget
 	- Color : Use clamp function
+	- Font : Add rendered_size function
     - Vec2 : Add divide operator
     - Vec2 : Add iterator
     - Vec2 : Change representation in string to "Vec2(X, Y)"

@@ -50,5 +50,9 @@ class Font:
     def __repr__(self) -> str:
         return str([self.name, self.size, self.bold, self.italic])
 
+    def rendered_size(self, texte):
+        rect = self.render().render(texte, 1, (0, 0, 0)).get_rect()
+        return rect.width, rect.height
+
     def render(self) -> pygame.font:
         return pygame.font.SysFont(self.name, self.size, self.bold, self.italic)

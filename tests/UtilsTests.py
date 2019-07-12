@@ -86,6 +86,10 @@ class FontTests(unittest.TestCase):
         self.assertTrue(self.font == Font())
         self.assertTrue(self.font != Font("Lucida"))
 
+    def test_rendered_size(self):
+        self.assertEqual(self.font.rendered_size("test"), (24, 18))
+        self.assertEqual(self.font.rendered_size("OUI"), (25, 18))
+
 
 class Vec2Tests(unittest.TestCase):
     def setUp(self):
