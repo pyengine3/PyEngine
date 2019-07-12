@@ -3,6 +3,7 @@
 ## V 1.4.0 : XXX Update - XX/XX/19
 
     - AnimComponent : Add play attribute
+    - AnimComponent : Use clamp function to set timer
     - PositionComponent : Offset is now a property
     - PositionComponent : position return the position without offset
     - SpriteComponent : Scale don't modify width and height

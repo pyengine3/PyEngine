@@ -1,5 +1,6 @@
 from pyengine.Components.SpriteComponent import SpriteComponent
 from pyengine.Exceptions import NoObjectError
+from pyengine.Utils import clamp
 
 __all__ = ["AnimComponent"]
 
@@ -44,11 +45,8 @@ class AnimComponent:
 
     @time.setter
     def time(self, val):
-        if val < 0:
-            raise ValueError("Time of AnimComponent can be lower than 0")
-        else:
-            self.__time = val
-            self.timer = val
+        self.__time = clamp(val, 0)
+        self.timer = self.__time
 
     def update(self):
         if self.play:
