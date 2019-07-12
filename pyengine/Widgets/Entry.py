@@ -102,10 +102,10 @@ class Entry(Widget):
                         self.label.text = self.label.text[:-1]
             elif evt.unicode in self.accepted:
                 if self.cursor:
-                    if self.label.rect.width + 15 < self.rect.width:
+                    if self.label.font.rendered_size(self.label.text[:-1]+evt.unicode+"I")[0] < self.rect.width - 10:
                         self.label.text = self.label.text[:-1]+evt.unicode+"I"
                 else:
-                    if self.label.rect.width + 20 < self.rect.width:
+                    if self.label.font.rendered_size(self.label.text+evt.unicode)[0] < self.rect.width - 10:
                         self.label.text = self.label.text + evt.unicode
             self.typing = True
 
