@@ -16,6 +16,7 @@
 	- ProgressBar : Create progressbar widget
 	- Entry : Add accents letters in accepted and remove some weird symbol
 	- Color : Use clamp function
+	- Maths : Clamp function can be use without max or/and min value
 	- Font : Add rendered_size function
     - Vec2 : Add divide operator
     - Vec2 : Add iterator

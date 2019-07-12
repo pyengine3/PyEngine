@@ -8,6 +8,11 @@ class MathsTests(unittest.TestCase):
         self.assertEqual(clamp(1, 0, 2), 1)
         self.assertEqual(clamp(3, 0, 2), 2)
         self.assertEqual(clamp(-1, 0, 2), 0)
+        self.assertEqual(clamp(1, 0), 1)
+        self.assertEqual(clamp(-1, 0), 0)
+        self.assertEqual(clamp(1, maxi=3), 1)
+        self.assertEqual(clamp(4, maxi=3), 3)
+        self.assertEqual(clamp(1), 1)
 
 
 class ColorTests(unittest.TestCase):
