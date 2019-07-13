@@ -42,8 +42,8 @@ class SpriteComponent:
     @scale.setter
     def scale(self, scale):
         self.__scale = scale
-        self.entity.image = pygame.transform.scale(self.entity.image, (int(self.width * scale),
-                                                                       int(self.height * scale)))
+        self.entity.image = pygame.transform.scale(self.entity.image, (round(self.width * scale),
+                                                                       round(self.height * scale)))
         self.update_entity()
 
     @property
@@ -77,10 +77,11 @@ class SpriteComponent:
     def sprite(self, sprite):
         self.__sprite = sprite
         self.entity.image = pygame.image.load(sprite)
-        self.width = int(self.width*self.scale)
-        self.height = int(self.height*self.scale)
-        self.entity.image = pygame.transform.scale(self.entity.image, (self.width, self.height))
-        self.update_entity()
+        self.width = self.entity.rect.width
+        self.height = self.entity.rect.height
+        self.entity.image = pygame.transform.scale(self.entity.image, (round(self.width * self.scale),
+                                                                       round(self.height * self.scale)))
+        self.update_position()
 
     def update_position(self):
         if self.entity.has_component(PositionComponent):

@@ -1,5 +1,6 @@
 # Changelog
 
+    - Bug Fix : Sprite is rescale at every change of sprite in SpriteComponent
 ## V 1.4.0 : All Update - 13/07/19
 
     - AnimComponent : Add play attribute
