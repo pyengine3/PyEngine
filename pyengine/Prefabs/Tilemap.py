@@ -44,7 +44,9 @@ class Tilemap(Entity):
                 if datas["layers"][0]["data"][y*self.width+x] - 1 != -1:
                     offset = Vec2(x * self.tilewidth, y * self.tileheight)
                     idtile = str(datas["layers"][0]["data"][y*self.width+x]-1)
-                    self.tiles.append(Tile(pos, offset, self.folder+idtiles[idtile], [x, y]))
+                    tilesetfolder = "/".join(datas["tilesets"][0]["source"].split("/")[:-1])+"/"
+                    self.tiles.append(Tile(pos, offset, self.folder+tilesetfolder+idtiles[idtile],
+                                           [x, y]))
 
         self.scale = scale
 

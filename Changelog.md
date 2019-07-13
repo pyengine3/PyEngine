@@ -1,6 +1,7 @@
 # Changelog
 
     - Bug Fix : Sprite is rescale at every change of sprite in SpriteComponent
+    - Bug Fix : If tileset isn't in the same director than tilemap, sprites isn't found
 ## V 1.4.0 : All Update - 13/07/19
 
     - AnimComponent : Add play attribute
