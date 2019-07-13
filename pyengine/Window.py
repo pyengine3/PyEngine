@@ -107,6 +107,7 @@ class Window:
 
     @world.setter
     def world(self, world):
+        self.__world.stop_world()
         self.call(WindowCallbacks.CHANGEWORLD, self.__world, world)
         self.__world = world
 

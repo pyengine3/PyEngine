@@ -14,7 +14,7 @@ class Game(Window):
 
         self.check = Checkbox(Vec2(500, 300), "TEST")
         self.check.label.color = Colors.BLACK.value
-        self.progress = ProgressBar(Vec2(400, 200), Vec2(300, 20), ("tilemap/sprite0.png", "tilemap/sprite1.png"))
+        self.progress = ProgressBar(Vec2(400, 200), Vec2(300, 20))
         self.button = Button(Vec2(500, 100), "Add", self.btn)
         self.e = Entry(Vec2(400, 400))
         self.la = Label(Vec2(400, 450), "Contenu de l'entry", Colors.BLACK.value)

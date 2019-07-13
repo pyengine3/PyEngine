@@ -1,7 +1,11 @@
 # Changelog
 
+## V 1.4.1 : XXX Update - XX/07/19
+
     - Bug Fix : Sprite is rescale at every change of sprite in SpriteComponent
     - Bug Fix : If tileset isn't in the same director than tilemap, sprites isn't found
+    - Bug Fix : ControlComponent save the keypressed when change world
+
 ## V 1.4.0 : All Update - 13/07/19
 
     - AnimComponent : Add play attribute

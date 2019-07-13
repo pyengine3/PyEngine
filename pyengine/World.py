@@ -72,3 +72,6 @@ class World:
     def event(self, evt):
         if evt.type == self.systems["Music"].ENDSOUND:
             self.systems["Music"].next_song()
+
+    def stop_world(self):
+        self.systems["Entity"].stop_world()

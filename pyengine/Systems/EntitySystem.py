@@ -57,6 +57,11 @@ class EntitySystem:
         for i in self.get_all_entities():
             i.update()
 
+    def stop_world(self):
+        for i in self.get_all_entities():
+            if i.has_component(ControlComponent):
+                i.get_component(ControlComponent).keypressed = []
+
     def keypress(self, evt):
         for i in self.get_all_entities():
             if i.has_component(ControlComponent):
