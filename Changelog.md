@@ -1,6 +1,6 @@
 # Changelog
 
-## V 1.4.0 : XXX Update - XX/XX/19
+## V 1.4.0 : All Update - 13/07/19
 
     - AnimComponent : Add play attribute
     - AnimComponent : Use clamp function to set timer
