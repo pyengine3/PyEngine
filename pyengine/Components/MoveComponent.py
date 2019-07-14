@@ -36,13 +36,17 @@ class MoveComponent:
 
             if self.entity.has_component(PhysicsComponent):
                 if self.entity.get_component(PhysicsComponent).can_go(pos + self.direction,
-                                                                      CollisionCauses.MOVECOMPONENT):
+                                                                      CollisionCauses.MOVECOMPONENT, False):
                     self.entity.get_component(PositionComponent).position += self.direction
                 elif self.entity.get_component(PhysicsComponent).can_go(pos + Vec2(0, self.direction.y),
-                                                                        CollisionCauses.MOVECOMPONENT):
-                    self.entity.get_component(PositionComponent).position += self.direction
+                                                                        CollisionCauses.MOVECOMPONENT, False):
+                    self.entity.get_component(PositionComponent).position += Vec2(0, self.direction.y)
                 elif self.entity.get_component(PhysicsComponent).can_go(pos + Vec2(self.direction.x, 0),
-                                                                        CollisionCauses.MOVECOMPONENT):
-                    self.entity.get_component(PositionComponent).position += self.direction
+                                                                        CollisionCauses.MOVECOMPONENT, False):
+                    self.entity.get_component(PositionComponent).position += Vec2(self.direction.x, 0)
+                else:
+                    # Make callback
+                    self.entity.get_component(PhysicsComponent).can_go(pos + self.direction,
+                                                                       CollisionCauses.MOVECOMPONENT)
             else:
                 self.entity.get_component(PositionComponent).position += self.direction
