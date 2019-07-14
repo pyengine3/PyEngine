@@ -5,6 +5,7 @@
     - Color : Add parameter to apply darker or lighter x times
     
     - Bug Fix : Fix Diagonal movement from MoveComponent
+    - Bug Fix : EntitySystem give wrong id to tiles of Tilemap
     - Bug Fix : Sprite is rescale at every change of sprite in SpriteComponent
     - Bug Fix : If tileset isn't in the same director than tilemap, sprites isn't found
     - Bug Fix : ControlComponent save the keypressed when change world

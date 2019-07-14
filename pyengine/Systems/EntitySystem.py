@@ -34,11 +34,8 @@ class EntitySystem:
             entity.identity = self.entities.sprites()[-1].identity + 1
         else:
             entity.identity = 0
+        self.entities.add(entity)
         entity.system = self
-        if entity.has_component(SpriteComponent):
-            self.entities.add(entity)
-        else:
-            self.texts.add(entity)
         return entity
 
     def has_entity(self, entity: Entity) -> bool:
