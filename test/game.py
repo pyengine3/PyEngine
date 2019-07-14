@@ -1,14 +1,15 @@
 from pyengine import Window, Entity, ControlType
 from pyengine.Systems import EntitySystem, UISystem
 from pyengine.Utils import Colors, Vec2
-from pyengine.Components import PositionComponent, SpriteComponent, PhysicsComponent, ControlComponent, LifeComponent
+from pyengine.Components import PositionComponent, SpriteComponent, PhysicsComponent, TextComponent, \
+    ControlComponent, LifeComponent
 from pyengine.Prefabs import Tilemap
 from pyengine.Widgets import Checkbox, ProgressBar, Button, Entry, Label
 
 
 class Game(Window):
     def __init__(self):
-        super(Game, self).__init__(700, 600, Colors.WHITE.value)
+        super(Game, self).__init__(700, 600, Colors.WHITE.value, debug=True)
 
         self.uisys = self.world.get_system(UISystem)
 
@@ -27,7 +28,7 @@ class Game(Window):
 
         self.esys = self.world.get_system(EntitySystem)
 
-        self.tilemap = Tilemap(Vec2(), "tilemap/TESTMAP.json", 0.5)
+        self.tilemap = Tilemap(Vec2(20, 90), "tilemap/TESTMAP.json", 0.5)
 
         self.player = Entity()
         self.player.add_component(PositionComponent(Vec2(10, 10)))
@@ -36,8 +37,17 @@ class Game(Window):
         self.player.add_component(ControlComponent(ControlType.CLASSICJUMP))
         self.player.add_component(LifeComponent(100, self.die))
 
+        self.etext = Entity()
+        self.etext.add_component(PositionComponent(Vec2(10, 50)))
+        self.etext.add_component(TextComponent("TEST", Colors.BLACK.value))
+        self.etext2 = Entity()
+        self.etext2.add_component(PositionComponent(Vec2(10, 80)))
+        self.etext2.add_component(TextComponent("TEST", Colors.BLACK.value))
+
         self.esys.add_entity(self.tilemap)
         self.esys.add_entity(self.player)
+        self.esys.add_entity(self.etext)
+        self.esys.add_entity(self.etext2)
 
         self.run()
 
