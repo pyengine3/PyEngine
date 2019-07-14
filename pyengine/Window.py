@@ -151,7 +151,7 @@ class Window:
             self.screen.fill(self.color.get())
 
             if self.debug:
-                # Calculate and show FPS (must be around 60)
+                # Calculate and show FPS (must be around update_rate)
                 self.frames += 1
                 self.ct = pygame.time.get_ticks()
                 if (self.ct - self.st) >= 1000:

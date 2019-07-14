@@ -12,13 +12,9 @@ class EntitySystem:
     def __init__(self, world: World):
         self.world = world
         self.entities = pygame.sprite.Group()
-        self.texts = pygame.sprite.Group()
-
-    def get_all_entities(self):
-        return self.entities.sprites() + self.texts.sprites()
 
     def get_entity(self, identity: int) -> Entity:
-        for i in self.get_all_entities():
+        for i in self.entities:
             if i.identity == identity:
                 return i
         loggers.get_logger("PyEngine").warning("Try to get entity with id "+str(identity)+" but it doesn't exist")
@@ -39,55 +35,42 @@ class EntitySystem:
         return entity
 
     def has_entity(self, entity: Entity) -> bool:
-        return entity in self.get_all_entities()
+        return entity in self.entities
 
     def remove_entity(self, entity: Entity) -> None:
-        if entity in self.get_all_entities():
-            if entity in self.texts:
-                self.texts.remove(entity)
-            else:
-                self.entities.remove(entity)
+        if entity in self.entities:
+            self.entities.remove(entity)
         else:
             raise ValueError("Entity has not in EntitySystem")
 
     def update(self):
-        for i in self.get_all_entities():
+        for i in self.entities:
             i.update()
 
     def stop_world(self):
-        for i in self.get_all_entities():
+        for i in self.entities:
             if i.has_component(ControlComponent):
                 i.get_component(ControlComponent).keypressed = []
 
     def keypress(self, evt):
-        for i in self.get_all_entities():
+        for i in self.entities:
             if i.has_component(ControlComponent):
                 i.get_component(ControlComponent).keypress(evt)
 
     def keyup(self, evt):
-        for i in self.get_all_entities():
+        for i in self.entities:
             if i.has_component(ControlComponent):
                 i.get_component(ControlComponent).keyup(evt)
 
     def mousepress(self, evt):
-        for i in self.get_all_entities():
+        for i in self.entities:
             if i.has_component(ControlComponent):
                 i.get_component(ControlComponent).mousepress(evt)
 
     def show(self, screen):
         self.entities.draw(screen)
-        for i in self.texts:
-            text = i.get_component(TextComponent)
-            position = i.get_component(PositionComponent)
-            screen.blit(text.render(), position.position.coords)
 
     def show_debug(self, screen):
         for i in self.entities.sprites():
             render = self.world.window.debugfont.render("ID : "+str(i.identity), 1, Colors.RED.value.get())
             screen.blit(render, (i.rect.x + i.rect.width / 2 - render.get_width()/2, i.rect.y - 20))
-        for i in self.texts.sprites():
-            render = self.world.window.debugfont.render("ID : "+str(i.identity), 1, Colors.RED.value.get())
-            position = i.get_component(PositionComponent)
-            text = i.get_component(TextComponent)
-            screen.blit(render, (position.position.x + text.rendered_size[0] / 2 - render.get_width()/2,
-                                 position.position.y - 20))

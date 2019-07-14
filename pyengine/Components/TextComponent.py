@@ -1,5 +1,7 @@
 from pyengine.Exceptions import CompatibilityError
 from pyengine.Utils import Font, Color, Colors
+from pyengine.Components import PositionComponent
+
 import pygame
 from typing import Union
 
@@ -17,11 +19,12 @@ class TextComponent:
             raise TypeError("Background must be a Color")
 
         self.__entity = None
-        self.text = text
-        self.font = font
-        self.scale = scale
-        self.color = color
-        self.background = background
+        self.__text = text
+        self.__font = font
+        self.__scale = scale
+        self.__color = color
+        self.__background = background
+        self.image = None
 
     @property
     def scale(self):
@@ -30,6 +33,7 @@ class TextComponent:
     @scale.setter
     def scale(self, val):
         self.__scale = val
+        self.update_render()
 
     @property
     def background(self):
@@ -41,6 +45,7 @@ class TextComponent:
             raise TypeError("Background must be a Color")
 
         self.__background = color
+        self.update_render()
 
     @property
     def text(self):
@@ -49,6 +54,7 @@ class TextComponent:
     @text.setter
     def text(self, text):
         self.__text = text
+        self.update_render()
 
     @property
     def color(self):
@@ -60,6 +66,7 @@ class TextComponent:
             raise TypeError("Color have not a Color type")
 
         self.__color = color
+        self.update_render()
 
     @property
     def font(self):
@@ -71,6 +78,7 @@ class TextComponent:
             raise TypeError("Font have not a Font type")
 
         self.__font = font
+        self.update_render()
 
     @property
     def entity(self):
@@ -85,19 +93,30 @@ class TextComponent:
             raise CompatibilityError("TextComponent is not compatible with SpriteComponent")
 
         self.__entity = entity
-        self.__entity.image = self.render()
+        self.update_render()
 
     @property
     def rendered_size(self):
-        return self.render().get_rect().width, self.render().get_rect().height
+        return self.image.get_rect().width, self.image.get_rect().height
 
-    def render(self) -> pygame.Surface:
+    def update_render(self) -> pygame.Surface:
         if self.background is None:
-            image = self.font.render().render(self.text, 1, self.color.get())
+            self.image = self.font.render().render(self.text, 1, self.color.get())
         else:
             renderer = self.font.render().render(self.text, 1, self.color.get())
-            image = pygame.Surface([renderer.get_rect().width, renderer.get_rect().height])
-            image.fill(self.background.get())
-            image.blit(renderer, [0, 0])
-        image = pygame.transform.scale(image, (self.scale*image.get_rect().width, self.scale*image.get_rect().height))
-        return image
+            self.image = pygame.Surface([renderer.get_rect().width, renderer.get_rect().height])
+            self.image.fill(self.background.get())
+            self.image.blit(renderer, [0, 0])
+        self.image = pygame.transform.scale(self.image, (self.scale*self.image.get_rect().width,
+                                                         self.scale*self.image.get_rect().height))
+
+        if self.entity is not None:
+            self.entity.image = self.image
+            self.entity.rect = self.image.get_rect()
+            self.update_position()
+
+    def update_position(self):
+        if self.entity.has_component(PositionComponent):
+            position = self.entity.get_component(PositionComponent)
+            self.entity.rect.x = position.position.x + position.offset.x
+            self.entity.rect.y = position.position.y + position.offset.y

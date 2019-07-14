@@ -43,7 +43,7 @@ class CameraSystem:
             raise TypeError("Position must be a Vec2")
 
         self.__position = position
-        for i in self.world.get_system(EntitySystem).get_all_entities():
+        for i in self.world.get_system(EntitySystem).entities:
             pos = i.get_component(PositionComponent)
             pos.position = Vec2(pos.position.x - self.position.x + self.offset.x,
                                 pos.position.y - self.position.y + self.offset.y)
@@ -56,11 +56,11 @@ class CameraSystem:
     def zoom(self, val):
         self.__zoom = val
         for i in self.world.get_system(EntitySystem).entities:
-            sprite = i.get_component(SpriteComponent)
-            sprite.scale = val
-        for i in self.world.get_system(EntitySystem).texts:
-            text = i.get_component(TextComponent)
-            text.scale = val
+            if i.has_component(SpriteComponent):
+                comp = i.get_component(SpriteComponent)
+            else:
+                comp = i.get_component(TextComponent)
+            comp.scale = val
 
     @property
     def offset(self):

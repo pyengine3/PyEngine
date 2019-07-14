@@ -4,6 +4,8 @@
 
     - Color : Add parameter to apply darker or lighter x times
     
+    - Optimization
+
     - Bug Fix : Fix Diagonal movement from MoveComponent
     - Bug Fix : EntitySystem give wrong id to tiles of Tilemap
     - Bug Fix : Sprite is rescale at every change of sprite in SpriteComponent

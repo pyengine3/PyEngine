@@ -57,14 +57,15 @@ class PhysicsComponent:
     def callback(self, function):
         self.__callback = function
 
-    def can_go(self, position: Vec2, createdby: CollisionCauses = CollisionCauses.UNKNOWN) -> bool:
+    def can_go(self, position: Vec2, createdby: CollisionCauses = CollisionCauses.UNKNOWN,
+               makecallback: bool = True) -> bool:
         gosprite = pygame.sprite.Sprite()
         gosprite.rect = pygame.rect.Rect(position.x, position.y, self.entity.image.get_width(),
                                          self.entity.image.get_height())
         collision = pygame.sprite.spritecollide(gosprite, self.entity.system.entities, False, None)
         for i in collision:
             if i.has_component(PhysicsComponent) and i.identity != self.entity.identity:
-                if self.callback is not None:
+                if self.callback is not None and makecallback:
                     entitypos = self.entity.get_component(PositionComponent).position
                     ipos = i.get_component(PositionComponent).position
                     if ipos.x - self.entity.image.get_width() < entitypos.x < ipos.x + i.image.get_width():
