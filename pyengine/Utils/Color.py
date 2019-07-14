@@ -32,28 +32,18 @@ class Color:
         self.g = int(hexa[3:5], 16)
         self.b = int(hexa[5:7], 16)
 
-    def darker(self):
-        r = self.r
-        b = self.b
-        g = self.g
-        if self.r >= 10:
-            r -= 10
-        if self.g >= 10:
-            g -= 10
-        if self.b >= 10:
-            b -= 10
+    def darker(self, nb=1):
+        nb = clamp(nb, 1)
+        r = clamp(self.r - 10*nb, 0, 255)
+        b = clamp(self.b - 10*nb, 0, 255)
+        g = clamp(self.g - 10*nb, 0, 255)
         return Color(r, g, b)
 
-    def lighter(self):
-        r = self.r
-        b = self.b
-        g = self.g
-        if self.r <= 245:
-            r += 10
-        if self.g <= 245:
-            g += 10
-        if self.b <= 245:
-            b += 10
+    def lighter(self, nb=1):
+        nb = clamp(nb, 1)
+        r = clamp(self.r + 10*nb, 0, 255)
+        b = clamp(self.b + 10*nb, 0, 255)
+        g = clamp(self.g + 10*nb, 0, 255)
         return Color(r, g, b)
 
     def __add__(self, other):
