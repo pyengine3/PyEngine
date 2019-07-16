@@ -2,6 +2,7 @@
 
 ## V 1.4.2 - XX/07/19
 
+    - PhysicsComponent : Add callback parameters of constructor
     - Tilemap : place tile at bottom
     
     - Bug Fix : Remove offset when change position

@@ -23,7 +23,7 @@ class CollisionInfos:
 
 
 class PhysicsComponent:
-    def __init__(self, affectbygravity: bool = True, gravity_force: int = 5):
+    def __init__(self, affectbygravity: bool = True, callback=None, gravity_force: int = 5):
         self.entity = None
         self.affectbygravity = affectbygravity
         self.gravity = gravity_force
@@ -31,7 +31,7 @@ class PhysicsComponent:
         self.timegravity = 5
         self.grounded = False
         self.doublejump = True
-        self.callback = None
+        self.callback = callback
 
     @property
     def gravity(self):
