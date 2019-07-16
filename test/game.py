@@ -1,4 +1,4 @@
-from pyengine import Window, Entity, ControlType
+from pyengine import Window, Entity, ControlType, WindowCallbacks
 from pyengine.Systems import EntitySystem, UISystem, CameraSystem
 from pyengine.Utils import Colors, Vec2
 from pyengine.Components import PositionComponent, SpriteComponent, PhysicsComponent, TextComponent, \
@@ -10,6 +10,8 @@ from pyengine.Widgets import Checkbox, ProgressBar, Button, Entry, Label
 class Game(Window):
     def __init__(self):
         super(Game, self).__init__(700, 600, Colors.WHITE.value, debug=True)
+
+        self.set_callback(WindowCallbacks.OUTOFWINDOW, self.parti)
 
         self.uisys = self.world.get_system(UISystem)
 
@@ -49,8 +51,6 @@ class Game(Window):
         self.esys.add_entity(self.etext)
         self.esys.add_entity(self.etext2)
 
-        self.world.get_system(CameraSystem).entity_follow = self.player
-
         self.run()
 
     def btn(self):
@@ -60,6 +60,9 @@ class Game(Window):
 
     def die(self):
         print("MON ENTITE EST MORTE !")
+
+    def parti(self, obj, pos):
+        print("MAIS T'ES PARTI !")
 
 
 Game()

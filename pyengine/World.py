@@ -75,3 +75,6 @@ class World:
 
     def stop_world(self):
         self.systems["Entity"].stop_world()
+
+    def start_world(self):
+        pass

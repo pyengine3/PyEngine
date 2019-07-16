@@ -41,19 +41,15 @@ class Entity(pygame.sprite.Sprite):
         self.attachedentities.append(entity)
 
     def add_component(self, component: cunion) -> cunion:
-        found = False
-        for i in [PositionComponent, SpriteComponent, ControlComponent, PhysicsComponent,
-                  TextComponent, LifeComponent, MoveComponent, AnimComponent]:
-            if isinstance(component, i):
-                found = True
-                break
-        if not found:
+        if isinstance(component, (PositionComponent, SpriteComponent, ControlComponent, PhysicsComponent,
+                                  TextComponent, LifeComponent, MoveComponent, AnimComponent)):
+            if isinstance(component, tuple([type(c) for c in self.components])):
+                raise TypeError("Entity already have " + str(component) + " as component.")
+            component.entity = self
+            self.components.append(component)
+            return component
+        else:
             raise TypeError("Entity can't have "+str(component)+" as component.")
-        if component in [type(c) for c in self.components]:
-            raise TypeError("Entity already have "+str(component)+" as component.")
-        component.entity = self
-        self.components.append(component)
-        return component
 
     def remove_component(self, component: ctypes) -> None:
         for i in self.components:
@@ -63,9 +59,8 @@ class Entity(pygame.sprite.Sprite):
         loggers.get_logger("PyEngine").info("Deleting component can be dangerous.")
 
     def has_component(self, component: ctypes) -> bool:
-        for i in self.components:
-            if isinstance(i, component):
-                return True
+        if component in [type(c) for c in self.components]:
+            return True
         return False
 
     def get_component(self, component: ctypes) -> cunion:

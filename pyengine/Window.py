@@ -110,6 +110,7 @@ class Window:
         self.__world.stop_world()
         self.call(WindowCallbacks.CHANGEWORLD, self.__world, world)
         self.__world = world
+        self.__world.start_world()
 
     def __process_event(self, evt):
         if evt.type == const.QUIT:

@@ -58,7 +58,7 @@ class Loggers:
             raise KeyError("Logger '"+name+"' doesn't exist")
 
     def get_all(self):
-        return [[k, v] for k, v in self.loggers.items()]
+        return list(self.loggers.items())
 
     def to_all(self, action: str, message: str) -> None:
         for i in self.loggers.values():
