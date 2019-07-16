@@ -5,6 +5,7 @@
     - PhysicsComponent : Add callback parameters of constructor
     - Tilemap : place tile at bottom
     
+    - Bug Fix : OUTOFWINDOW doesn't work with CameraSystem
     - Bug Fix : Remove offset when change position
     - Bug Fix : Hide and Show doesn't spread to child in Widgets
     - Bug Fix : Focus stays when widget is hide

@@ -47,6 +47,17 @@ class EntitySystem:
         for i in self.entities:
             i.update()
 
+            from pyengine.Systems import CameraSystem
+            if self.world.get_system(CameraSystem).entity_follow is None and i.has_component(PositionComponent):
+                from pyengine import WindowCallbacks
+                # Verify if entity is not out of window
+                position = i.get_component(PositionComponent)
+                if (position.position.y >= self.world.window.height - i.image.get_rect().height or
+                        position.position.y < 0 or
+                        position.position.x >= self.world.window.width - i.image.get_rect().width or
+                        position.position.x < 0):
+                    self.world.window.call(WindowCallbacks.OUTOFWINDOW, self, position.position)
+
     def stop_world(self):
         for i in self.entities:
             if i.has_component(ControlComponent):
