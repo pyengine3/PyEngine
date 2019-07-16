@@ -6,6 +6,7 @@
     
     - Bug Fix : Propagate hide and show to child in Widgets
     - Bug Fix : Remove focus if widget is hide
+    - Bug Fix : Remove offset when change position
 
 ## V 1.4.1 - 14/07/19
 

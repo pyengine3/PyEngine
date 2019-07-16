@@ -60,4 +60,3 @@ class PositionComponent:
         for i in self.entity.attachedentities:
             if i.has_component(PositionComponent):
                 i.get_component(PositionComponent).position = self.position
-                i.get_component(PositionComponent).offset = self.offset

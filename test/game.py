@@ -1,5 +1,5 @@
 from pyengine import Window, Entity, ControlType
-from pyengine.Systems import EntitySystem, UISystem
+from pyengine.Systems import EntitySystem, UISystem, CameraSystem
 from pyengine.Utils import Colors, Vec2
 from pyengine.Components import PositionComponent, SpriteComponent, PhysicsComponent, TextComponent, \
     ControlComponent, LifeComponent
@@ -28,11 +28,11 @@ class Game(Window):
 
         self.esys = self.world.get_system(EntitySystem)
 
-        self.tilemap = Tilemap(Vec2(20, 90), "tilemap/TESTMAP.json", 0.5)
+        self.tilemap = Tilemap(Vec2(20, 90), "tilemap/TESTMAP.json")
 
         self.player = Entity()
         self.player.add_component(PositionComponent(Vec2(10, 10)))
-        self.player.add_component(SpriteComponent("images/idle.png")).scale = 0.2
+        self.player.add_component(SpriteComponent("images/idle.png")).scale = 0.3
         self.player.add_component(PhysicsComponent())
         self.player.add_component(ControlComponent(ControlType.CLASSICJUMP))
         self.player.add_component(LifeComponent(100, self.die))
@@ -49,11 +49,12 @@ class Game(Window):
         self.esys.add_entity(self.etext)
         self.esys.add_entity(self.etext2)
 
+        self.world.get_system(CameraSystem).entity_follow = self.player
+
         self.run()
 
     def btn(self):
         self.progress.value += 5
-        self.tilemap.scale = 1.5
         self.la.text = self.e.text
         self.player.get_component(LifeComponent).life = -10
 
