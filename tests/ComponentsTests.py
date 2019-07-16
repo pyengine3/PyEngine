@@ -191,11 +191,11 @@ class TextTests(unittest.TestCase):
 
     def test_scale(self):
         self.assertEqual(self.component.scale, 1)
-        rect = self.component.render().get_rect()
+        rect = self.entity.image.get_rect()
         basesize = [rect.width, rect.height]
         self.component.scale = 2
         self.assertEqual(self.component.scale, 2)
-        rect = self.component.render().get_rect()
+        rect = self.entity.image.get_rect()
         self.assertEqual([rect.width, rect.height], [basesize[0] * 2, basesize[1] * 2])
 
     def test_text(self):

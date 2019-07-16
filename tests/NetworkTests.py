@@ -17,8 +17,8 @@ class NetworkTests(unittest.TestCase):
             self.nw.client.send(Packet("TOALL", 0, "Ceci est un test"))
 
     def callback(self, type_, author, message):
-        self.assertEqual(type_, "TOALL")
-        self.assertEqual(author, 0)
-        self.assertEqual(message, "Ceci est un test")
-        self.nw.stop_client()
-        self.nw.stop_server()
+        if type_ == "TOALL":
+            self.assertEqual(type_, "TOALL")
+            self.assertEqual(message, "Ceci est un test")
+            self.nw.stop_client()
+            self.nw.stop_server()

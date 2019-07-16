@@ -106,7 +106,7 @@ class EntityTests(unittest.TestCase):
             self.system.add_entity(self.e)
         self.e.add_component(TextComponent(""))
         self.system.add_entity(self.e)
-        self.assertIn(self.e, self.system.texts.sprites())
+        self.assertIn(self.e, self.system.entities.sprites())
         self.assertEqual(self.system.get_entity(0), self.e)
         self.assertEqual(self.system.has_entity(self.e), True)
         self.system.remove_entity(self.e)
