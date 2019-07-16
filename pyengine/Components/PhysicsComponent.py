@@ -82,9 +82,9 @@ class PhysicsComponent:
         return True
 
     def update_gravity(self):
-        if self.entity.has_component(PositionComponent):
-            position = self.entity.get_component(PositionComponent)
-            if self.affectbygravity:
+        if self.affectbygravity:
+            if self.entity.has_component(PositionComponent):
+                position = self.entity.get_component(PositionComponent)
                 if self.can_go(Vec2(position.position.x, position.position.y + self.gravity), CollisionCauses.GRAVITY):
                     self.grounded = False
                     position.position = Vec2(position.position.x, position.position.y + self.gravity)
