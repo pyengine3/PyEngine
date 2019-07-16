@@ -59,11 +59,17 @@ class Widget(pygame.sprite.Sprite):
 
     def show(self) -> None:
         self.isshow = True
+        if self.system is not None and self.system.focus != self:
+            self.system.focus = self
+            self.focusin()
         if self.parent is not None:
             self.parent.show()
 
     def hide(self) -> None:
         self.isshow = False
+        if self.system is not None and self.system.focus == self:
+            self.system.focus = None
+            self.focusout()
         if self.parent is not None:
             self.parent.hide()
 

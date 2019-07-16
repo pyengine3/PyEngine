@@ -5,6 +5,7 @@
     - Tilemap : place tile at bottom
     
     - Bug Fix : Propagate hide and show to child in Widgets
+    - Bug Fix : Remove focus if widget is hide
 
 ## V 1.4.1 - 14/07/19
 
