@@ -46,7 +46,7 @@ class Tilemap(Entity):
                     idtile = str(datas["layers"][0]["data"][y*self.width+x]-1)
                     tilesetfolder = "/".join(datas["tilesets"][0]["source"].split("/")[:-1])+"/"
                     self.tiles.append(Tile(pos, offset, self.folder+tilesetfolder+idtiles[idtile],
-                                           [x, y]))
+                                           [x, y], self.tileheight))
 
         self.scale = scale
 
@@ -60,7 +60,7 @@ class Tilemap(Entity):
             i.get_component(SpriteComponent).scale = val
             i.get_component(PositionComponent).offset = Vec2(
                 i.pos_in_grid[0] * self.tilewidth * val,
-                i.pos_in_grid[1] * self.tileheight * val
+                i.pos_in_grid[1] * self.tileheight * val + (self.tileheight - i.image.get_height())
             )
         self.__scale = val
 
@@ -77,10 +77,14 @@ class Tilemap(Entity):
 
 
 class Tile(Entity):
-    def __init__(self, pos, offset, sprite, pos_in_grid):
+    def __init__(self, pos, offset, sprite, pos_in_grid, tileheight):
         super(Tile, self).__init__()
 
         self.pos_in_grid = pos_in_grid
-        self.add_component(PositionComponent(pos, offset))
+        poscomp = self.add_component(PositionComponent(pos, offset))
         self.add_component(SpriteComponent(sprite))
+        poscomp.offset = Vec2(
+            offset.x,
+            offset.y + (tileheight - self.image.get_height())
+        )
         self.add_component(PhysicsComponent(False))

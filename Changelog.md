@@ -1,5 +1,9 @@
 # Changelog
 
+## V 1.4.2 - XX/07/19
+
+    - Tilemap : place tile at bottom
+
 ## V 1.4.1 - 14/07/19
 
     - Color : Add parameter to apply darker or lighter x times
