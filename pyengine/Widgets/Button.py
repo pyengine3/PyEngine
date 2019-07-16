@@ -34,6 +34,12 @@ class Button(Widget):
         self.label.position = Vec2(self.rect.x+self.rect.width/2-self.label.rect.width/2,
                                    self.rect.y+self.rect.height/2-self.label.rect.height/2)
 
+    def hide(self):
+        self.label.hide()
+
+    def show(self):
+        self.label.show()
+
     @property
     def sprite(self):
         return self.__sprite

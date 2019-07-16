@@ -24,6 +24,12 @@ class Checkbox(Widget):
         self.label.position = Vec2(self.rect.x + 20 * self.scale + 5,
                                    self.rect.y + self.rect.height / 2 - self.label.rect.height / 2)
 
+    def hide(self):
+        self.label.hide()
+
+    def show(self):
+        self.label.show()
+
     def create_image(self):
         if self.checked:
             self.image = pygame.Surface([20 * self.scale, 20 * self.scale])

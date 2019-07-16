@@ -25,6 +25,12 @@ class Entry(Widget):
         self.accepted += string.digits + string.ascii_letters + string.punctuation
         self.update_render()
 
+    def hide(self):
+        self.label.hide()
+
+    def show(self):
+        self.label.show()
+
     @property
     def sprite(self):
         return self.__imagestr

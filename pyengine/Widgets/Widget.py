@@ -59,9 +59,13 @@ class Widget(pygame.sprite.Sprite):
 
     def show(self) -> None:
         self.isshow = True
+        if self.parent is not None:
+            self.parent.show()
 
     def hide(self) -> None:
         self.isshow = False
+        if self.parent is not None:
+            self.parent.hide()
 
     def update_rect(self):
         self.rect = self.image.get_rect()
