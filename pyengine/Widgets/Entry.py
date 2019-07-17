@@ -2,7 +2,7 @@ import pygame
 import string
 from pyengine.Widgets.Widget import Widget
 from pyengine.Widgets import Label
-from pyengine.Utils import Vec2, Colors, Font, Color
+from pyengine.Utils import Vec2, Colors, Font, Color, loggers
 from pygame import locals as const
 from typing import Union
 
@@ -101,13 +101,15 @@ class Entry(Widget):
                     self.label.text = self.label.text[:-2]+"I"
                 else:
                     self.label.text = self.label.text[:-1]
+        elif evt.key == const.K_v and (evt.mod == const.KMOD_CTRL or evt.mod == const.KMOD_LCTRL):
+            clipboard = pygame.scrap.get(const.SCRAP_TEXT)
+            if clipboard:
+                clipboard = clipboard.decode()[:-1]
+                self.add_text(clipboard)
+        elif evt.key == const.K_c and (evt.mod == const.KMOD_CTRL or evt.mod == const.KMOD_LCTRL):
+            pygame.scrap.put(pygame.SCRAP_TEXT, self.text.encode())
         elif evt.unicode != '' and evt.unicode in self.accepted:
-            if self.cursor:
-                if self.label.font.rendered_size(self.label.text[:-1]+evt.unicode+"I")[0] < self.rect.width - 10:
-                    self.label.text = self.label.text[:-1]+evt.unicode+"I"
-            else:
-                if self.label.font.rendered_size(self.label.text+evt.unicode)[0] < self.rect.width - 10:
-                    self.label.text = self.label.text + evt.unicode
+            self.add_text(evt.unicode)
 
     def update_render(self):
         self.update_rect()
@@ -118,6 +120,16 @@ class Entry(Widget):
             self.label.position = Vec2(self.label.position.x,
                                        self.rect.y + 4 + self.iiwhite.get_rect().height / 2 -
                                        self.label.rect.height / 2)
+
+    def add_text(self, texte):
+        if self.cursor:
+            text = self.label.text[:-1] + texte + "I"
+        else:
+            text = self.label.text + texte
+        if self.label.font.rendered_size(text)[0] < self.rect.width - 10:
+            self.label.text = text
+        else:
+            loggers.get_logger("PyEngine").info("Text are too long to be be added to Entry (Text : "+texte+")")
 
     def update(self):
         if self.cursortimer <= 0:

@@ -1,5 +1,9 @@
 # Changelog
 
+## V 1.5.0 - XX/XX/19
+
+    - Entry : Add Ctrl-C and Ctrl-V
+
 ## V 1.4.2 - 17/07/19
 
     - PhysicsComponent : Add callback parameters of constructor

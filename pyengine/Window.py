@@ -29,6 +29,8 @@ class Window:
         pygame.display.set_caption(title)
 
         self.screen = pygame.display.set_mode((width, height))
+        pygame.scrap.init()
+
         self.clock = pygame.time.Clock()
         self.width = width
         self.height = height
