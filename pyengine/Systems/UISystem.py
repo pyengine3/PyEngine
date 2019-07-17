@@ -14,9 +14,9 @@ class UISystem:
         self.focus = None
 
     def get_widget(self, identity: int) -> Widget:
-        for i in self.widgets:
-            if i.identity == identity:
-                return i
+        liste = [i for i in self.widgets if i.identity == identity]
+        if len(liste):
+            return liste[0]
         loggers.get_logger("PyEngine").warning("Try to get widget with id "+str(identity)+" but it doesn't exist")
 
     def add_widget(self, widget: Widget) -> Widget:
@@ -53,24 +53,16 @@ class UISystem:
         self.focus = focustemp
 
     def mousemotion(self, evt):
-        for i in self.widgets.sprites():
-            if isinstance(i, Button):
-                i.mousemotion(evt)
+        [i.mousemotion(evt) for i in self.widgets if isinstance(i, Button)]
 
     def keypress(self, evt):
-        for i in self.widgets.sprites():
-            if isinstance(i, Entry) and self.focus == i:
-                i.keypress(evt)
+        [i.keypress(evt) for i in self.widgets if self.focus == i and isinstance(i, Entry)]
 
     def update(self):
-        for i in self.widgets.sprites():
-            if isinstance(i, Entry) and self.focus == i:
-                i.update()
+        [i.update() for i in self.widgets if self.focus == i and isinstance(i, Entry)]
 
     def show(self, screen):
-        for i in self.widgets.sprites():
-            if i.isshow:
-                screen.blit(i.image, i.rect)
+        [screen.blit(i.image, i.rect) for i in self.widgets if i.isshow]
 
     def show_debug(self, screen):
         for i in self.widgets:

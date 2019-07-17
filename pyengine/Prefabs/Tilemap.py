@@ -38,17 +38,18 @@ class Tilemap(Entity):
             if tile.tag == 'tile':
                 idtiles[tile.attrib["id"]] = tile[0].attrib["source"]
 
-        self.tiles = []
-        for x in range(self.width):
-            for y in range(self.height):
-                if datas["layers"][0]["data"][y*self.width+x] - 1 != -1:
-                    offset = Vec2(x * self.tilewidth, y * self.tileheight)
-                    idtile = str(datas["layers"][0]["data"][y*self.width+x]-1)
-                    tilesetfolder = "/".join(datas["tilesets"][0]["source"].split("/")[:-1])+"/"
-                    self.tiles.append(Tile(pos, offset, self.folder+tilesetfolder+idtiles[idtile],
-                                           [x, y], self.tileheight))
+        self.tiles = [self.create_tile(datas, idtiles, pos, x, y)
+                      for y in range(self.height) for x in range(self.width)]
+        self.tiles = [x for x in self.tiles if x is not None]
 
         self.scale = scale
+
+    def create_tile(self, datas, idtiles, pos, x, y):
+        if datas["layers"][0]["data"][y*self.width+x] - 1 != -1:
+            offset = Vec2(x * self.tilewidth, y * self.tileheight)
+            idtile = str(datas["layers"][0]["data"][y*self.width+x]-1)
+            tilesetfolder = "/".join(datas["tilesets"][0]["source"].split("/")[:-1])+"/"
+            return Tile(pos, offset, self.folder + tilesetfolder + idtiles[idtile], [x, y], self.tileheight)
 
     @property
     def scale(self):

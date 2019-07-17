@@ -52,10 +52,9 @@ class Entity(pygame.sprite.Sprite):
             raise TypeError("Entity can't have "+str(component)+" as component.")
 
     def remove_component(self, component: ctypes) -> None:
-        for i in self.components:
-            if isinstance(i, component):
-                loggers.get_logger("PyEngine").debug("Deleting "+str(component))
-                del self.components[self.components.index(i)]
+        for i in [i for i in self.components if isinstance(i, component)]:
+            loggers.get_logger("PyEngine").debug("Deleting "+str(component))
+            del self.components[self.components.index(i)]
         loggers.get_logger("PyEngine").info("Deleting component can be dangerous.")
 
     def has_component(self, component: ctypes) -> bool:
@@ -64,9 +63,9 @@ class Entity(pygame.sprite.Sprite):
         return False
 
     def get_component(self, component: ctypes) -> cunion:
-        for i in self.components:
-            if isinstance(i, component):
-                return i
+        liste = [i for i in self.components if isinstance(i, component)]
+        if len(liste):
+            return liste[0]
         loggers.get_logger("PyEngine").warning("Try to get "+str(component)+" but Entity don't have it")
 
     def update(self):

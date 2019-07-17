@@ -34,9 +34,9 @@ class World:
         self.__window = val
 
     def get_system(self, classe: stypes) -> sunion:
-        for i in self.systems.values():
-            if type(i) == classe:
-                return i
+        liste = [i for i in self.systems.values() if type(i) == classe]
+        if len(liste):
+            return liste[0]
         loggers.get_logger("PyEngine").warning("Try to get "+str(classe)+" but World don't have it")
 
     def run(self):

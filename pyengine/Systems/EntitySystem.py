@@ -64,19 +64,13 @@ class EntitySystem:
                 i.get_component(ControlComponent).keypressed = []
 
     def keypress(self, evt):
-        for i in self.entities:
-            if i.has_component(ControlComponent):
-                i.get_component(ControlComponent).keypress(evt)
+        [i.get_component(ControlComponent).keypress(evt) for i in self.entities if i.has_component(ControlComponent)]
 
     def keyup(self, evt):
-        for i in self.entities:
-            if i.has_component(ControlComponent):
-                i.get_component(ControlComponent).keyup(evt)
+        [i.get_component(ControlComponent).keyup(evt) for i in self.entities if i.has_component(ControlComponent)]
 
     def mousepress(self, evt):
-        for i in self.entities:
-            if i.has_component(ControlComponent):
-                i.get_component(ControlComponent).mousepress(evt)
+        [i.get_component(ControlComponent).mousepress(evt) for i in self.entities if i.has_component(ControlComponent)]
 
     def show(self, screen):
         self.entities.draw(screen)
