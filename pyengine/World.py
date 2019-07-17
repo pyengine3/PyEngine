@@ -68,6 +68,7 @@ class World:
 
     def mousemotion(self, evt):
         self.systems["UI"].mousemotion(evt)
+        self.systems["Entity"].mousemotion(evt)
 
     def event(self, evt):
         if evt.type == self.systems["Music"].ENDSOUND:

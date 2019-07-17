@@ -15,6 +15,7 @@ class ControlType(Enum):
     CLICKFOLLOW = 4
     LEFTRIGHT = 5
     UPDOWN = 6
+    MOUSEFOLLOW = 7
 
 
 class Controls(Enum):
@@ -72,7 +73,8 @@ class ControlComponent:
         return self.controles[name]
 
     def update(self):
-        if self.controltype == ControlType.CLICKFOLLOW and self.goto != (-1, -1):
+        if (self.controltype == ControlType.CLICKFOLLOW or self.controltype == ControlType.MOUSEFOLLOW) \
+                and self.goto.coords != (-1, -1):
             self.movebymouse()
         else:
             for i in self.keypressed:
@@ -80,6 +82,10 @@ class ControlComponent:
 
     def mousepress(self, evt):
         if self.controltype == ControlType.CLICKFOLLOW and evt.button == MouseButton.LEFTCLICK.value:
+            self.goto = Vec2(evt.pos[0], evt.pos[1])
+
+    def mousemotion(self, evt):
+        if self.controltype == ControlType.MOUSEFOLLOW:
             self.goto = Vec2(evt.pos[0], evt.pos[1])
 
     def keyup(self, evt):

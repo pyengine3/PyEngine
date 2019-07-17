@@ -1,5 +1,5 @@
 from pyengine import Window, Entity, ControlType, WindowCallbacks
-from pyengine.Systems import EntitySystem, UISystem, CameraSystem
+from pyengine.Systems import EntitySystem, UISystem
 from pyengine.Utils import Colors, Vec2
 from pyengine.Components import PositionComponent, SpriteComponent, PhysicsComponent, TextComponent, \
     ControlComponent, LifeComponent
@@ -35,8 +35,8 @@ class Game(Window):
         self.player = Entity()
         self.player.add_component(PositionComponent(Vec2(10, 10)))
         self.player.add_component(SpriteComponent("images/idle.png")).scale = 0.3
-        self.player.add_component(PhysicsComponent())
-        self.player.add_component(ControlComponent(ControlType.CLASSICJUMP))
+        self.player.add_component(ControlComponent(ControlType.MOUSEFOLLOW))
+        self.player.add_component(PhysicsComponent(False))
         self.player.add_component(LifeComponent(100, self.die))
 
         self.etext = Entity()

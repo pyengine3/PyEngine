@@ -72,6 +72,9 @@ class EntitySystem:
     def mousepress(self, evt):
         [i.get_component(ControlComponent).mousepress(evt) for i in self.entities if i.has_component(ControlComponent)]
 
+    def mousemotion(self, evt):
+        [i.get_component(ControlComponent).mousemotion(evt) for i in self.entities if i.has_component(ControlComponent)]
+
     def show(self, screen):
         self.entities.draw(screen)
 
