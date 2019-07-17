@@ -4,6 +4,8 @@
 
     - ControlComponent : Add MOUSEFOLLOW ControlType
     - Entry : Add Ctrl-C and Ctrl-V
+    
+    - Bug Fix : ControlComponent make weird movements with MOUSECLICK ControlType
 
 ## V 1.4.2 - 17/07/19
 

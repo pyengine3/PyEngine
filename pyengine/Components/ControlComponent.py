@@ -101,23 +101,26 @@ class ControlComponent:
 
     def movebymouse(self):
         if self.entity.has_component(PositionComponent):
-            position = self.entity.get_component(PositionComponent)
+            position = self.entity.get_component(PositionComponent).position
             if position.x - 10 < self.goto.x < position.x + 10 and position.y - 10 < self.goto.y < position.y + 10:
                 self.goto = Vec2(-1, -1)
             else:
-                pos = position.position
+                pos = Vec2()
                 if position.x - 10 > self.goto.x:
                     pos.x = position.x - self.speed
                 elif position.x + 10 < self.goto.x:
                     pos.x = position.x + self.speed
+                else:
+                    pos.x = position.x
                 if position.y - 10 > self.goto.y:
                     pos.y = position.y - self.speed
                 elif position.y + 10 < self.goto.y:
                     pos.y = position.y + self.speed
+                else:
+                    pos.y = position.y
 
                 cango = True
                 if self.entity.has_component(PhysicsComponent):
-                    cango = self.entity.get_component(PhysicsComponent).can_go(pos)
                 if cango:
                     self.entity.get_component(PositionComponent).position = pos
 
