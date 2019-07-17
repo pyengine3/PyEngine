@@ -2,6 +2,7 @@
 
 ## V 1.5.0 - XX/XX/19
 
+    - Entity-Tilemap : Move to "Entities" folder
     - ControlComponent : Add MOUSEFOLLOW ControlType
     - PhysicsComponent : Add MOUSEFOLLOW and MOUSECLICK CollisionCauses
     - Entry : Add Ctrl-C and Ctrl-V

@@ -1,6 +1,7 @@
 import unittest
 from pyengine.Components import *
-from pyengine import Entity, ControlType, Controls, const
+from pyengine import ControlType, Controls, const
+from pyengine.Entities import Entity
 from pyengine.Utils import Vec2, Color, Font
 import pygame
 

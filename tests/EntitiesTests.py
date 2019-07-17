@@ -1,8 +1,23 @@
-import unittest
-from pyengine import Entity, ControlType
+from pyengine.Entities import *
+from pyengine.Utils import Vec2
 from pyengine.Components import *
 from pyengine.Exceptions import CompatibilityError
-from pyengine.Utils import Vec2
+from pyengine import ControlType
+import unittest
+
+
+class TilemapTests(unittest.TestCase):
+    def setUp(self):
+        self.tilemap = Tilemap(Vec2(), "files/tilemap/TESTMAP.json")
+
+    def test_tilemap(self):
+        self.assertEqual(self.tilemap.folder, "files/tilemap/")
+        self.assertEqual(len(self.tilemap.tiles), 21)
+
+    def test_scale(self):
+        self.assertEqual(self.tilemap.scale, 1)
+        self.tilemap.scale = 2
+        self.assertEqual(self.tilemap.scale, 2)
 
 
 class EntityTests(unittest.TestCase):

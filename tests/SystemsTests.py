@@ -1,7 +1,7 @@
 import unittest
 from pyengine.Systems import *
 from pyengine.Utils import Vec2
-from pyengine import Entity
+from pyengine.Entities import Entity
 from pyengine.Widgets import Label
 from pyengine.Exceptions import NoObjectError
 from pyengine.Components import PositionComponent, TextComponent, SpriteComponent

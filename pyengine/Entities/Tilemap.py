@@ -1,15 +1,14 @@
-from pyengine import Entity
 from pyengine.Components import PositionComponent, SpriteComponent, PhysicsComponent, TextComponent
 from pyengine.Utils import Vec2, loggers
+from pyengine.Entities import Entity
 
 import json
 from xml.etree import ElementTree
 
 __all__ = ["Tilemap"]
 
-
 class Tilemap(Entity):
-    def __init__(self, pos, file, scale = 1):
+    def __init__(self, pos, file, scale=1):
         super(Tilemap, self).__init__()
 
         self.folder = "/".join(file.split("/")[:-1])+"/"
