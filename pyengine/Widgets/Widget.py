@@ -62,16 +62,12 @@ class Widget(pygame.sprite.Sprite):
         if self.system is not None and self.system.focus != self:
             self.system.focus = self
             self.focusin()
-        if self.parent is not None:
-            self.parent.show()
 
     def hide(self) -> None:
         self.isshow = False
         if self.system is not None and self.system.focus == self:
             self.system.focus = None
             self.focusout()
-        if self.parent is not None:
-            self.parent.hide()
 
     def update_rect(self):
         self.rect = self.image.get_rect()

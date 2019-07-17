@@ -25,9 +25,11 @@ class Checkbox(Widget):
                                    self.rect.y + self.rect.height / 2 - self.label.rect.height / 2)
 
     def hide(self):
+        super(Checkbox, self).hide()
         self.label.hide()
 
     def show(self):
+        super(Checkbox, self).show()
         self.label.show()
 
     def create_image(self):

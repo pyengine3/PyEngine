@@ -10,6 +10,8 @@
     
     - Bug Fix : ControlComponent make weird movements with MOUSECLICK ControlType
 
+    - Crash Fix : Crash when use show or hide
+    
 ## V 1.4.2 - 17/07/19
 
     - PhysicsComponent : Add callback parameters of constructor

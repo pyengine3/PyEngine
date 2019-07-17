@@ -4,3 +4,4 @@ from pyengine.Widgets.Button import Button
 from pyengine.Widgets.Entry import Entry
 from pyengine.Widgets.Checkbox import Checkbox
 from pyengine.Widgets.ProgressBar import ProgressBar
+from pyengine.Widgets.Console import Console

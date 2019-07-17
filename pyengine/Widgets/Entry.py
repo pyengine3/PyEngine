@@ -26,9 +26,11 @@ class Entry(Widget):
         self.update_render()
 
     def hide(self):
+        super(Entry, self).hide()
         self.label.hide()
 
     def show(self):
+        super(Entry, self).show()
         self.label.show()
 
     @property

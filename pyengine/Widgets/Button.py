@@ -35,9 +35,11 @@ class Button(Widget):
                                    self.rect.y+self.rect.height/2-self.label.rect.height/2)
 
     def hide(self):
+        super(Button, self).hide()
         self.label.hide()
 
     def show(self):
+        super(Button, self).show()
         self.label.show()
 
     @property
