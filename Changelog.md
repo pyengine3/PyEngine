@@ -6,6 +6,7 @@
     - ControlComponent : Add MOUSEFOLLOW ControlType
     - PhysicsComponent : Add MOUSEFOLLOW and MOUSECLICK CollisionCauses
     - Entry : Add Ctrl-C and Ctrl-V
+    - Console : Create console widget
     
     - Bug Fix : ControlComponent make weird movements with MOUSECLICK ControlType
 

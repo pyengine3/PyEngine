@@ -155,3 +155,26 @@ class EntryTests(WidgetTests):
         self.widget.label.font = Font(size=20)
         self.assertEqual(self.widget.label.font, Font(size=20))
 
+
+class ConsoleTests(WidgetTests):
+    def setUp(self):
+        super(ConsoleTests, self).setUp()
+        self.widget = Console(None, Vec2(10, 10))
+
+    def test_commands(self):
+        from pyengine.Widgets.Console import print_command
+        self.assertEqual(self.widget.commands["print"], print_command)
+        self.widget.add_command("test", self.setUp)
+        self.assertEqual(self.widget.commands["test"], self.setUp)
+        self.widget.delete_command("test")
+        with self.assertRaises(KeyError):
+            print(self.widget.commands["test"])
+        with self.assertRaises(ValueError):
+            self.widget.delete_command("test")
+
+    def test_reply(self):
+        self.assertEqual(self.widget.retour.text, ">")
+        self.widget.reply()
+        self.assertEqual(self.widget.retour.text, "> ")
+        self.widget.reply("OUI")
+        self.assertEqual(self.widget.retour.text, "> OUI")
