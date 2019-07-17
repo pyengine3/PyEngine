@@ -1,6 +1,6 @@
 # Changelog
 
-## V 1.4.2 - XX/07/19
+## V 1.4.2 - 17/07/19
 
     - PhysicsComponent : Add callback parameters of constructor
     - Tilemap : place tile at bottom
