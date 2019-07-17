@@ -14,6 +14,8 @@ class CollisionCauses(Enum):
     UPCONTROL = 5
     DOWNCONTROL = 6
     MOVECOMPONENT = 7
+    MOUSECLICK = 8
+    MOUSEFOLLOW = 9
 
 
 class CollisionInfos:

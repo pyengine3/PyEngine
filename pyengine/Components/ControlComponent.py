@@ -121,6 +121,10 @@ class ControlComponent:
 
                 cango = True
                 if self.entity.has_component(PhysicsComponent):
+                    if self.controltype == ControlType.MOUSEFOLLOW:
+                        cango = self.entity.get_component(PhysicsComponent).can_go(pos, CollisionCauses.MOUSEFOLLOW)
+                    else:
+                        cango = self.entity.get_component(PhysicsComponent).can_go(pos, CollisionCauses.MOUSECLICK)
                 if cango:
                     self.entity.get_component(PositionComponent).position = pos
 
