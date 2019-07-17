@@ -1,15 +1,15 @@
-from pyengine import Window, Entity, ControlType, WindowCallbacks
+from pyengine import Window, ControlType, WindowCallbacks
 from pyengine.Systems import EntitySystem, UISystem
 from pyengine.Utils import Colors, Vec2
 from pyengine.Components import PositionComponent, SpriteComponent, PhysicsComponent, TextComponent, \
     ControlComponent, LifeComponent
-from pyengine.Prefabs import Tilemap
-from pyengine.Widgets import Checkbox, ProgressBar, Button, Entry, Label
+from pyengine.Entities import Tilemap, Entity
+from pyengine.Widgets import Checkbox, ProgressBar, Button, Entry, Label, Console
 
 
 class Game(Window):
     def __init__(self):
-        super(Game, self).__init__(700, 600, Colors.WHITE.value, debug=True)
+        super(Game, self).__init__(700, 600, Colors.WHITE.value)
 
         self.set_callback(WindowCallbacks.OUTOFWINDOW, self.parti)
 
@@ -21,12 +21,14 @@ class Game(Window):
         self.button = Button(Vec2(500, 100), "Add", self.btn)
         self.e = Entry(Vec2(400, 400))
         self.la = Label(Vec2(400, 450), "Contenu de l'entry", Colors.BLACK.value)
+        self.console = Console(self, Vec2(0, 20), self.width)
 
         self.uisys.add_widget(self.check)
         self.uisys.add_widget(self.progress)
         self.uisys.add_widget(self.button)
         self.uisys.add_widget(self.e)
         self.uisys.add_widget(self.la)
+        self.uisys.add_widget(self.console)
 
         self.esys = self.world.get_system(EntitySystem)
 
@@ -35,7 +37,7 @@ class Game(Window):
         self.player = Entity()
         self.player.add_component(PositionComponent(Vec2(10, 10)))
         self.player.add_component(SpriteComponent("images/idle.png")).scale = 0.3
-        self.player.add_component(ControlComponent(ControlType.MOUSEFOLLOW))
+        self.player.add_component(ControlComponent(ControlType.FOURDIRECTION))
         self.player.add_component(PhysicsComponent(False))
         self.player.add_component(LifeComponent(100, self.die))
 
