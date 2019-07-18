@@ -30,6 +30,7 @@ class Window:
 
         self.screen = pygame.display.set_mode((width, height))
         pygame.scrap.init()
+        pygame.time.set_timer(const.USEREVENT, 500)
 
         self.clock = pygame.time.Clock()
         self.width = width
@@ -140,12 +141,12 @@ class Window:
         self.is_running = True
         while self.is_running:
             for event in pygame.event.get():
+                if event.type == const.USEREVENT:
+                    if self.debug:
+                        print("FPS : {}".format(int(self.clock.get_fps())))
                 self.__process_event(event)
 
             self.screen.fill(self.color.get())
-
-            if self.debug:
-                print("FPS : {}".format(int(self.clock.get_fps())))
 
             self.world.run()
 

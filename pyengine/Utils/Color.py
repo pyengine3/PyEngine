@@ -1,18 +1,17 @@
 from enum import Enum
 from typing import Tuple
 from pyengine.Utils import clamp
+import pygame
 
 __all__ = ["Color", "Colors"]
 
 
-class Color:
-    def __init__(self, r: int = 255, g: int = 255, b: int = 255):
-        self.r = r
-        self.g = g
-        self.b = b
+class Color(pygame.Color):
+    def __init__(self, r: int = 255, g: int = 255, b: int = 255, a: int = 255):
+        super(Color, self).__init__(r, g, b, a)
 
-    def get(self) -> Tuple[int, int, int]:
-        return self.r, self.g, self.b
+    def get(self) -> Tuple[int, int, int, int]:
+        return self.r, self.g, self.b, self.a
 
     def set(self, color):
         if not isinstance(color, Color):
@@ -20,50 +19,39 @@ class Color:
         self.r = color.r
         self.g = color.g
         self.b = color.b
+        self.a = color.a
         return self
 
     def to_hex(self):
-        return ("#"+hex(self.r)[2:]+hex(self.g)[2:]+hex(self.b)[2:]).upper()
+        return ("#"+hex(self.r)[2:]+hex(self.g)[2:]+hex(self.b)[2:]+hex(self.a)[2:]).upper()
 
     def from_hex(self, hexa: str):
-        if len(hexa) != 7:
-            raise ValueError("Hexa must be a 7 lenght string (#XXXXXX)")
-        self.r = int(hexa[1:3], 16)
-        self.g = int(hexa[3:5], 16)
-        self.b = int(hexa[5:7], 16)
+        if len(hexa) == 7:
+            self.r = int(hexa[1:3], 16)
+            self.g = int(hexa[3:5], 16)
+            self.b = int(hexa[5:7], 16)
+            self.a = 255
+        elif len(hexa) == 9:
+            self.r = int(hexa[1:3], 16)
+            self.g = int(hexa[3:5], 16)
+            self.b = int(hexa[5:7], 16)
+            self.a = int(hexa[7:9], 16)
+        else:
+            raise ValueError("Hexa must be a 7 or 9 lenght string (#RRGGBBAA)")
 
     def darker(self, nb=1):
         nb = clamp(nb, 1)
         r = clamp(self.r - 10*nb, 0, 255)
         b = clamp(self.b - 10*nb, 0, 255)
         g = clamp(self.g - 10*nb, 0, 255)
-        return Color(r, g, b)
+        return Color(r, g, b, self.a)
 
     def lighter(self, nb=1):
         nb = clamp(nb, 1)
         r = clamp(self.r + 10*nb, 0, 255)
         b = clamp(self.b + 10*nb, 0, 255)
         g = clamp(self.g + 10*nb, 0, 255)
-        return Color(r, g, b)
-
-    def __add__(self, other):
-        if not isinstance(other, Color):
-            raise TypeError("Color can only be add with Color")
-        r = clamp(self.r + other.r, 0, 255)
-        b = clamp(self.b + other.b, 0, 255)
-        g = clamp(self.g + other.g, 0, 255)
-        return Color(r, g, b)
-
-    def __sub__(self, other):
-        if not isinstance(other, Color):
-            raise TypeError("Color can only be add with Color")
-        r = clamp(self.r - other.r, 0, 255)
-        b = clamp(self.b - other.b, 0, 255)
-        g = clamp(self.g - other.g, 0, 255)
-        return Color(r, g, b)
-
-    def __eq__(self, other) -> bool:
-        return self.r == other.r and self.g == other.g and self.b == other.b
+        return Color(r, g, b, self.a)
 
     def __repr__(self) -> str:
         return str(self.get())
