@@ -8,6 +8,8 @@
     - Entry : Add Ctrl-C and Ctrl-V
     - Console : Create console widget
     
+    - Optimization
+    
     - Bug Fix : ControlComponent make weird movements with MOUSECLICK ControlType
 
     - Crash Fix : Crash when use show or hide

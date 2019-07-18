@@ -9,7 +9,7 @@ from pyengine.Widgets import Checkbox, ProgressBar, Button, Entry, Label, Consol
 
 class Game(Window):
     def __init__(self):
-        super(Game, self).__init__(700, 600, Colors.WHITE.value)
+        super(Game, self).__init__(700, 600, Colors.WHITE.value, debug=True)
 
         self.set_callback(WindowCallbacks.OUTOFWINDOW, self.parti)
 
