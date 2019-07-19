@@ -21,7 +21,7 @@ class Game(Window):
         self.button = Button(Vec2(500, 100), "Add", self.btn)
         self.e = Entry(Vec2(400, 400))
         self.la = Label(Vec2(400, 450), "Contenu de l'entry", Colors.BLACK.value)
-        self.console = Console(self, Vec2(0, 20), self.width)
+        self.console = Console(self, width=self.width)
 
         self.uisys.add_widget(self.check)
         self.uisys.add_widget(self.progress)

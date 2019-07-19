@@ -11,7 +11,8 @@ def print_command(console, window, args):
 
 
 class Console(Entry):
-    def __init__(self, window, pos=Vec2(0, 20), width=600):
+    def __init__(self, window, pos=Vec2(), width=600):
+        pos = Vec2(pos.x, pos.y + 20)
         super(Console, self).__init__(pos, width)
         self.window = window
         self.commands = {
@@ -19,9 +20,9 @@ class Console(Entry):
         }
         self.lastscommands = []
         self.current_command = len(self.lastscommands)
-        self.label.font = Font(size=16)
+        self.label.font = Font(size=18)
 
-        self.retour = Label(Vec2(pos.x, pos.y - 20), ">", Colors.BLACK.value, Font(size=16), Colors.WHITE.value)
+        self.retour = Label(Vec2(pos.x, pos.y - 21), ">", Colors.BLACK.value, Font(size=18), Colors.WHITE.value)
         self.retour.parent = self
 
     def reply(self, texte=""):
@@ -65,6 +66,7 @@ class Console(Entry):
             if evt.key == const.K_RETURN:
                 self.lastscommands.append(self.text)
                 self.current_command = len(self.lastscommands)
+                self.execute_command(self.text)
                 self.text = ""
             elif evt.key == const.K_UP:
                 if self.current_command > 0:
