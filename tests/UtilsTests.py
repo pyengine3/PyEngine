@@ -20,31 +20,31 @@ class ColorTests(unittest.TestCase):
         self.color = Color()
 
     def test_color(self):
-        self.assertEqual(self.color.get(), (255, 255, 255))
+        self.assertEqual(self.color.get(), (255, 255, 255, 255))
         self.color = Color(1, 2, 3)
-        self.assertEqual(self.color.get(), (1, 2, 3))
+        self.assertEqual(self.color.get(), (1, 2, 3, 255))
 
     def test_to_hex(self):
-        self.assertEqual(self.color.to_hex(), "#FFFFFF")
+        self.assertEqual(self.color.to_hex(), "#FFFFFFFF")
         self.color = Color(21, 66, 19)
-        self.assertEqual(self.color.to_hex(), "#154213")
+        self.assertEqual(self.color.to_hex(), "#154213FF")
 
     def test_from_hex(self):
         with self.assertRaises(ValueError):
             self.color.from_hex("#13")
         self.color.from_hex("#154213")
-        self.assertEqual(self.color.get(), (21, 66, 19))
+        self.assertEqual(self.color.get(), (21, 66, 19, 255))
 
     def test_ope_arith(self):
-        self.assertEqual(self.color.get(), (255, 255, 255))
+        self.assertEqual(self.color.get(), (255, 255, 255, 255))
         self.color -= Color(255, 0, 0)
-        self.assertEqual(self.color.get(), (0, 255, 255))
+        self.assertEqual(self.color.get(), (0, 255, 255, 0))
         self.color += Color(125, 0, 0)
-        self.assertEqual(self.color.get(), (125, 255, 255))
+        self.assertEqual(self.color.get(), (125, 255, 255, 255))
         self.color += Color(0, 0, 1)
-        self.assertEqual(self.color.get(), (125, 255, 255))
+        self.assertEqual(self.color.get(), (125, 255, 255, 255))
         self.color -= Color(255, 0, 0)
-        self.assertEqual(self.color.get(), (0, 255, 255))
+        self.assertEqual(self.color.get(), (0, 255, 255, 0))
 
     def test_ope_log(self):
         self.assertTrue(self.color == Color())
@@ -52,15 +52,15 @@ class ColorTests(unittest.TestCase):
 
     def test_function(self):
         self.color = Color(150, 150, 150)
-        self.assertEqual(self.color.lighter().get(), (160, 160, 160))
-        self.assertEqual(self.color.darker().get(), (140, 140, 140))
+        self.assertEqual(self.color.lighter().get(), (160, 160, 160, 255))
+        self.assertEqual(self.color.darker().get(), (140, 140, 140, 255))
 
     def test_enum(self):
-        self.assertEqual(Colors.BLACK.value.get(), (0, 0, 0))
-        self.assertEqual(Colors.WHITE.value.get(), (255, 255, 255))
-        self.assertEqual(Colors.RED.value.get(), (255, 0, 0))
-        self.assertEqual(Colors.BLUE.value.get(), (0, 0, 255))
-        self.assertEqual(Colors.GREEN.value.get(), (0, 255, 0))
+        self.assertEqual(Colors.BLACK.value.get(), (0, 0, 0, 255))
+        self.assertEqual(Colors.WHITE.value.get(), (255, 255, 255, 255))
+        self.assertEqual(Colors.RED.value.get(), (255, 0, 0, 255))
+        self.assertEqual(Colors.BLUE.value.get(), (0, 0, 255, 255))
+        self.assertEqual(Colors.GREEN.value.get(), (0, 255, 0, 255))
 
 
 class FontTests(unittest.TestCase):
@@ -106,32 +106,30 @@ class Vec2Tests(unittest.TestCase):
         self.assertEqual(self.vec.coords, (1, 1))
 
     def test_length(self):
-        self.assertEqual(self.vec.length, 0)
+        self.assertEqual(self.vec.length(), 0)
         self.vec.coords = [0, 1]
-        self.assertEqual(self.vec.length, 1)
+        self.assertEqual(self.vec.length(), 1)
 
     def test_normalized(self):
-        self.assertEqual(self.vec.normalized(), Vec2(0, 0))
+        with self.assertRaises(ValueError):
+            self.vec.normalize()
         self.vec.coords = [0, 2]
-        self.assertEqual(self.vec.normalized(), Vec2(0, 1))
+        self.assertEqual(self.vec.normalize(), Vec2(0, 1))
 
     def test_ope_arith(self):
         self.assertEqual(self.vec + Vec2(1, 0), Vec2(1, 0))
-        self.assertEqual(self.vec + 2, Vec2(2, 2))
         self.assertEqual(self.vec - Vec2(1, 0), Vec2(-1, 0))
-        self.assertEqual(self.vec - 2, Vec2(-2, -2))
-        self.assertEqual(Vec2(2, 2) * Vec2(1, 0), Vec2(2, 0))
+        self.assertEqual(Vec2(2, 2) * Vec2(1, 0), 2.0)
         self.assertEqual(Vec2(2, 2) * 2, Vec2(4, 4))
         self.assertEqual(-Vec2(1, 1), Vec2(-1, -1))
         self.assertEqual(Vec2(2, 2) / 2, Vec2(1, 1))
-        self.assertEqual(Vec2(2, 2) / Vec2(1, 2), Vec2(2, 1))
 
     def test_ope_log(self):
         self.assertTrue(self.vec == Vec2())
         self.assertTrue(self.vec != Vec2(1, 0))
 
     def test_repr(self):
-        self.assertEqual(self.vec.__repr__(), "Vec2(0, 0)")
+        self.assertEqual(self.vec.__repr__(), "<Vector2(0, 0)>")
 
     def test_iter(self):
         for i in self.vec:
