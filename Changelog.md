@@ -7,6 +7,7 @@
     - PhysicsComponent : Add MOUSEFOLLOW and MOUSECLICK CollisionCauses
     - Entry : Add Ctrl-C and Ctrl-V
     - Console : Create console widget
+    - MultilineLabel : Create Label widget for multiline
     
     - Optimization
     

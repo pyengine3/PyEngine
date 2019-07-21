@@ -1,7 +1,19 @@
 import unittest
 from pyengine.Widgets import *
 from pyengine.Utils import Vec2, Color, Font, Colors
+from pyengine.Systems import UISystem
+
 import pygame
+
+# UTILITIES CLASS FOR TESTS #
+
+
+class FakeWorld:
+    def __init__(self):
+        pass
+
+
+# TESTS #
 
 
 class WidgetTests(unittest.TestCase):
@@ -25,6 +37,39 @@ class LabelTests(WidgetTests):
         self.assertEqual(self.widget.text, "test")
         self.widget.text = "OUI"
         self.assertEqual(self.widget.text, "OUI")
+
+    def test_color(self):
+        self.assertEqual(self.widget.color, Color())
+        self.widget.color = Color(2, 23, 2)
+        self.assertEqual(self.widget.color, Color(2, 23, 2))
+
+    def test_font(self):
+        self.assertEqual(self.widget.font, Font())
+        self.widget.font = Font("arial", 13)
+        self.assertEqual(self.widget.font, Font("arial", 13))
+
+    def test_background(self):
+        self.assertEqual(self.widget.background, None)
+        self.widget.background = Color()
+        self.assertEqual(self.widget.background, Color())
+
+
+class MultilineLabelTests(WidgetTests):
+    def setUp(self):
+        super(MultilineLabelTests, self).setUp()
+        self.system = UISystem(FakeWorld())
+        self.widget = MultilineLabel(Vec2(10, 10), "test")
+        self.system.add_widget(self.widget)
+
+    def test_text(self):
+        self.assertEqual(self.widget.text, "test")
+        self.assertEqual(len(self.widget.labels), 1)
+        self.assertEqual(self.widget.labels[0].text, "test")
+        self.widget.text = "OUI\ntest"
+        self.assertEqual(self.widget.text, "OUI\ntest")
+        self.assertEqual(len(self.widget.labels), 2)
+        self.assertEqual(self.widget.labels[0].text, "OUI")
+        self.assertEqual(self.widget.labels[1].text, "test")
 
     def test_color(self):
         self.assertEqual(self.widget.color, Color())
