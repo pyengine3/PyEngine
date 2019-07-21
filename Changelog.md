@@ -8,6 +8,7 @@
     - Entry : Add Ctrl-C and Ctrl-V
     - Console : Create console widget
     - MultilineLabel : Create Label widget for multiline
+    - Unit Tests : Add Console and MultilineLabel tests
     
     - Optimization
     

@@ -204,7 +204,7 @@ class EntryTests(WidgetTests):
 class ConsoleTests(WidgetTests):
     def setUp(self):
         super(ConsoleTests, self).setUp()
-        self.widget = Console(None, Vec2(10, 10))
+        self.widget = Console(None, Vec2(10, -10))  # Console add +20 to her y pos for the response label
 
     def test_commands(self):
         from pyengine.Widgets.Console import print_command
