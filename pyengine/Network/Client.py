@@ -37,7 +37,8 @@ class Client:
         self.s.close()
 
     def recieve(self, packet):
-        self.callback(packet.type_, packet.author, packet.message)
+        if self.callback is not None:
+            self.callback(packet.type_, packet.author, packet.message)
 
     def send(self, packet: Packet):
         self.s.send(packet.to_send())

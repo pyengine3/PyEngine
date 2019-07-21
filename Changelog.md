@@ -16,6 +16,7 @@
     - Bug Fix : ControlComponent make weird movements with MOUSECLICK ControlType
 
     - Crash Fix : Crash when use show or hide
+    - Crash Fix : Crash when Client doesn't have callback
     
 ## V 1.4.2 - 17/07/19
 
