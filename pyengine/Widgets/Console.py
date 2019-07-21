@@ -10,13 +10,21 @@ def print_command(console, window, args):
     console.reply(" ".join(args))
 
 
+def debug_command(console, window, args):
+    if window.debug:
+        console.reply("Debug desactivated")
+    else:
+        console.reply("Debug activated")
+    window.debug = not window.debug
+
+
 class Console(Entry):
     def __init__(self, window, pos=Vec2(), width=600):
         pos = Vec2(pos.x, pos.y + 20)
         super(Console, self).__init__(pos, width)
         self.window = window
         self.commands = {
-            "print": print_command
+            "print": print_command, "debug": debug_command
         }
         self.lastscommands = []
         self.current_command = len(self.lastscommands)
