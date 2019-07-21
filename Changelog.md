@@ -17,6 +17,7 @@
 
     - Crash Fix : Crash when use show or hide
     - Crash Fix : Crash when Client doesn't have callback
+	- Crash Fix : Crash when UISystem must show widgets without image or rect
     
 ## V 1.4.2 - 17/07/19
 

@@ -62,10 +62,10 @@ class UISystem:
         [i.update() for i in self.widgets if self.focus == i and isinstance(i, Entry)]
 
     def show(self, screen):
-        [screen.blit(i.image, i.rect) for i in self.widgets if i.isshow]
+        [screen.blit(i.image, i.rect) for i in self.widgets if i.isshow and i.image is not None]
 
     def show_debug(self, screen):
         for i in self.widgets:
-            if i.isshow:
+            if i.isshow and i.image is not None:
                 render = self.world.window.debugfont.render("ID : "+str(i.identity), 1, Colors.BLUE.value.get())
                 screen.blit(render, (i.rect.x + i.rect.width / 2 - render.get_width()/2, i.rect.y - 20))

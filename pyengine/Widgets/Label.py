@@ -1,5 +1,5 @@
 from pyengine.Widgets.Widget import Widget
-from pyengine.Utils import Font, Color, Colors, Vec2
+from pyengine.Utils import Font, Color, Colors, Vec2, loggers
 import pygame
 from typing import Union
 
@@ -17,6 +17,10 @@ class Label(Widget):
             raise TypeError("Color have not a Color type")
         if not isinstance(background, Color) and background is not None:
             raise TypeError("Background must be a Color")
+
+        if "\n" in text:
+            loggers.get_logger("PyEngine").warning("Line break doesn't work with Label. Use MultilineLabel")
+            text.replace("\n", "")
 
         self.__color = color
         self.__font = font

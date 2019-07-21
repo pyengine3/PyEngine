@@ -70,11 +70,13 @@ class Widget(pygame.sprite.Sprite):
             self.focusout()
 
     def update_rect(self):
-        self.rect = self.image.get_rect()
-        self.rect.x = self.position.x
-        self.rect.y = self.position.y
+        if self.image is not None:
+            self.rect = self.image.get_rect()
+            self.rect.x = self.position.x
+            self.rect.y = self.position.y
 
     def mousepress(self, evt):
-        if self.rect.x <= evt.pos[0] <= self.rect.x + self.rect.width and self.rect.y <= evt.pos[1] <= self.rect.y +\
-                self.rect.height:
-            return True
+        if self.image is not None:
+            if self.rect.x <= evt.pos[0] <= self.rect.x + self.rect.width and self.rect.y <= evt.pos[1] <= self.rect.y\
+                    + self.rect.height:
+                return True
