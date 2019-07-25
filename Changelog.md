@@ -5,6 +5,7 @@
     - Entity-Tilemap : Move to "Entities" folder
     - ControlComponent : Add MOUSEFOLLOW ControlType
     - PhysicsComponent : Add MOUSEFOLLOW and MOUSECLICK CollisionCauses
+    - Client : Send type, author and message. Packet are used only in PyEngine
     - Entry : Add Ctrl-C and Ctrl-V
     - Console : Create console widget
     - MultilineLabel : Create Label widget for multiline

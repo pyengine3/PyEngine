@@ -40,8 +40,8 @@ class Client:
         if self.callback is not None:
             self.callback(packet.type_, packet.author, packet.message)
 
-    def send(self, packet: Packet):
-        self.s.send(packet.to_send())
+    def send(self, type_, author, message):
+        self.s.send(Packet(type_, author, message).to_send())
 
 
 
