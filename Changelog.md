@@ -9,6 +9,7 @@
     - Entry : Add Ctrl-C and Ctrl-V
     - Console : Create console widget
     - MultilineLabel : Create Label widget for multiline
+    - Label : Replace \n to void. Label doesn't support break lines
     - Unit Tests : Fix Vec2 and Color tests
     - Unit Tests : Add Console and MultilineLabel tests
     

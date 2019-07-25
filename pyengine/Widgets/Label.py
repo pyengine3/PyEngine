@@ -20,7 +20,7 @@ class Label(Widget):
 
         if "\n" in text:
             loggers.get_logger("PyEngine").warning("Line break doesn't work with Label. Use MultilineLabel")
-            text.replace("\n", "")
+            text = text.replace("\n", "")
 
         self.__color = color
         self.__font = font
