@@ -33,24 +33,17 @@ class Checkbox(Widget):
         self.label.show()
 
     def create_image(self):
+        self.image = pygame.Surface([20 * self.scale, 20 * self.scale])
+        self.image.fill((50, 50, 50))
+        iiwhite = pygame.Surface([16 * self.scale, 16 * self.scale])
+        iiwhite.fill((255, 255, 255))
+        self.image.blit(iiwhite, (self.image.get_width() / 2 - iiwhite.get_width() / 2,
+                                  self.image.get_height() / 2 - iiwhite.get_height() / 2))
         if self.checked:
-            self.image = pygame.Surface([20 * self.scale, 20 * self.scale])
-            self.image.fill((50, 50, 50))
-            iiwhite = pygame.Surface([16 * self.scale, 16 * self.scale])
-            iiwhite.fill((255, 255, 255))
-            self.image.blit(iiwhite, (self.image.get_width() / 2 - iiwhite.get_width() / 2,
-                                      self.image.get_height() / 2 - iiwhite.get_height() / 2))
             iiblack = pygame.Surface([14 * self.scale, 14 * self.scale])
             iiblack.fill((0, 0, 0))
             self.image.blit(iiblack, (self.image.get_width() / 2 - iiblack.get_width() / 2,
                                       self.image.get_height() / 2 - iiblack.get_height() / 2))
-        else:
-            self.image = pygame.Surface([20 * self.scale, 20 * self.scale])
-            self.image.fill((50, 50, 50))
-            iiwhite = pygame.Surface([16 * self.scale, 16 * self.scale])
-            iiwhite.fill((255, 255, 255))
-            self.image.blit(iiwhite, (self.image.get_width() / 2 - iiwhite.get_width() / 2,
-                                      self.image.get_height() / 2 - iiwhite.get_height() / 2))
         self.update_render()
 
     @property

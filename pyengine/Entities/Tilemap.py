@@ -7,6 +7,7 @@ from xml.etree import ElementTree
 
 __all__ = ["Tilemap"]
 
+
 class Tilemap(Entity):
     def __init__(self, pos, file, scale=1):
         super(Tilemap, self).__init__()

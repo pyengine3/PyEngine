@@ -85,15 +85,13 @@ class Window:
 
         if debug:
             os.environ['SDL_DEBUG'] = '1'
-            for n, l in loggers.get_all():
-                l.setLevel(logging.DEBUG)
+            [l.setLevel(logging.DEBUG) for n, l in loggers.get_all()]
         else:
             try:
                 del os.environ['SDL_DEBUG']
             except KeyError:
                 pass
-            for n, l in loggers.get_all():
-                l.setLevel(logging.INFO)
+            [l.setLevel(logging.INFO) for n, l in loggers.get_all()]
 
     @property
     def world(self):
@@ -141,9 +139,8 @@ class Window:
         self.is_running = True
         while self.is_running:
             for event in pygame.event.get():
-                if event.type == const.USEREVENT:
-                    if self.debug:
-                        print("FPS : {}".format(int(self.clock.get_fps())))
+                if event.type == const.USEREVENT and self.debug:
+                    print("FPS : {}".format(int(self.clock.get_fps())))
                 self.__process_event(event)
 
             self.screen.fill(self.color.get())

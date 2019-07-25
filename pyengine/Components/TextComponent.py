@@ -99,7 +99,7 @@ class TextComponent:
     def rendered_size(self):
         return self.image.get_rect().width, self.image.get_rect().height
 
-    def update_render(self) -> pygame.Surface:
+    def update_render(self):
         if self.background is None:
             self.image = self.font.render().render(self.text, 1, self.color.get())
         else:

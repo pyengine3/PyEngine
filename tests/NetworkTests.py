@@ -14,7 +14,7 @@ class NetworkTests(unittest.TestCase):
         if self.nw.client is None:
             self.skipTest("Client doesn't exist (Server musn't be launched)")
         else:
-            self.nw.client.send(Packet("TOALL", 0, "Ceci est un test"))
+            self.nw.client.send("TOALL", 0, "Ceci est un test")
 
     def callback(self, type_, author, message):
         if type_ == "TOALL":
