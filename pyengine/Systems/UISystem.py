@@ -1,5 +1,5 @@
 import pygame
-from pyengine.Widgets import Entry, Button
+from pyengine.Widgets import Entry, Button, AnimatedImage
 from pyengine.Widgets.Widget import Widget
 from pyengine import World
 from pyengine.Utils import loggers, Colors
@@ -60,6 +60,7 @@ class UISystem:
 
     def update(self):
         [i.update() for i in self.widgets if self.focus == i and isinstance(i, Entry)]
+        [i.update() for i in self.widgets if isinstance(i, AnimatedImage)]
 
     def show(self, screen):
         [screen.blit(i.image, i.rect) for i in self.widgets if i.isshow and i.image is not None]

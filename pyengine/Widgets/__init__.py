@@ -6,3 +6,4 @@ from pyengine.Widgets.Checkbox import Checkbox
 from pyengine.Widgets.ProgressBar import ProgressBar
 from pyengine.Widgets.Console import Console
 from pyengine.Widgets.MultilineLabel import MultilineLabel
+from pyengine.Widgets.AnimatedImage import AnimatedImage

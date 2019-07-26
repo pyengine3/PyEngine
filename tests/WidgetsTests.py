@@ -104,6 +104,32 @@ class ImageTests(WidgetTests):
         self.assertEqual(Vec2(self.widget.image.get_rect().width, self.widget.image.get_rect().height), Vec2(10, 10))
 
 
+class AnimatedImageTests(WidgetTests):
+    def setUp(self):
+        super(AnimatedImageTests, self).setUp()
+        self.widget = AnimatedImage(Vec2(10, 10), ["files/sprite0.png", "files/sprite1.png"], 1)
+
+    def test_sprites(self):
+        self.assertEqual(self.widget.sprites, ["files/sprite0.png", "files/sprite1.png"])
+        self.widget.sprites = ["files/sprite0.png"]
+        self.assertEqual(self.widget.sprites, ["files/sprite0.png"])
+
+    def test_size(self):
+        self.assertEqual(self.widget.size,
+                         Vec2(self.widget.image.get_rect().width, self.widget.image.get_rect().height))
+        self.widget.size = Vec2(10, 10)
+        self.assertEqual(Vec2(self.widget.image.get_rect().width, self.widget.image.get_rect().height), Vec2(10, 10))
+
+    def test_animation(self):
+        self.assertEqual(self.widget.sprite, "files/sprite0.png")
+        self.widget.update()
+        self.assertEqual(self.widget.sprite, "files/sprite1.png")
+        self.widget.update()
+        self.assertEqual(self.widget.sprite, "files/sprite0.png")
+        self.widget.update()
+        self.assertEqual(self.widget.sprite, "files/sprite1.png")
+
+
 class CheckboxTests(WidgetTests):
     def setUp(self):
         super(CheckboxTests, self).setUp()
