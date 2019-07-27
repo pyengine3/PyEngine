@@ -27,6 +27,8 @@ class Entry(Widget):
         self.font = font
         self.cursortimer = 20
         self.cursor = False
+        self.keypressed = None
+        self.keytimer = 10
         self.__text = ""
         self.sprite = image
 
@@ -82,6 +84,9 @@ class Entry(Widget):
         self.cursor = False
         self.update_render()
 
+    def keyup(self, evt):
+        self.keypressed = None
+
     def keypress(self, evt):
         if evt.key == const.K_BACKSPACE:
             if len(self.__text):
@@ -98,6 +103,8 @@ class Entry(Widget):
             pygame.scrap.put(pygame.SCRAP_TEXT, self.text.encode())
         elif evt.unicode != '' and evt.unicode in self.accepted:
             self.add_text(evt.unicode)
+        self.keypressed = evt
+        self.keytimer = 10
 
     def update_render(self):
         renderer = self.font.render().render(self.__text, 1, self.color.get())
@@ -137,3 +144,8 @@ class Entry(Widget):
             self.cursortimer = 20
             self.update_render()
         self.cursortimer -= 1
+
+        if self.keytimer <= 0 and self.keypressed is not None:
+            self.keypress(self.keypressed)
+            self.keytimer = 10
+        self.keytimer -= 1

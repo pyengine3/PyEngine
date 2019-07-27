@@ -9,6 +9,7 @@
     - Button : Add enabled property
     - Entry : Add Ctrl-C and Ctrl-V
     - Entry : Remove limit of caracters
+    - Entry : Repeats the characters if the key is kept pressed
     - Console : Create console widget
     - MultilineLabel : Create Label widget for multiline
     - Label : Replace \n to void. Label doesn't support break lines

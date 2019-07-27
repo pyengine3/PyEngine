@@ -65,6 +65,7 @@ class World:
 
     def keyup(self, evt):
         self.systems["Entity"].keyup(evt)
+        self.systems["UI"].keyup(evt)
 
     def mousemotion(self, evt):
         self.systems["UI"].mousemotion(evt)
