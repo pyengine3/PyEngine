@@ -28,7 +28,7 @@ class Console(Entry):
         }
         self.lastscommands = []
         self.current_command = len(self.lastscommands)
-        self.label.font = Font(size=18)
+        self.font = Font(size=18)
 
         self.retour = Label(Vec2(pos.x, pos.y - 21), ">", Colors.BLACK.value, Font(size=18), Colors.WHITE.value)
         self.retour.parent = self
@@ -51,15 +51,12 @@ class Console(Entry):
     @system.setter
     def system(self, system):
         self.__system = system
-        system.add_widget(self.label)
         system.add_widget(self.retour)
 
     def add_command(self, name, function):
-        try:
-            self.commands[name] = function
+        if name in self.commands:
             loggers.get_logger("PyEngine").warning("Command overrided : "+name)
-        except KeyError:
-            self.commands[name] = function
+        self.commands[name] = function
 
     def delete_command(self, name):
         try:

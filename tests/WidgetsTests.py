@@ -217,14 +217,14 @@ class EntryTests(WidgetTests):
         self.assertEqual(self.widget.width, 400)
 
     def test_color(self):
-        self.assertEqual(self.widget.label.color, Colors.BLACK.value)
-        self.widget.label.color = Colors.GREEN.value
-        self.assertEqual(self.widget.label.color, Colors.GREEN.value)
+        self.assertEqual(self.widget.color, Colors.BLACK.value)
+        self.widget.color = Colors.GREEN.value
+        self.assertEqual(self.widget.color, Colors.GREEN.value)
 
     def test_font(self):
-        self.assertEqual(self.widget.label.font, Font())
-        self.widget.label.font = Font(size=20)
-        self.assertEqual(self.widget.label.font, Font(size=20))
+        self.assertEqual(self.widget.font, Font())
+        self.widget.font = Font(size=20)
+        self.assertEqual(self.widget.font, Font(size=20))
 
 
 class ConsoleTests(WidgetTests):

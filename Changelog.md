@@ -8,6 +8,7 @@
     - Client : Send type, author and message. Packet are used only in PyEngine
     - Button : Add enabled property
     - Entry : Add Ctrl-C and Ctrl-V
+    - Entry : Remove limit of caracters
     - Console : Create console widget
     - MultilineLabel : Create Label widget for multiline
     - Label : Replace \n to void. Label doesn't support break lines
