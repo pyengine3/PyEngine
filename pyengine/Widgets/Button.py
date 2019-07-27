@@ -26,6 +26,7 @@ class Button(Widget):
         self.size = size
         self.sprite = sprite
         self.ishover = False
+        self.__enabled = True
         self.command = command
         self.update_render()
 
@@ -41,6 +42,28 @@ class Button(Widget):
     def show(self):
         super(Button, self).show()
         self.label.show()
+
+    @property
+    def enabled(self):
+        return self.__enabled
+
+    @enabled.setter
+    def enabled(self, value):
+        self.ishover = False
+        t = pygame.surfarray.array3d(self.image)
+        if value and not self.__enabled:
+            for i in t:
+                for j in i:
+                    j += 50
+        elif not value and self.__enabled:
+            for i in t:
+                for j in i:
+                    j -= 50
+        try:
+            pygame.surfarray.blit_array(self.image, t)
+        except ValueError:
+            pass
+        self.__enabled = value
 
     @property
     def sprite(self):
@@ -103,14 +126,14 @@ class Button(Widget):
         from pyengine import MouseButton  # Avoid import error
 
         if self.rect.x <= evt.pos[0] <= self.rect.x + self.rect.width and self.rect.y <= evt.pos[1] <= self.rect.y +\
-                self.rect.height and self.command and evt.button == MouseButton.LEFTCLICK.value:
+                self.rect.height and self.command and evt.button == MouseButton.LEFTCLICK.value and self.enabled:
             self.command()
             return True
 
     def mousemotion(self, evt):
         if self.rect.x <= evt.pos[0] <= self.rect.x + self.rect.width and self.rect.y <= evt.pos[1] <= self.rect.y + \
                 self.rect.height:
-            if not self.ishover:
+            if not self.ishover and self.enabled:
                 t = pygame.surfarray.array3d(self.image)
                 for i in t:
                     for j in i:
@@ -120,7 +143,7 @@ class Button(Widget):
                 except ValueError:
                     pass
                 self.ishover = True
-        elif self.ishover:
+        elif self.ishover and self.enabled:
             t = pygame.surfarray.array3d(self.image)
             for i in t:
                 for j in i:

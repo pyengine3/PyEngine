@@ -6,6 +6,7 @@
     - ControlComponent : Add MOUSEFOLLOW ControlType
     - PhysicsComponent : Add MOUSEFOLLOW and MOUSECLICK CollisionCauses
     - Client : Send type, author and message. Packet are used only in PyEngine
+    - Button : Add enabled property
     - Entry : Add Ctrl-C and Ctrl-V
     - Console : Create console widget
     - MultilineLabel : Create Label widget for multiline
