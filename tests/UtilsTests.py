@@ -14,6 +14,11 @@ class OthersTests(unittest.TestCase):
         self.assertEqual(clamp(4, maxi=3), 3)
         self.assertEqual(clamp(1), 1)
 
+    def test_wrap_text(self):
+        self.assertEqual(wrap_text("oui oui", Font(), 0), "")
+        self.assertEqual(wrap_text("oui oui", Font(), 50), "oui oui")
+        self.assertEqual(wrap_text("oui oui", Font(), 20), "oui\noui")
+
 
 class ColorTests(unittest.TestCase):
     def setUp(self):

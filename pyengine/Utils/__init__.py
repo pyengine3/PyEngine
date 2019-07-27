@@ -1,4 +1,4 @@
-from pyengine.Utils.Maths import clamp
+from pyengine.Utils.Others import clamp, wrap_text
 from pyengine.Utils.Font import Font
 from pyengine.Utils.Color import Color, Colors
 from pyengine.Utils.Vec2 import Vec2
