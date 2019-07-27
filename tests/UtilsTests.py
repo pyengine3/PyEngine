@@ -3,7 +3,7 @@ from pyengine.Utils import *
 import os
 
 
-class MathsTests(unittest.TestCase):
+class OthersTests(unittest.TestCase):
     def test_clamp(self):
         self.assertEqual(clamp(1, 0, 2), 1)
         self.assertEqual(clamp(3, 0, 2), 2)
