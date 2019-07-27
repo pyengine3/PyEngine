@@ -83,5 +83,8 @@ class Label(Widget):
             self.image.blit(renderer, [0, 0])
         self.update_rect()
         if self.parent:
-            self.parent.update_render()
+            try:
+                self.parent.update_render()
+            except AttributeError:
+                pass
 

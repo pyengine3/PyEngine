@@ -201,6 +201,32 @@ class ButtonTests(WidgetTests):
         pass
 
 
+class SelectorTests(WidgetTests):
+    def setUp(self):
+        super(SelectorTests, self).setUp()
+        self.widget = Selector(Vec2(10, 10), ["Michel", "Mamadou"])
+
+    def test_get(self):
+        self.assertEqual(self.widget.get(), "Michel")
+        self.widget.next()
+        self.assertEqual(self.widget.get(), "Mamadou")
+        self.widget.next()
+        self.assertEqual(self.widget.get(), "Michel")
+        self.widget.precedent()
+        self.assertEqual(self.widget.get(), "Mamadou")
+        self.widget.precedent()
+        self.assertEqual(self.widget.get(), "Michel")
+
+    def test_strings(self):
+        self.assertEqual(self.widget.strings, ["Michel", "Mamadou"])
+        self.assertEqual(self.widget.get(), "Michel")
+        self.widget.strings = ["Ou", "Pas"]
+        self.assertEqual(self.widget.strings, ["Ou", "Pas"])
+        self.assertEqual(self.widget.get(), "Ou")
+        with self.assertRaises(ValueError):
+            self.widget.strings = []
+
+
 class EntryTests(WidgetTests):
     def setUp(self):
         super(EntryTests, self).setUp()
