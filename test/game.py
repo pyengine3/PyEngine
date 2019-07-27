@@ -22,6 +22,7 @@ class Game(Window):
         self.e = Entry(Vec2(400, 400))
         self.la = Label(Vec2(400, 450), "Contenu de \nl'entry", Colors.BLACK.value)
         self.console = Console(self, width=self.width)
+        self.console.add_command("activate", self.active)
         self.ml = MultilineLabel(Vec2(10, 450), "Chocolat\nVanille\nCARAMEL !", Colors.BLACK.value)
         self.im = AnimatedImage(Vec2(50, 400), ["images/idle.png", "images/sprite0.png"])
 
@@ -64,6 +65,10 @@ class Game(Window):
         self.la.text = self.e.text
         self.player.get_component(LifeComponent).life = -10
         self.ml.text = "OUI !"
+        self.button.enabled = False
+
+    def active(self, console, window, args):
+        self.button.enabled = True
 
     def die(self):
         print("MON ENTITE EST MORTE !")
