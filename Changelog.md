@@ -15,7 +15,7 @@
     - Label : Replace \n to void. Label doesn't support break lines
     - AnimatedImage : Create Image widget which support multiple images
     - Others : Rename Maths to Others
-    - Others : Add wrap_text function
+    - Others : Add wrap_text and get_images_from_gif functions
     - Unit Tests : Fix Vec2 and Color tests
     - Unit Tests : Add Console and MultilineLabel tests
     

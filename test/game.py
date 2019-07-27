@@ -1,6 +1,6 @@
 from pyengine import Window, ControlType, WindowCallbacks
 from pyengine.Systems import EntitySystem, UISystem
-from pyengine.Utils import Colors, Vec2
+from pyengine.Utils import Colors, Vec2, get_images_from_gif
 from pyengine.Components import PositionComponent, SpriteComponent, PhysicsComponent, TextComponent, \
     ControlComponent, LifeComponent
 from pyengine.Entities import Tilemap, Entity
@@ -24,7 +24,7 @@ class Game(Window):
         self.console = Console(self, width=self.width)
         self.console.add_command("activate", self.active)
         self.ml = MultilineLabel(Vec2(10, 450), "Chocolat\nVanille\nCARAMEL !", Colors.BLACK.value)
-        self.im = AnimatedImage(Vec2(50, 400), ["images/idle.png", "images/sprite0.png"])
+        self.im = AnimatedImage(Vec2(50, 400), get_images_from_gif("images/test.gif"))
 
         self.uisys.add_widget(self.check)
         self.uisys.add_widget(self.progress)
