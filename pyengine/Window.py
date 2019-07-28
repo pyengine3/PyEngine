@@ -30,17 +30,17 @@ class Window:
 
         self.screen = pygame.display.set_mode((width, height))
         pygame.scrap.init()
-        pygame.time.set_timer(const.USEREVENT, 500)
+        pygame.time.set_timer(const.USEREVENT, round(1000/update_rate))
 
         self.clock = pygame.time.Clock()
         self.width = width
         self.height = height
-        self.update_rate= update_rate
         self.__world = World(self)
         self.is_running = False
         self.debug = debug
         self.color = color
         self.debugfont = pygame.font.SysFont("arial", 15)
+        self.fps_label = self.debugfont.render("FPS : 0", 1, Colors.ORANGE.value)
 
         self.callbacks = {
             WindowCallbacks.OUTOFWINDOW: None,
@@ -139,14 +139,20 @@ class Window:
         self.is_running = True
         while self.is_running:
             for event in pygame.event.get():
-                if event.type == const.USEREVENT and self.debug:
-                    print("FPS : {}".format(int(self.clock.get_fps())))
+                if event.type == const.USEREVENT:
+                    if self.debug:
+                        self.fps_label = self.debugfont.render("FPS : "+str(round(self.clock.get_fps())),
+                                                           1, Colors.ORANGE.value)
+                    self.world.update()
                 self.__process_event(event)
 
             self.screen.fill(self.color.get())
 
-            self.world.run()
+            self.world.show()
 
-            self.clock.tick(self.update_rate)
+            if self.debug:
+                self.screen.blit(self.fps_label, (10, 10))
+
+            self.clock.tick()
             pygame.display.update()
         pygame.quit()

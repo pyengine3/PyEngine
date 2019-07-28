@@ -1,33 +1,30 @@
-from pyengine import Window
-from pyengine.Systems import UISystem
-from pyengine.Utils import Colors, Vec2
-from pyengine.Widgets import Button, Entry, Label, Console, Selector
+from pyengine import Window, ControlType
+from pyengine.Systems import EntitySystem
+from pyengine.Entities import Entity
+from pyengine.Components import PositionComponent, SpriteComponent, ControlComponent
+from pyengine.Utils import Vec2, Colors
+
+
+class BasicEntity(Entity):
+    def __init__(self, pos):
+        super(BasicEntity, self).__init__()
+
+        self.add_component(PositionComponent(pos))
+        self.add_component(SpriteComponent("images/sprite0.png"))
+        self.add_component(ControlComponent(ControlType.FOURDIRECTION))
 
 
 class Game(Window):
     def __init__(self):
-        super(Game, self).__init__(700, 600, Colors.WHITE.value)
+        super(Game, self).__init__(640, 640, debug=True)
 
-        self.uisys = self.world.get_system(UISystem)
+        self.esys = self.world.get_system(EntitySystem)
 
-        self.button = Button(Vec2(500, 100), "Add", self.btn)
-        self.e = Entry(Vec2(400, 400))
-        self.la = Label(Vec2(400, 450), "Contenu de \nl'entry", Colors.BLACK.value)
-        self.console = Console(self, width=self.width)
-        self.select = Selector(Vec2(0, 100), ["Ceci", "Est", "Un", "Test"])
-
-        self.uisys.add_widget(self.button)
-        self.uisys.add_widget(self.e)
-        self.uisys.add_widget(self.la)
-        self.uisys.add_widget(self.console)
-        self.uisys.add_widget(self.select)
+        for x in range(0, 640, 40):
+            for y in range(0, 640, 40):
+                self.esys.add_entity(BasicEntity(Vec2(x, y)))
 
         self.run()
-
-    def btn(self):
-        self.la.text = self.e.text
-        print(self.select.get())
-        self.select.strings = ["CECI EST TROP LONG", "OU PAS !"]
 
 
 Game()

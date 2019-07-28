@@ -2,6 +2,8 @@
 
 ## V 1.5.1 - XX/XX/19
 
+    - Unlock FPS
+
     - Bug Fix : Has_component doesn't work with custom component
 
 ## V 1.5.0 - 28/07/19

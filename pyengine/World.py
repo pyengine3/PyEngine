@@ -39,7 +39,7 @@ class World:
             return liste[0]
         loggers.get_logger("PyEngine").warning("Try to get "+str(classe)+" but World don't have it")
 
-    def run(self):
+    def update(self):
         if self.window is None:
             raise NoObjectError("World is attached to any Window.")
 
@@ -48,6 +48,10 @@ class World:
 
         if self.systems["Camera"].entity_follow is not None:
             self.systems["Camera"].update()
+
+    def show(self):
+        if self.window is None:
+            raise NoObjectError("World is attached to any Window.")
 
         self.systems["Entity"].show(self.window.screen)
         self.systems["UI"].show(self.window.screen)
