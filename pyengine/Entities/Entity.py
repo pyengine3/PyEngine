@@ -58,7 +58,7 @@ class Entity(pygame.sprite.Sprite):
         loggers.get_logger("PyEngine").info("Deleting component can be dangerous.")
 
     def has_component(self, component: ctypes) -> bool:
-        if component in [type(c) for c in self.components]:
+        if len([c for c in self.components if isinstance(c, component)]):
             return True
         return False
 

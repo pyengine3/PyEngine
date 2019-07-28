@@ -1,5 +1,9 @@
 # Changelog
 
+## V 1.5.1 - XX/XX/19
+
+    - Bug Fix : Has_component doesn't work with custom component
+
 ## V 1.5.0 - 28/07/19
 
     - Entity-Tilemap : Move to "Entities" folder
