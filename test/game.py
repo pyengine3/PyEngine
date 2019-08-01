@@ -20,9 +20,7 @@ class Game(Window):
 
         self.esys = self.world.get_system(EntitySystem)
 
-        for x in range(0, 640, 40):
-            for y in range(0, 640, 40):
-                self.esys.add_entity(BasicEntity(Vec2(x, y)))
+        self.esys.add_entity(BasicEntity(Vec2(2, 2)))
 
         self.run()
 

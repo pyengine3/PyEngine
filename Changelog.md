@@ -1,6 +1,6 @@
 # Changelog
 
-## V 1.5.1 - XX/XX/19
+## V 1.5.1 - 01/08/19
 
     - Unlock FPS
 

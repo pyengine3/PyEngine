@@ -41,6 +41,7 @@ class Window:
         self.color = color
         self.debugfont = pygame.font.SysFont("arial", 15)
         self.fps_label = self.debugfont.render("FPS : 0", 1, Colors.ORANGE.value)
+        self.fps_timer = 30
 
         self.callbacks = {
             WindowCallbacks.OUTOFWINDOW: None,
@@ -140,9 +141,11 @@ class Window:
         while self.is_running:
             for event in pygame.event.get():
                 if event.type == const.USEREVENT:
-                    if self.debug:
+                    self.fps_timer -= 1
+                    if self.debug and self.fps_timer <= 0:
                         self.fps_label = self.debugfont.render("FPS : "+str(round(self.clock.get_fps())),
-                                                           1, Colors.ORANGE.value)
+                                                               1, Colors.ORANGE.value)
+                        self.fps_timer = 30
                     self.world.update()
                 self.__process_event(event)
 
