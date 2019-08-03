@@ -36,6 +36,7 @@ class Window:
 
         self.clock = pygame.time.Clock()
         self.width = width
+        self.update_rate = update_rate
         self.height = height
         self.__world = World(self)
         self.is_running = False

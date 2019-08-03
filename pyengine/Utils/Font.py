@@ -93,6 +93,9 @@ class Font:
     background = property(get_background, set_background)
 
     def __eq__(self, other):
+        print(isinstance(other, Font) and self.name == other.name and self.color == other.color and
+                self.background == other.background and self.bold == other.bold and self.italic == other.italic and
+                self.underline == other.underline and self.antialias == other.antialias)
         return (isinstance(other, Font) and self.name == other.name and self.color == other.color and
                 self.background == other.background and self.bold == other.bold and self.italic == other.italic and
                 self.underline == other.underline and self.antialias == other.antialias)

@@ -2,7 +2,7 @@ from pyengine import Window, ControlType
 from pyengine.Systems import EntitySystem
 from pyengine.Entities import Entity
 from pyengine.Components import PositionComponent, SpriteComponent, ControlComponent
-from pyengine.Utils import Vec2, Colors
+from pyengine.Utils import Vec2
 
 
 class BasicEntity(Entity):
@@ -10,7 +10,7 @@ class BasicEntity(Entity):
         super(BasicEntity, self).__init__()
 
         self.add_component(PositionComponent(pos))
-        self.add_component(SpriteComponent("images/sprite0.png"))
+        self.add_component(SpriteComponent("images/sprite0.png", 20))
         self.add_component(ControlComponent(ControlType.FOURDIRECTION))
 
 
@@ -20,7 +20,7 @@ class Game(Window):
 
         self.esys = self.world.get_system(EntitySystem)
 
-        self.esys.add_entity(BasicEntity(Vec2(2, 2)))
+        self.esys.add_entity(BasicEntity(Vec2(0, 0)))
 
         self.run()
 

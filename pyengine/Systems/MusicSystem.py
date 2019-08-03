@@ -6,6 +6,7 @@ __all__ = ["MusicSystem"]
 
 class MusicSystem:
     def __init__(self):
+        pygame.mixer.init()
         self.queue = []
         self.ENDSOUND = 231
         self.volume = 100

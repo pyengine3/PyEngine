@@ -1,12 +1,16 @@
 # Changelog
 
-## V 1.5.1 - 01/08/19
+## V 1.5.1 - 04/08/19
 
     - Unlock FPS
     - Font : Rework on Font System
+    
+    - Optimization
 
     - Bug Fix : Has_component doesn't work with custom component
 
+Cette MAJ ne casse pas la combatilbilité avec la précédente.
+    
 ## V 1.5.0 - 28/07/19
 
     - Entity-Tilemap : Move to "Entities" folder
@@ -46,6 +50,8 @@
     - Bug Fix : Remove offset when change position
     - Bug Fix : Hide and Show doesn't spread to child in Widgets
     - Bug Fix : Focus stays when widget is hide
+
+Cette MAJ ne casse pas la combatilbilité avec la précédente.
 
 ## V 1.4.1 - 14/07/19
 
