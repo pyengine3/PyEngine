@@ -74,17 +74,10 @@ class Label(Widget):
         self.update_render()
 
     def update_render(self):
-        if self.background is None:
-            self.image = self.font.render().render(self.text, 1, self.color.get())
-        else:
-            renderer = self.font.render().render(self.text, 1, self.color.get())
-            self.image = pygame.Surface([renderer.get_rect().width, renderer.get_rect().height])
-            self.image.fill(self.background.get())
-            self.image.blit(renderer, [0, 0])
+        self.font.background = self.background
+        self.font.color = self.color
+        self.image = self.font.render(self.text)
         self.update_rect()
         if self.parent:
-            try:
-                self.parent.update_render()
-            except AttributeError:
-                pass
+            self.parent.update_render()
 

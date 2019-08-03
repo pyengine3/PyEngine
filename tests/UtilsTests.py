@@ -73,7 +73,7 @@ class FontTests(unittest.TestCase):
         self.font = Font()
 
     def test_name(self):
-        self.assertEqual(self.font.name, "Arial")
+        self.assertEqual(self.font.name, "arial")
         self.font.name = "Lucida"
         self.assertEqual(self.font.name, "Lucida")
 

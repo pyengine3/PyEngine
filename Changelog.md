@@ -3,6 +3,7 @@
 ## V 1.5.1 - 01/08/19
 
     - Unlock FPS
+    - Font : Rework on Font System
 
     - Bug Fix : Has_component doesn't work with custom component
 

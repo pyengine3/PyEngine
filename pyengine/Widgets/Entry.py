@@ -107,7 +107,8 @@ class Entry(Widget):
         self.keytimer = 10
 
     def update_render(self):
-        renderer = self.font.render().render(self.__text, 1, self.color.get())
+        self.font.color = self.color
+        renderer = self.font.render(self.__text)
         x = self.width - renderer.get_rect().width - 10
         if x > 2:
             x = 2

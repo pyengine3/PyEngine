@@ -1,7 +1,10 @@
-from pyengine.World import World
-from pyengine.Utils import Color, Colors, loggers
-
 import pygame
+pygame.init()
+
+
+from pyengine.World import World
+from pyengine.Utils import Color, Colors, Font, loggers
+
 import os
 import logging
 from pygame import locals as const
@@ -25,7 +28,6 @@ class Window:
             pygame.display.set_icon(pygame.image.load(icon))
 
         os.environ['SDL_VIDEO_CENTERED'] = '1'
-        pygame.init()
         pygame.display.set_caption(title)
 
         self.screen = pygame.display.set_mode((width, height))
@@ -39,8 +41,8 @@ class Window:
         self.is_running = False
         self.debug = debug
         self.color = color
-        self.debugfont = pygame.font.SysFont("arial", 15)
-        self.fps_label = self.debugfont.render("FPS : 0", 1, Colors.ORANGE.value)
+        self.debugfont = Font("arial", 15, color=Colors.ORANGE.value)
+        self.fps_label = self.debugfont.render("FPS : "+str(round(self.clock.get_fps())))
         self.fps_timer = 30
 
         self.callbacks = {
@@ -143,8 +145,7 @@ class Window:
                 if event.type == const.USEREVENT:
                     self.fps_timer -= 1
                     if self.debug and self.fps_timer <= 0:
-                        self.fps_label = self.debugfont.render("FPS : "+str(round(self.clock.get_fps())),
-                                                               1, Colors.ORANGE.value)
+                        self.fps_label = self.debugfont.render("FPS : "+str(round(self.clock.get_fps())))
                         self.fps_timer = 30
                     self.world.update()
                 self.__process_event(event)

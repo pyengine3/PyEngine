@@ -247,11 +247,6 @@ class EntryTests(WidgetTests):
         self.widget.color = Colors.GREEN.value
         self.assertEqual(self.widget.color, Colors.GREEN.value)
 
-    def test_font(self):
-        self.assertEqual(self.widget.font, Font())
-        self.widget.font = Font(size=20)
-        self.assertEqual(self.widget.font, Font(size=20))
-
 
 class ConsoleTests(WidgetTests):
     def setUp(self):

@@ -95,13 +95,9 @@ class MultilineLabel(Widget):
 
     def update_render(self):
         for i in self.labels:
-            if self.background is None:
-                i.image = self.font.render().render(i.text, 1, self.color.get())
-            else:
-                renderer = self.font.render().render(i.text, 1, self.color.get())
-                i.image = pygame.Surface([renderer.get_rect().width, renderer.get_rect().height])
-                i.image.fill(self.background.get())
-                i.image.blit(renderer, [0, 0])
+            self.font.color = self.color
+            self.font.background = self.background
+            i.image = self.font.render(i.text)
             i.update_rect()
         if self.parent:
             self.parent.update_render()

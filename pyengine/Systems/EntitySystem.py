@@ -3,7 +3,7 @@ from pyengine.Exceptions import NoObjectError
 from pyengine.Components import PositionComponent, SpriteComponent, TextComponent, ControlComponent
 from pyengine import World
 from pyengine.Entities.Entity import Entity
-from pyengine.Utils import loggers, Colors
+from pyengine.Utils import loggers, Font, Colors
 
 __all__ = ["EntitySystem"]
 
@@ -12,6 +12,7 @@ class EntitySystem:
     def __init__(self, world: World):
         self.world = world
         self.entities = pygame.sprite.Group()
+        self.debugfont = Font("arial", 15, color=Colors.RED.value)
 
     def get_entity(self, identity: int) -> Entity:
         for i in self.entities:
@@ -80,5 +81,5 @@ class EntitySystem:
 
     def show_debug(self, screen):
         for i in self.entities.sprites():
-            render = self.world.window.debugfont.render("ID : "+str(i.identity), 1, Colors.RED.value.get())
+            render = self.debugfont.render("ID : "+str(i.identity))
             screen.blit(render, (i.rect.x + i.rect.width / 2 - render.get_width()/2, i.rect.y - 20))

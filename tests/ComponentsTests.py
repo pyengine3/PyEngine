@@ -186,9 +186,9 @@ class TextTests(unittest.TestCase):
         self.component = self.entity.add_component(TextComponent("test"))
 
     def test_rendered_size(self):
-        self.assertEqual(self.component.rendered_size, (24, 18))
+        self.assertEqual(self.component.size, (24, 18))
         self.component.text = "OUI"
-        self.assertEqual(self.component.rendered_size, (25, 18))
+        self.assertEqual(self.component.size, (25, 18))
 
     def test_scale(self):
         self.assertEqual(self.component.scale, 1)
