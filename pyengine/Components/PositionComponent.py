@@ -49,13 +49,16 @@ class PositionComponent:
         self.update_dependances()
 
     def update_dependances(self):
-        from pyengine.Components import SpriteComponent, TextComponent  # Avoid import cycle
+        from pyengine.Components import SpriteComponent, TextComponent, PhysicsComponent  # Avoid import cycle
 
         if self.entity.has_component(SpriteComponent):
             self.entity.get_component(SpriteComponent).update_position()
 
         if self.entity.has_component(TextComponent):
             self.entity.get_component(TextComponent).update_position()
+
+        if self.entity.has_component(PhysicsComponent):
+            self.entity.get_component(PhysicsComponent).update_pos(self.position)
 
         for i in self.entity.attachedentities:
             if i.has_component(PositionComponent):

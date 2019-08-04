@@ -1,5 +1,9 @@
 # Changelog
 
+## V 1.6.0 - XX/XX/19
+
+    - Add physic engine : Pymunk
+
 ## V 1.5.1 - 04/08/19
 
     - Unlock FPS

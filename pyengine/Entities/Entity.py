@@ -70,7 +70,7 @@ class Entity(pygame.sprite.Sprite):
 
     def update(self):
         if self.has_component(PhysicsComponent):
-            self.get_component(PhysicsComponent).update_gravity()
+            self.get_component(PhysicsComponent).update()
 
         if self.has_component(ControlComponent):
             self.get_component(ControlComponent).update()

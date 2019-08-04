@@ -1,5 +1,5 @@
 from pyengine.Components.PositionComponent import PositionComponent
-from pyengine.Components.PhysicsComponent import PhysicsComponent, CollisionCauses
+from pyengine.Components.PhysicsComponent import PhysicsComponent
 from pyengine.Utils import Vec2
 
 __all__ = ["MoveComponent"]
@@ -30,23 +30,11 @@ class MoveComponent:
         self.__direction = direction
 
     def update(self):
-        if self.entity.has_component(PositionComponent):
+        if self.entity.has_component(PhysicsComponent):
+            self.entity.get_component(PhysicsComponent).body.velocity = self.direction
+
+        elif self.entity.has_component(PositionComponent):
             position = self.entity.get_component(PositionComponent)
             pos = position.position
 
-            if self.entity.has_component(PhysicsComponent):
-                if self.entity.get_component(PhysicsComponent).can_go(pos + self.direction,
-                                                                      CollisionCauses.MOVECOMPONENT, False):
-                    self.entity.get_component(PositionComponent).position += self.direction
-                elif self.entity.get_component(PhysicsComponent).can_go(pos + Vec2(0, self.direction.y),
-                                                                        CollisionCauses.MOVECOMPONENT, False):
-                    self.entity.get_component(PositionComponent).position += Vec2(0, self.direction.y)
-                elif self.entity.get_component(PhysicsComponent).can_go(pos + Vec2(self.direction.x, 0),
-                                                                        CollisionCauses.MOVECOMPONENT, False):
-                    self.entity.get_component(PositionComponent).position += Vec2(self.direction.x, 0)
-                else:
-                    # Make callback
-                    self.entity.get_component(PhysicsComponent).can_go(pos + self.direction,
-                                                                       CollisionCauses.MOVECOMPONENT)
-            else:
-                self.entity.get_component(PositionComponent).position += self.direction
+            self.entity.get_component(PositionComponent).position += self.direction

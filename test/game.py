@@ -1,7 +1,7 @@
 from pyengine import Window, ControlType
 from pyengine.Systems import EntitySystem
 from pyengine.Entities import Entity
-from pyengine.Components import PositionComponent, SpriteComponent, ControlComponent
+from pyengine.Components import PositionComponent, SpriteComponent, ControlComponent, PhysicsComponent
 from pyengine.Utils import Vec2
 
 
@@ -10,8 +10,7 @@ class BasicEntity(Entity):
         super(BasicEntity, self).__init__()
 
         self.add_component(PositionComponent(pos))
-        self.add_component(SpriteComponent("images/sprite0.png", 20))
-        self.add_component(ControlComponent(ControlType.FOURDIRECTION))
+        self.add_component(SpriteComponent("images/sprite0.png", 2))
 
 
 class Game(Window):
@@ -20,9 +19,17 @@ class Game(Window):
 
         self.esys = self.world.get_system(EntitySystem)
 
-        self.esys.add_entity(BasicEntity(Vec2(0, 0)))
+        j = BasicEntity(Vec2(100, 200))
+        j.add_component(ControlComponent(ControlType.FOURDIRECTION))
+        j.add_component(PhysicsComponent(False, callback=self.callback))
 
+        obj = BasicEntity(Vec2(100, 100))
+        obj.add_component(PhysicsComponent())
+        self.esys.add_entity(j)
+        self.esys.add_entity(obj)
         self.run()
 
+    def callback(self):
+        print("COLLISION !")
 
 Game()

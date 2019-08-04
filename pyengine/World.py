@@ -2,6 +2,8 @@ from pyengine.Exceptions import NoObjectError
 from pyengine.Systems import EntitySystem, MusicSystem, UISystem, SoundSystem, CameraSystem
 from typing import Type, Union
 from pyengine.Utils import loggers
+import pymunk
+from pymunk import pygame_util
 
 sunion = Union[EntitySystem, MusicSystem, UISystem, SoundSystem, CameraSystem]
 stypes = Union[Type[EntitySystem], Type[MusicSystem], Type[UISystem], Type[SoundSystem], Type[CameraSystem]]
@@ -10,11 +12,14 @@ __all__ = ["World"]
 
 
 class World:
-    def __init__(self, window):
+    def __init__(self, window, gravity=None):
         from pyengine import Window  # Define Window only on create world
 
         if not isinstance(window, Window):
             raise TypeError("Window have not Window as type")
+
+        if gravity is None:
+            gravity = [0, -900]
 
         self.window = window
         self.systems = {
@@ -24,6 +29,8 @@ class World:
             "Sound": SoundSystem(),
             "Camera": CameraSystem(self)
         }
+        self.space = pymunk.Space()
+        self.space.gravity = gravity
 
     @property
     def window(self):
@@ -43,6 +50,8 @@ class World:
         if self.window is None:
             raise NoObjectError("World is attached to any Window.")
 
+        self.space.step(1/60)
+
         self.systems["Entity"].update()
         self.systems["UI"].update()
 
@@ -52,10 +61,12 @@ class World:
     def show(self):
         if self.window is None:
             raise NoObjectError("World is attached to any Window.")
-
         self.systems["Entity"].show(self.window.screen)
         self.systems["UI"].show(self.window.screen)
         if self.window.debug:
+            draw_options = pygame_util.DrawOptions(self.window.screen)
+
+            self.space.debug_draw(draw_options)
             self.systems["Entity"].show_debug(self.window.screen)
             self.systems["UI"].show_debug(self.window.screen)
 

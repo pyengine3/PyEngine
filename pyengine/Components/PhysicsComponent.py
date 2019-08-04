@@ -1,47 +1,24 @@
-from pyengine.Components import PositionComponent
+from pyengine.Components import PositionComponent, SpriteComponent
 from pyengine.Utils import Vec2
 import pygame
-from enum import Enum
+import math
+import pymunk
 
-__all__ = ["PhysicsComponent", "CollisionCauses"]
-
-
-class CollisionCauses(Enum):
-    UNKNOWN = 1
-    GRAVITY = 2
-    LEFTCONTROL = 3
-    RIGHTCONTROL = 4
-    UPCONTROL = 5
-    DOWNCONTROL = 6
-    MOVECOMPONENT = 7
-    MOUSECLICK = 8
-    MOUSEFOLLOW = 9
-
-
-class CollisionInfos:
-    def __init__(self, cause: CollisionCauses, cote: str):
-        self.cause = cause
-        self.cote = cote
+__all__ = ["PhysicsComponent"]
 
 
 class PhysicsComponent:
-    def __init__(self, affectbygravity: bool = True, callback=None, gravity_force: int = 5):
-        self.entity = None
+    def __init__(self, affectbygravity: bool = True, friction: float = .5, elasticity: float = .5, mass: int = 1,
+                 callback=None):
+        self.__entity = None
+        self.origin_image = None
+        self.body = None
+        self.shape = None
         self.affectbygravity = affectbygravity
-        self.gravity = gravity_force
-        self.max_gravity_force = gravity_force
-        self.timegravity = 5
-        self.grounded = False
-        self.doublejump = True
+        self.friction = friction
+        self.elasticity = elasticity
+        self.mass = mass
         self.callback = callback
-
-    @property
-    def gravity(self):
-        return self.__gravity
-
-    @gravity.setter
-    def gravity(self, gravity):
-        self.__gravity = gravity
 
     @property
     def entity(self):
@@ -50,52 +27,36 @@ class PhysicsComponent:
     @entity.setter
     def entity(self, entity):
         self.__entity = entity
+        self.origin_image = entity.image
+        temp = entity.rect.width
+        vc = [(0, temp), (temp, temp), (temp, 0), (0, 0)]
+        moment = pymunk.moment_for_box(self.mass, (entity.rect.width, entity.rect.height))
+        self.body = pymunk.Body(self.mass, moment)
+        self.body.center_of_gravity = (temp/2, temp/2)
+        if not self.affectbygravity:
+            self.body.body_type = self.body.KINEMATIC
+        self.shape = pymunk.Poly(self.body, vc)
+        self.shape.friction = self.friction
+        self.shape.elasticity = self.elasticity
+        if entity.has_component(PositionComponent):
+            self.update_pos(entity.get_component(PositionComponent).position.coords)
 
-    @property
-    def callback(self):
-        return self.__callback
+    def flipy(self, pos):
+        return [pos[0], -pos[1] + 640]
 
-    @callback.setter
-    def callback(self, function):
-        self.__callback = function
+    def add_callback(self):
+        if self.callback is not None:
+            cb = self.entity.system.world.space.add_wildcard_collision_handler(self.entity.identity)
+            cb.begin = self.callback
 
-    def can_go(self, position: Vec2, createdby: CollisionCauses = CollisionCauses.UNKNOWN,
-               makecallback: bool = True) -> bool:
-        gosprite = pygame.sprite.Sprite()
-        gosprite.rect = pygame.rect.Rect(position.x, position.y, self.entity.image.get_width(),
-                                         self.entity.image.get_height())
-        collision = pygame.sprite.spritecollide(gosprite, self.entity.system.entities, False, None)
-        for i in collision:
-            if i.has_component(PhysicsComponent) and i.identity != self.entity.identity:
-                if self.callback is not None and makecallback:
-                    entitypos = self.entity.get_component(PositionComponent).position
-                    ipos = i.get_component(PositionComponent).position
-                    if ipos.x - self.entity.image.get_width() < entitypos.x < ipos.x + i.image.get_width():
-                        if entitypos.y + self.entity.image.get_height() <= ipos.y:
-                            cinfos = CollisionInfos(createdby, "haut")
-                        else:
-                            cinfos = CollisionInfos(createdby, "bas")
-                    elif entitypos.x + self.entity.image.get_width() <= ipos.x:
-                        cinfos = CollisionInfos(createdby, "gauche")
-                    else:
-                        cinfos = CollisionInfos(createdby, "droite")
-                    self.callback(i, cinfos)
-                return False
-        return True
+    def update(self):
+        self.entity.image = pygame.transform.rotate(self.origin_image, math.degrees(self.body.angle))
 
-    def update_gravity(self):
-        if self.affectbygravity:
-            if self.entity.has_component(PositionComponent):
-                position = self.entity.get_component(PositionComponent)
-                if self.can_go(Vec2(position.position.x, position.position.y + self.gravity), CollisionCauses.GRAVITY):
-                    self.grounded = False
-                    position.position = Vec2(position.position.x, position.position.y + self.gravity)
-                elif self.gravity > 0:
-                    self.grounded = True
-                    self.doublejump = True
-                    self.gravity = 2
+        if self.entity.has_component(PositionComponent):
+            print(self.flipy(self.body.position), self.entity.get_component(PositionComponent).position)
+            self.entity.get_component(PositionComponent).position = Vec2(self.flipy(self.body.position))
 
-                if self.timegravity <= 0 and self.gravity < self.max_gravity_force and not self.grounded:
-                    self.gravity += 1
-                    self.timegravity = 5
-                self.timegravity -= 1
+    def update_pos(self, pos):
+        self.body.position = self.flipy(pos)
+
+
