@@ -8,8 +8,7 @@ __all__ = ["PhysicsComponent"]
 
 
 class PhysicsComponent:
-    def __init__(self, affectbygravity: bool = True, friction: float = .5, elasticity: float = .5, mass: int = 1,
-                 callback=None):
+    def __init__(self, affectbygravity: bool = True, friction: float = .5, elasticity: float = .5, mass: int = 1):
         self.__entity = None
         self.origin_image = None
         self.body = None
@@ -18,7 +17,6 @@ class PhysicsComponent:
         self.__friction = friction
         self.__elasticity = elasticity
         self.__mass = mass
-        self.callback = callback
 
     @property
     def affectbygravity(self):
@@ -85,11 +83,6 @@ class PhysicsComponent:
 
     def flipy(self, pos):
         return [pos[0], -pos[1] + 640]
-
-    def add_callback(self):
-        if self.callback is not None:
-            cb = self.entity.system.world.space.add_wildcard_collision_handler(self.entity.identity)
-            cb.begin = self.callback
 
     def update(self):
         self.entity.image = pygame.transform.rotate(self.origin_image, math.degrees(self.body.angle))

@@ -12,7 +12,7 @@ __all__ = ["World"]
 
 
 class World:
-    def __init__(self, window, gravity=None):
+    def __init__(self, window, gravity=None, collision_callback=None):
         from pyengine import Window  # Define Window only on create world
 
         if not isinstance(window, Window):
@@ -30,7 +30,28 @@ class World:
             "Camera": CameraSystem(self)
         }
         self.space = pymunk.Space()
-        self.space.gravity = gravity
+        self.gravity = gravity
+        self.collision = self.space.add_default_collision_handler()
+        self.collision_callback = collision_callback
+
+    @property
+    def gravity(self):
+        return __gravity
+
+    @gravity.setter
+    def gravity(self, val):
+        self.space.gravity = val
+        self.__gravity = val
+
+    @property
+    def collision_callback(self):
+        return self.__collision_callback
+
+    @collision_callback.setter
+    def collision_callback(self, val):
+        if val is not None:
+            self.collision.pre_solve = val
+        self.__collision_callback = val
 
     @property
     def window(self):
