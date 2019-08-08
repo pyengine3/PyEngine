@@ -7,6 +7,7 @@
     - PhysicsComponent : Rework with a physic engine (Pymunk)
     
     - Bug Fix : Check if object is a Vec2 doesn't work with operations
+    - Bug Fix : OutOfWindow Callback return wrong object
 
 ## V 1.5.1 - 04/08/19
 

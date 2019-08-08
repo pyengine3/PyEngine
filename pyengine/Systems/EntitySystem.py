@@ -60,7 +60,7 @@ class EntitySystem:
                         position.position.y < 0 or
                         position.position.x >= self.world.window.width - i.image.get_rect().width or
                         position.position.x < 0):
-                    self.world.window.call(WindowCallbacks.OUTOFWINDOW, self, position.position)
+                    self.world.window.call(WindowCallbacks.OUTOFWINDOW, i, position.position)
 
     def stop_world(self):
         for i in self.entities:
