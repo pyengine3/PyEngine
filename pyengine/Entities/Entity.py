@@ -38,6 +38,8 @@ class Entity(pygame.sprite.Sprite):
     @system.setter
     def system(self, system):
         self.__system = system
+        if self.has_component(PhysicsComponent) and self.has_component(PositionComponent):
+            self.get_component(PhysicsComponent).update_pos(self.get_component(PositionComponent).position.coords)
 
     def attach_entity(self, entity):
         self.attachedentities.append(entity)

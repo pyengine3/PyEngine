@@ -33,7 +33,7 @@ class MouseButton(Enum):
 
 
 class ControlComponent:
-    def __init__(self, controltype: ControlType, speed: int = 5):
+    def __init__(self, controltype: ControlType, speed: int = 250):
         self.entity = None
         self.controltype = controltype
         self.speed = speed
@@ -95,6 +95,8 @@ class ControlComponent:
         if self.controltype == ControlType.DOUBLEJUMP or self.controltype == ControlType.CLASSICJUMP:
             if evt.key == self.controles[Controls.UPJUMP]:
                 self.jumping = False
+        if self.entity.has_component(PhysicsComponent):
+            self.entity.get_component(PhysicsComponent).body.velocity = [0, 0]
 
     def keypress(self, evt):
         if evt.key not in self.keypressed:
@@ -106,53 +108,60 @@ class ControlComponent:
             if position.x - 10 < self.goto.x < position.x + 10 and position.y - 10 < self.goto.y < position.y + 10:
                 self.goto = Vec2(-1, -1)
             else:
-                pos = Vec2()
-                if position.x - 10 > self.goto.x:
-                    pos.x = position.x - self.speed
-                elif position.x + 10 < self.goto.x:
-                    pos.x = position.x + self.speed
+                if self.entity.has_component(PhysicsComponent):
+                    raise ValueError("Not Implemented.")
                 else:
-                    pos.x = position.x
-                if position.y - 10 > self.goto.y:
-                    pos.y = position.y - self.speed
-                elif position.y + 10 < self.goto.y:
-                    pos.y = position.y + self.speed
-                else:
-                    pos.y = position.y
+                    pos = Vec2()
+                    if position.x - 10 > self.goto.x:
+                        pos.x = position.x - self.speed
+                    elif position.x + 10 < self.goto.x:
+                        pos.x = position.x + self.speed
+                    else:
+                        pos.x = position.x
+                    if position.y - 10 > self.goto.y:
+                        pos.y = position.y - self.speed
+                    elif position.y + 10 < self.goto.y:
+                        pos.y = position.y + self.speed
+                    else:
+                        pos.y = position.y
 
-                self.entity.get_component(PositionComponent).position = pos
+                    self.entity.get_component(PositionComponent).position = pos
 
     def movebykey(self, eventkey):
         if eventkey == self.controles[Controls.LEFT]:
             if self.controltype == ControlType.FOURDIRECTION or self.controltype == ControlType.CLASSICJUMP \
                     or self.controltype == ControlType.DOUBLEJUMP or self.controltype == ControlType.LEFTRIGHT:
-                if self.entity.has_component(PositionComponent):
+                if self.entity.has_component(PhysicsComponent):
+                    if self.entity.get_component(PhysicsComponent).body.velocity[0] > -self.speed:
+                        self.entity.get_component(PhysicsComponent).body.velocity += [-self.speed, 0]
+                elif self.entity.has_component(PositionComponent):
                     pos = self.entity.get_component(PositionComponent)
                     pos.position = Vec2(pos.position.x - self.speed, pos.position.y)
-                elif self.entity.has_component(PhysicsComponent):
-                    self.entity.get_component(PhysicsComponent).body.velocity = [-self.speed, 0]
         elif eventkey == self.controles[Controls.RIGHT]:
             if self.controltype == ControlType.FOURDIRECTION or self.controltype == ControlType.CLASSICJUMP \
                     or self.controltype == ControlType.DOUBLEJUMP or self.controltype == ControlType.LEFTRIGHT:
-                if self.entity.has_component(PositionComponent):
+                if self.entity.has_component(PhysicsComponent):
+                    if self.entity.get_component(PhysicsComponent).body.velocity[0] < self.speed:
+                        self.entity.get_component(PhysicsComponent).body.velocity += [self.speed, 0]
+                elif self.entity.has_component(PositionComponent):
                     pos = self.entity.get_component(PositionComponent)
                     pos.position = Vec2(pos.position.x + self.speed, pos.position.y)
-                elif self.entity.has_component(PhysicsComponent):
-                    self.entity.get_component(PhysicsComponent).body.velocity = [self.speed, 0]
         elif eventkey == self.controles[Controls.UPJUMP]:
             if self.controltype == ControlType.FOURDIRECTION or self.controltype == ControlType.UPDOWN:
-                if self.entity.has_component(PositionComponent):
+                if self.entity.has_component(PhysicsComponent):
+                    if self.entity.get_component(PhysicsComponent).body.velocity[1] < self.speed:
+                        self.entity.get_component(PhysicsComponent).body.velocity += [0, self.speed]
+                elif self.entity.has_component(PositionComponent):
                     pos = self.entity.get_component(PositionComponent)
                     pos.position = Vec2(pos.position.x, pos.position.y - self.speed)
-                elif self.entity.has_component(PhysicsComponent):
-                    self.entity.get_component(PhysicsComponent).body.velocity = [0, self.speed]
             elif self.controltype == ControlType.CLASSICJUMP and self.controltype == ControlType.DOUBLEJUMP:
                 raise ValueError("Not Implemented.")
         elif eventkey == self.controles[Controls.DOWN]:
             if self.controltype == ControlType.FOURDIRECTION or self.controltype == ControlType.UPDOWN:
-                if self.entity.has_component(PositionComponent):
+                if self.entity.has_component(PhysicsComponent):
+                    if self.entity.get_component(PhysicsComponent).body.velocity[1] > -self.speed:
+                        self.entity.get_component(PhysicsComponent).body.velocity += [0, -self.speed]
+                elif self.entity.has_component(PositionComponent):
                     pos = self.entity.get_component(PositionComponent)
                     pos.position = Vec2(pos.position.x, pos.position.y + self.speed)
-                elif self.entity.has_component(PhysicsComponent):
-                    self.entity.get_component(PhysicsComponent).body.velocity = [0, -self.speed]
 

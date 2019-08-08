@@ -1,9 +1,10 @@
 import math
 
-import pygame
 import pymunk
 
+import pygame
 from pyengine.Components.PositionComponent import PositionComponent
+from pyengine.Components.SpriteComponent import SpriteComponent
 from pyengine.Utils.Vec2 import Vec2
 
 __all__ = ["PhysicsComponent"]
@@ -11,9 +12,9 @@ __all__ = ["PhysicsComponent"]
 
 class PhysicsComponent:
     def __init__(self, affectbygravity: bool = True, friction: float = .5, elasticity: float = .5, mass: int = 1,
-                 solid: bool = True, callback = None):
+                 solid: bool = True, callback=None):
         self.__entity = None
-        self.origin_image = None
+        self.orig_image = None
         self.body = None
         self.shape = None
         self.__affectbygravity = affectbygravity
@@ -71,29 +72,34 @@ class PhysicsComponent:
     @entity.setter
     def entity(self, entity):
         self.__entity = entity
-        self.origin_image = entity.image
-        temp = entity.rect.width
-        temp2 = entity.rect.height
-        vc = [(0, temp2), (temp, temp2), (temp, 0), (0, 0)]
+        self.orig_image = entity.image
+        temp = entity.rect.width/2
+        temp2 = entity.rect.height/2
+        vc = [(-temp, -temp2), (temp, -temp2), (-temp, temp2), (temp, temp2)]
         moment = pymunk.moment_for_box(self.mass, (entity.rect.width, entity.rect.height))
         self.body = pymunk.Body(self.mass, moment)
-        self.body.center_of_gravity = (temp/2, temp2/2)
         if not self.affectbygravity:
             self.body.body_type = self.body.KINEMATIC
         self.shape = pymunk.Poly(self.body, vc)
         self.shape.friction = self.friction
         self.shape.elasticity = self.elasticity
-        if entity.has_component(PositionComponent):
-            self.update_pos(entity.get_component(PositionComponent).position.coords)
 
     def flipy(self, pos):
-        return [pos[0], -pos[1] + 640]
+        return [pos[0], -pos[1] + self.entity.system.world.window.height]
 
     def update(self):
-        self.entity.image = pygame.transform.rotate(self.origin_image, math.degrees(self.body.angle))
+        """pos = self.flipy(self.body.position)
+        self.entity.rect.center = pos
+        self.entity.image = pygame.transform.rotate(
+            self.orig_image, math.degrees(self.body.angle))
+        self.entity.rect = self.entity.image.get_rect(center=self.entity.rect.center)"""
 
         if self.entity.has_component(PositionComponent):
-            self.entity.get_component(PositionComponent).position = Vec2(self.flipy(self.body.position))
+            pos = Vec2(self.flipy(self.body.position))
+            self.entity.get_component(PositionComponent).position = pos
+            
+        if self.entity.has_component(SpriteComponent):
+            self.entity.get_component(SpriteComponent).rotation = math.degrees(self.body.angle)
 
     def update_pos(self, pos):
         self.body.position = self.flipy(pos)
