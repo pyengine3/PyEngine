@@ -3,6 +3,7 @@
 ## V 1.6.0 - XX/XX/19
 
     - Add physic engine : Pymunk
+    - Window : Add limit_fps property
 
 ## V 1.5.1 - 04/08/19
 

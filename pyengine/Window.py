@@ -22,7 +22,7 @@ class WindowCallbacks(Enum):
 
 class Window:
     def __init__(self, width: int, height: int, color: Color = Colors.BLACK.value,
-                 title: str = "PyEngine", icon: Union[None, str] = None,
+                 title: str = "PyEngine", icon: Union[None, str] = None, limit_fps: Union[None, int] = None,
                  update_rate: int = 60, debug: bool = False):
         if icon is not None:
             pygame.display.set_icon(pygame.image.load(icon))
@@ -45,6 +45,7 @@ class Window:
         self.debugfont = Font("arial", 15, color=Colors.ORANGE.value)
         self.fps_label = self.debugfont.render("FPS : "+str(round(self.clock.get_fps())))
         self.fps_timer = 30
+        self.limit_fps = limit_fps
 
         self.callbacks = {
             WindowCallbacks.OUTOFWINDOW: None,
@@ -158,6 +159,9 @@ class Window:
             if self.debug:
                 self.screen.blit(self.fps_label, (10, 10))
 
-            self.clock.tick()
+            if self.limit_fps is None:
+                self.clock.tick()
+            else:
+                self.clock.tick(self.limit_fps)
             pygame.display.update()
         pygame.quit()
