@@ -51,6 +51,8 @@ class World:
             for j in [e for e in self.systems["Entity"].entities if e.has_component(PhysicsComponent)]:
                 phys = j.get_component(PhysicsComponent)
                 if phys.shape == i:
+                    if not phys.solid:
+                        ret = False
                     e.append(j)
                     break
         for i in e:

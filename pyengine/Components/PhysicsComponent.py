@@ -18,6 +18,7 @@ class PhysicsComponent:
         self.__friction = friction
         self.__elasticity = elasticity
         self.__mass = mass
+        self.solid = solid
         self.callback = callback
 
     @property
