@@ -2,7 +2,6 @@ import pygame
 
 from pyengine.Components.PositionComponent import PositionComponent
 from pyengine.Exceptions import CompatibilityError
-from pyengine.Utils.Vec2 import Vec2
 
 __all__ = ["SpriteComponent"]
 
@@ -12,8 +11,8 @@ class SpriteComponent:
         self.__entity = None
         self.__sprite = image
         self.__scale = scale
-        self.firstrotation = rotation
         self.__rotation = 0
+        self.origin_image = None
         self.width = 0
         self.height = 0
 
@@ -34,7 +33,8 @@ class SpriteComponent:
         self.width = self.entity.rect.width
         self.height = self.entity.rect.height
         self.scale = self.scale
-        self.rotation = self.firstrotation
+        self.origin_image = self.__entity.image
+        self.rotation = 0
 
     @property
     def scale(self):
@@ -45,7 +45,8 @@ class SpriteComponent:
         self.__scale = scale
         self.entity.image = pygame.transform.scale(self.entity.image, (round(self.width * scale),
                                                                        round(self.height * scale)))
-        self.update_entity()
+        self.origin_image = self.__entity.image
+        self.update_position()
 
     @property
     def size(self):
@@ -65,10 +66,11 @@ class SpriteComponent:
 
     @rotation.setter
     def rotation(self, rotation):
-        temp = self.__rotation
+        center = self.entity.rect.center
+        self.entity.image = pygame.transform.rotate(self.origin_image, rotation)
         self.__rotation = rotation
-        self.entity.image = pygame.transform.rotate(self.entity.image, self.__rotation - temp)
-        self.update_entity()
+        self.entity.rect = self.entity.image.get_rect(center=center)
+        self.update_position()
 
     @property
     def sprite(self):
@@ -82,6 +84,7 @@ class SpriteComponent:
         self.height = self.entity.rect.height
         self.entity.image = pygame.transform.scale(self.entity.image, (round(self.width * self.scale),
                                                                        round(self.height * self.scale)))
+        self.origin_image = self.entity.image
         self.update_position()
 
     def update_position(self):
