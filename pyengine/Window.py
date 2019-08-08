@@ -18,6 +18,7 @@ class WindowCallbacks(Enum):
     OUTOFWINDOW = 1
     STOPWINDOW = 2
     CHANGEWORLD = 3
+    RUNWINDOW = 4
 
 
 class Window:
@@ -50,7 +51,8 @@ class Window:
         self.callbacks = {
             WindowCallbacks.OUTOFWINDOW: None,
             WindowCallbacks.STOPWINDOW: None,
-            WindowCallbacks.CHANGEWORLD: None
+            WindowCallbacks.CHANGEWORLD: None,
+            WindowCallbacks.RUNWINDOW: None
         }
 
     @property
@@ -142,6 +144,7 @@ class Window:
 
     def run(self) -> None:
         self.is_running = True
+        self.call(WindowCallbacks.RUNWINDOW)
         while self.is_running:
             for event in pygame.event.get():
                 if event.type == const.USEREVENT:

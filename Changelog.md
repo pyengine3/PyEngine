@@ -3,6 +3,7 @@
 ## V 1.6.0 - XX/XX/19
 
     - Window : Add limit_fps property
+    - WindowCallbacks : Add RUNWINDOW Callback
     - PhysicsComponent : Rework with a physic engine (Pymunk)
 
 ## V 1.5.1 - 04/08/19
