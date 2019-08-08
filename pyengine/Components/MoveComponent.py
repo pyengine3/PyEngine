@@ -1,8 +1,8 @@
-from pyengine.Components.PositionComponent import PositionComponent
 import pygame
 
 from pyengine.Components.PhysicsComponent import PhysicsComponent
-from pyengine.Utils import Vec2
+from pyengine.Components.PositionComponent import PositionComponent
+from pyengine.Utils.Vec2 import Vec2
 
 __all__ = ["MoveComponent"]
 

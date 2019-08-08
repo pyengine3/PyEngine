@@ -1,5 +1,6 @@
-from pyengine.Utils import Vec2
 import pygame
+
+from pyengine.Utils.Vec2 import Vec2
 
 __all__ = ["PositionComponent"]
 

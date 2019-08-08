@@ -1,9 +1,10 @@
-from pyengine.Components import PositionComponent, SpriteComponent, PhysicsComponent, TextComponent
-from pyengine.Utils import Vec2, loggers
-from pyengine.Entities import Entity
-
 import json
 from xml.etree import ElementTree
+
+from pyengine.Components import PositionComponent, SpriteComponent, PhysicsComponent, TextComponent
+from pyengine.Entities import Entity
+from pyengine.Utils.Vec2 import Vec2
+from pyengine.Utils.Logger import loggers
 
 __all__ = ["Tilemap"]
 

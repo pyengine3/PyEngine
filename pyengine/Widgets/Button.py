@@ -1,8 +1,10 @@
-import pygame
-from pyengine.Widgets.Widget import Widget
-from pyengine.Widgets import Label
-from pyengine.Utils import Vec2
 from typing import Union, Callable
+
+import pygame
+
+from pyengine.Utils.Vec2 import Vec2
+from pyengine.Widgets import Label
+from pyengine.Widgets.Widget import Widget
 
 __all__ = ["Button"]
 

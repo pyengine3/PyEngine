@@ -1,7 +1,11 @@
-from pyengine.Widgets import Entry, Label
-from pyengine.Utils import loggers, Font, Vec2, Colors
-
 from pygame import locals as const
+
+from pyengine.Utils.Color import Colors
+from pyengine.Utils.Font import Font
+from pyengine.Utils.Logger import loggers
+from pyengine.Utils.Vec2 import Vec2
+from pyengine.Widgets.Entry import Entry
+from pyengine.Widgets.Label import Label
 
 __all__ = ["Console"]
 

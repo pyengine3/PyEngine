@@ -1,8 +1,11 @@
-from pyengine.Widgets.Widget import Widget
-from pyengine.Widgets import Label
-from pyengine.Utils import Font, Color, Colors, Vec2, loggers
 from typing import Union
-import pygame
+
+from pyengine.Utils.Color import Colors, Color
+from pyengine.Utils.Font import Font
+from pyengine.Utils.Logger import loggers
+from pyengine.Utils.Vec2 import Vec2
+from pyengine.Widgets import Label
+from pyengine.Widgets.Widget import Widget
 
 __all__ = ["MultilineLabel"]
 

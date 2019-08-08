@@ -1,7 +1,7 @@
-from pyengine import Window, ControlType
+from pyengine import Window
 from pyengine.Systems import EntitySystem
 from pyengine.Entities import Entity
-from pyengine.Components import PositionComponent, SpriteComponent, ControlComponent, PhysicsComponent
+from pyengine.Components import PositionComponent, SpriteComponent, MoveComponent, PhysicsComponent
 from pyengine.Utils import Vec2
 
 
@@ -20,11 +20,12 @@ class Game(Window):
         self.esys = self.world.get_system(EntitySystem)
 
         j = BasicEntity(Vec2(100, 200))
-        j.add_component(ControlComponent(ControlType.FOURDIRECTION))
+        j.add_component(MoveComponent(Vec2(50, 50)))
         j.add_component(PhysicsComponent(False, callback=self.collision))
 
         obj = BasicEntity(Vec2(100, 100))
         obj.add_component(PhysicsComponent())
+
         self.esys.add_entity(j)
         self.esys.add_entity(obj)
         self.run()

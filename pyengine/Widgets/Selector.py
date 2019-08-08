@@ -1,6 +1,8 @@
-from pyengine.Widgets.Widget import Widget
+from pyengine.Utils.Color import Colors
+from pyengine.Utils.Font import Font
+from pyengine.Utils.Vec2 import Vec2
 from pyengine.Widgets import Label, Button
-from pyengine.Utils import Vec2, Colors, Font
+from pyengine.Widgets.Widget import Widget
 
 __all__ = ["Selector"]
 

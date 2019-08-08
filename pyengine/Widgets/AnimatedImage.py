@@ -1,6 +1,8 @@
-from pyengine.Widgets import Image
-from pyengine.Utils import Vec2, loggers
-from typing import List, Tuple
+from typing import List
+
+from pyengine.Utils.Vec2 import Vec2
+from pyengine.Utils.Logger import loggers
+from pyengine.Widgets.Image import Image
 
 __all__ = ["AnimatedImage"]
 

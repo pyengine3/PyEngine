@@ -1,7 +1,9 @@
-import pygame
-from pyengine.Components import *
 from typing import Union, Type
-from pyengine.Utils import loggers
+
+import pygame
+
+from pyengine.Components import *
+from pyengine.Utils.Logger import loggers
 
 cunion = Union[PositionComponent, SpriteComponent, ControlComponent,
                PhysicsComponent, TextComponent, LifeComponent, MoveComponent, AnimComponent]

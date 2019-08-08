@@ -1,8 +1,10 @@
-from pyengine.Components import PositionComponent, SpriteComponent
-from pyengine.Utils import Vec2
-import pygame
 import math
+
+import pygame
 import pymunk
+
+from pyengine.Components.PositionComponent import PositionComponent
+from pyengine.Utils.Vec2 import Vec2
 
 __all__ = ["PhysicsComponent"]
 

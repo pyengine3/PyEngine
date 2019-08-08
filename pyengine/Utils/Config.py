@@ -1,6 +1,7 @@
 import json
 import os
-from pyengine.Utils import loggers
+
+from pyengine.Utils.Logger import loggers
 
 __all__ = ["Config"]
 

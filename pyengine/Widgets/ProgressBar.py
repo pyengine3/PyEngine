@@ -1,8 +1,10 @@
-from pyengine.Widgets.Widget import Widget
-from pyengine.Utils import Vec2, clamp
 from typing import Tuple
 
 import pygame
+
+from pyengine.Utils.Vec2 import Vec2
+from pyengine.Utils.Others import clamp
+from pyengine.Widgets.Widget import Widget
 
 __all__ = ["ProgressBar"]
 

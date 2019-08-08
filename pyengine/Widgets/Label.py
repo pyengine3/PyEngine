@@ -1,7 +1,10 @@
-from pyengine.Widgets.Widget import Widget
-from pyengine.Utils import Font, Color, Colors, Vec2, loggers
-import pygame
 from typing import Union
+
+from pyengine.Utils.Color import Colors, Color
+from pyengine.Utils.Font import Font
+from pyengine.Utils.Logger import loggers
+from pyengine.Utils.Vec2 import Vec2
+from pyengine.Widgets.Widget import Widget
 
 __all__ = ["Label"]
 

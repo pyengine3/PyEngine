@@ -1,9 +1,11 @@
-from pyengine.Exceptions import CompatibilityError
-from pyengine.Utils import Font, Color, Colors
-from pyengine.Components import PositionComponent
+from typing import Union
 
 import pygame
-from typing import Union
+
+from pyengine.Components import PositionComponent
+from pyengine.Exceptions import CompatibilityError
+from pyengine.Utils.Font import Font
+from pyengine.Utils.Color import Color, Colors
 
 __all__ = ["TextComponent"]
 

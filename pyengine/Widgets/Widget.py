@@ -1,5 +1,6 @@
 import pygame
-from pyengine.Utils import Vec2
+
+from pyengine.Utils.Vec2 import Vec2
 
 __all__ = ["Widget"]
 

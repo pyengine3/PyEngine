@@ -1,7 +1,8 @@
 import pygame
-from pyengine.Exceptions import CompatibilityError
+
 from pyengine.Components.PositionComponent import PositionComponent
-from pyengine.Utils import Vec2
+from pyengine.Exceptions import CompatibilityError
+from pyengine.Utils.Vec2 import Vec2
 
 __all__ = ["SpriteComponent"]
 

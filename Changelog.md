@@ -6,6 +6,8 @@
     - WindowCallbacks : Add RUNWINDOW Callback
     - PhysicsComponent : Rework with a physic engine (Pymunk)
     
+    - Optimization
+    
     - Bug Fix : Check if object is a Vec2 doesn't work with operations
     - Bug Fix : OutOfWindow Callback return wrong object
 

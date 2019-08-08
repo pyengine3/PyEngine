@@ -1,5 +1,6 @@
-import threading
 import socket
+import threading
+
 from pyengine.Network.Packet import Packet
 
 

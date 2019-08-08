@@ -1,8 +1,9 @@
-from pyengine.Systems import EntitySystem
-from pyengine.Components import PositionComponent, SpriteComponent, TextComponent
-from pyengine.Utils import Vec2
 import pygame
+
 from pyengine import World
+from pyengine.Components import PositionComponent, SpriteComponent, TextComponent
+from pyengine.Systems import EntitySystem
+from pyengine.Utils.Vec2 import Vec2
 
 __all__ = ["CameraSystem"]
 

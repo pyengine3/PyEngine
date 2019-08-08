@@ -1,9 +1,13 @@
-import pygame
 import string
-from pyengine.Widgets.Widget import Widget
-from pyengine.Utils import Vec2, Colors, Font, Color
-from pygame import locals as const
 from typing import Union
+
+import pygame
+from pygame import locals as const
+
+from pyengine.Utils.Color import Colors, Color
+from pyengine.Utils.Font import Font
+from pyengine.Utils.Vec2 import Vec2
+from pyengine.Widgets.Widget import Widget
 
 __all__ = ["Entry"]
 

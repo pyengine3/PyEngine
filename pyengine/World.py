@@ -1,10 +1,12 @@
-from pyengine.Exceptions import NoObjectError
-from pyengine.Systems import EntitySystem, MusicSystem, UISystem, SoundSystem, CameraSystem
-from pyengine.Components import PhysicsComponent
 from typing import Type, Union
-from pyengine.Utils import loggers
+
 import pymunk
 from pymunk import pygame_util
+
+from pyengine.Components import PhysicsComponent
+from pyengine.Exceptions import NoObjectError
+from pyengine.Systems import EntitySystem, MusicSystem, UISystem, SoundSystem, CameraSystem
+from pyengine.Utils.Logger import loggers
 
 sunion = Union[EntitySystem, MusicSystem, UISystem, SoundSystem, CameraSystem]
 stypes = Union[Type[EntitySystem], Type[MusicSystem], Type[UISystem], Type[SoundSystem], Type[CameraSystem]]

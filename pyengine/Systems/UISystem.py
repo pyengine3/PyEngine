@@ -1,8 +1,12 @@
 import pygame
-from pyengine.Widgets import Entry, Button, AnimatedImage
-from pyengine.Widgets.Widget import Widget
+
 from pyengine import World
-from pyengine.Utils import loggers, Colors
+from pyengine.Utils.Logger import loggers
+from pyengine.Utils.Color import Colors
+from pyengine.Widgets.Entry import Entry
+from pyengine.Widgets.Button import Button
+from pyengine.Widgets.AnimatedImage import AnimatedImage
+from pyengine.Widgets.Widget import Widget
 
 __all__ = ["UISystem"]
 

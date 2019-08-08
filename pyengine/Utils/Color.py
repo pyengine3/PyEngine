@@ -1,7 +1,9 @@
 from enum import Enum
 from typing import Tuple
-from pyengine.Utils import clamp
+
 import pygame
+
+from pyengine.Utils.Others import clamp
 
 __all__ = ["Color", "Colors"]
 

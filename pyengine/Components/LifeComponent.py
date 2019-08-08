@@ -1,4 +1,4 @@
-from pyengine.Utils import clamp
+from pyengine.Utils.Others import clamp
 
 __all__ = ["LifeComponent"]
 

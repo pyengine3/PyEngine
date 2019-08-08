@@ -1,9 +1,12 @@
 import pygame
-from pyengine.Exceptions import NoObjectError
-from pyengine.Components import PositionComponent, SpriteComponent, TextComponent, ControlComponent, PhysicsComponent
+
 from pyengine import World
+from pyengine.Components import PositionComponent, SpriteComponent, TextComponent, ControlComponent, PhysicsComponent
 from pyengine.Entities.Entity import Entity
-from pyengine.Utils import loggers, Font, Colors
+from pyengine.Exceptions import NoObjectError
+from pyengine.Utils.Logger import loggers
+from pyengine.Utils.Font import Font
+from pyengine.Utils.Color import Colors
 
 __all__ = ["EntitySystem"]
 

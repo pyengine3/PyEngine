@@ -2,7 +2,9 @@ import pygame
 pygame.init()
 
 from pyengine.World import World
-from pyengine.Utils import Color, Colors, Font, loggers
+from pyengine.Utils.Color import Colors, Color
+from pyengine.Utils.Font import Font
+from pyengine.Utils.Logger import loggers
 
 
 import os

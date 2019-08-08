@@ -1,9 +1,10 @@
-from pyengine.Exceptions import NoObjectError
-from pyengine.Components.PositionComponent import PositionComponent
-from pyengine.Components.PhysicsComponent import PhysicsComponent
-from pyengine.Utils import Vec2
-from pygame import locals as const
 from enum import Enum
+
+from pygame import locals as const
+
+from pyengine.Components.PhysicsComponent import PhysicsComponent
+from pyengine.Components.PositionComponent import PositionComponent
+from pyengine.Utils.Vec2 import Vec2
 
 __all__ = ["ControlComponent", "Controls", "ControlType", "MouseButton"]
 

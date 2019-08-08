@@ -1,4 +1,5 @@
 import pygame
+
 from pyengine.Exceptions import NoObjectError
 
 __all__ = ["MusicSystem"]

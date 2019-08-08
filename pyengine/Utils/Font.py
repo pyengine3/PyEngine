@@ -1,6 +1,6 @@
-from pyengine.Utils.Color import Color, Colors
-
 import pygame
+
+from pyengine.Utils.Color import Color, Colors
 
 __all__ = ["Font"]
 
