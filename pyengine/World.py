@@ -1,5 +1,6 @@
 from pyengine.Exceptions import NoObjectError
 from pyengine.Systems import EntitySystem, MusicSystem, UISystem, SoundSystem, CameraSystem
+from pyengine.Components import PhysicsComponent
 from typing import Type, Union
 from pyengine.Utils import loggers
 import pymunk
@@ -12,7 +13,7 @@ __all__ = ["World"]
 
 
 class World:
-    def __init__(self, window, gravity=None, collision_callback=None):
+    def __init__(self, window, gravity=None):
         from pyengine import Window  # Define Window only on create world
 
         if not isinstance(window, Window):
@@ -31,27 +32,35 @@ class World:
         }
         self.space = pymunk.Space()
         self.gravity = gravity
-        self.collision = self.space.add_default_collision_handler()
-        self.collision_callback = collision_callback
+        self.__collision = self.space.add_default_collision_handler()
+        self.__collision.pre_solve = self.collision
 
     @property
     def gravity(self):
-        return __gravity
+        return self.__gravity
 
     @gravity.setter
     def gravity(self, val):
         self.space.gravity = val
         self.__gravity = val
 
-    @property
-    def collision_callback(self):
-        return self.__collision_callback
+    def collision(self, arb, space, data):
+        ret = True
+        e = []
+        for i in arb.shapes:
+            for j in [e for e in self.systems["Entity"].entities if e.has_component(PhysicsComponent)]:
+                phys = j.get_component(PhysicsComponent)
+                if phys.shape == i:
+                    e.append(j)
+                    break
+        for i in e:
+            phys = i.get_component(PhysicsComponent)
+            if phys.callback is not None:
+                temp = e.copy()
+                temp.remove(i)
+                phys.callback(i, temp, space, data)
+        return ret
 
-    @collision_callback.setter
-    def collision_callback(self, val):
-        if val is not None:
-            self.collision.pre_solve = val
-        self.__collision_callback = val
 
     @property
     def window(self):

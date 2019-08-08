@@ -17,13 +17,11 @@ class Game(Window):
     def __init__(self):
         super(Game, self).__init__(640, 640, debug=True)
 
-        self.world.collision_callback = self.callback
-
         self.esys = self.world.get_system(EntitySystem)
 
         j = BasicEntity(Vec2(100, 200))
         j.add_component(ControlComponent(ControlType.FOURDIRECTION))
-        j.add_component(PhysicsComponent(False))
+        j.add_component(PhysicsComponent(False, callback=self.collision))
 
         obj = BasicEntity(Vec2(100, 100))
         obj.add_component(PhysicsComponent())
@@ -31,12 +29,11 @@ class Game(Window):
         self.esys.add_entity(obj)
         self.run()
 
-    def callback(self, arb, space, data):
-        print("Collision")
-        print(arb)
+    def collision(self, entity, others, space, data):
+        print(entity.identity)
+        print([i.identity for i in others])
         print(space)
         print(data)
-        return True
 
 
 Game()

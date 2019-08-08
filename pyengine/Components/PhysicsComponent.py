@@ -8,7 +8,8 @@ __all__ = ["PhysicsComponent"]
 
 
 class PhysicsComponent:
-    def __init__(self, affectbygravity: bool = True, friction: float = .5, elasticity: float = .5, mass: int = 1):
+    def __init__(self, affectbygravity: bool = True, friction: float = .5, elasticity: float = .5, mass: int = 1,
+                 solid: bool = True, callback = None):
         self.__entity = None
         self.origin_image = None
         self.body = None
@@ -17,6 +18,7 @@ class PhysicsComponent:
         self.__friction = friction
         self.__elasticity = elasticity
         self.__mass = mass
+        self.callback = callback
 
     @property
     def affectbygravity(self):
