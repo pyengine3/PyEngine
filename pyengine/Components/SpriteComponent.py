@@ -87,9 +87,4 @@ class SpriteComponent:
     def update_position(self):
         if self.entity.has_component(PositionComponent):
             position = self.entity.get_component(PositionComponent)
-            self.entity.rect.x = position.position.x + position.offset.x
-            self.entity.rect.y = position.position.y + position.offset.y
-
-    def update_entity(self):
-        self.entity.rect = self.entity.image.get_rect()
-        self.update_position()
+            self.entity.rect = self.entity.image.get_rect(center=position.position + position.offset)
