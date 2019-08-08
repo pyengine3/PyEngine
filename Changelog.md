@@ -5,6 +5,8 @@
     - Window : Add limit_fps property
     - WindowCallbacks : Add RUNWINDOW Callback
     - PhysicsComponent : Rework with a physic engine (Pymunk)
+    
+    - Bug Fix : Check if object is a Vec2 doesn't work with operations
 
 ## V 1.5.1 - 04/08/19
 

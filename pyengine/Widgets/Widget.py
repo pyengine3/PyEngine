@@ -8,7 +8,7 @@ class Widget(pygame.sprite.Sprite):
     def __init__(self, position: Vec2):
         super(Widget, self).__init__()
 
-        if not isinstance(position, Vec2):
+        if not isinstance(position, pygame.Vector2):
             raise TypeError("Position must be a Vec2")
 
         self.identity = -1

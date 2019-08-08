@@ -1,4 +1,6 @@
 from pyengine.Components.PositionComponent import PositionComponent
+import pygame
+
 from pyengine.Components.PhysicsComponent import PhysicsComponent
 from pyengine.Utils import Vec2
 
@@ -24,7 +26,7 @@ class MoveComponent:
 
     @direction.setter
     def direction(self, direction):
-        if not isinstance(direction, Vec2):
+        if not isinstance(direction, pygame.Vector2):
             raise TypeError("Direction must be a Vec2")
 
         self.__direction = direction

@@ -1,4 +1,5 @@
 from pyengine.Utils import Vec2
+import pygame
 
 __all__ = ["PositionComponent"]
 
@@ -7,9 +8,9 @@ class PositionComponent:
     def __init__(self, position: Vec2, offset: Vec2 = Vec2()):
         self.__entity = None
 
-        if not isinstance(position, Vec2):
+        if not isinstance(position, pygame.Vector2):
             raise TypeError("Position must be a Vec2")
-        if not isinstance(offset, Vec2):
+        if not isinstance(offset, pygame.Vector2):
             raise TypeError("Offset must be a Vec2")
 
         self.__offset = offset
@@ -30,7 +31,7 @@ class PositionComponent:
 
     @offset.setter
     def offset(self, val):
-        if not isinstance(val, Vec2):
+        if not isinstance(val, pygame.Vector2):
             raise TypeError("Offset must be a Vec2")
 
         self.__offset = val
@@ -42,7 +43,7 @@ class PositionComponent:
 
     @position.setter
     def position(self, position):
-        if not isinstance(position, Vec2):
+        if not isinstance(position, pygame.Vector2):
             raise TypeError("Position must be a Vec2")
 
         self.__position = position

@@ -1,6 +1,7 @@
 from pyengine.Systems import EntitySystem
 from pyengine.Components import PositionComponent, SpriteComponent, TextComponent
 from pyengine.Utils import Vec2
+import pygame
 from pyengine import World
 
 __all__ = ["CameraSystem"]
@@ -39,7 +40,7 @@ class CameraSystem:
 
     @position.setter
     def position(self, position):
-        if not isinstance(position, Vec2):
+        if not isinstance(position, pygame.Vector2):
             raise TypeError("Position must be a Vec2")
 
         self.__position = position
@@ -68,7 +69,7 @@ class CameraSystem:
 
     @offset.setter
     def offset(self, offset):
-        if not isinstance(offset, Vec2):
+        if not isinstance(offset, pygame.Vector2):
             raise TypeError("Offset must be a Vec2")
 
         self.__offset = offset
