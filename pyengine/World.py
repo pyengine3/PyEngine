@@ -50,21 +50,17 @@ class World:
         ret = True
         e = []
         for i in arb.shapes:
-            for j in [e for e in self.systems["Entity"].entities if e.has_component(PhysicsComponent)]:
-                phys = j.get_component(PhysicsComponent)
-                if phys.shape == i:
-                    if not phys.solid:
-                        ret = False
-                    e.append(j)
-                    break
-        for i in e:
-            phys = i.get_component(PhysicsComponent)
+            j = [e for e in self.systems["Entity"].entities
+                 if e.has_component(PhysicsComponent) and e.get_component(PhysicsComponent).shape == i][0]
+            if not j.get_component(PhysicsComponent).solid:
+                ret = False
+            e.append(j)
+        for phys in [i.get_component(PhysicsComponent) for i in e]:
             if phys.callback is not None:
                 temp = e.copy()
-                temp.remove(i)
-                phys.callback(i, temp, space, data)
+                temp.remove(phys.entity)
+                phys.callback(phys.entity, temp, space, data)
         return ret
-
 
     @property
     def window(self):
@@ -78,13 +74,13 @@ class World:
         liste = [i for i in self.systems.values() if type(i) == classe]
         if len(liste):
             return liste[0]
-        loggers.get_logger("PyEngine").warning("Try to get "+str(classe)+" but World don't have it")
+        loggers.get_logger("PyEngine").warning("Try to get " + str(classe) + " but World don't have it")
 
     def update(self):
         if self.window is None:
             raise NoObjectError("World is attached to any Window.")
 
-        self.space.step(1/60)
+        self.space.step(1 / 60)
 
         self.systems["Entity"].update()
         self.systems["UI"].update()
