@@ -2,9 +2,10 @@
 
 ## V 1.6.0 - XX/XX/19
 
-    - SpriteComponent : Set origin of sprite to center
     - Window : Add limit_fps property
     - WindowCallbacks : Add RUNWINDOW Callback
+    - SpriteComponent : Set origin of sprite to center
+    - SpriteComponent-AnimComponent : Add flipx and flipy properties
     - PhysicsComponent : Rework with a physic engine (Pymunk)
     
     - Optimization

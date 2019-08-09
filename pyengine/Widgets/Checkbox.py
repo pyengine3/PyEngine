@@ -1,7 +1,7 @@
 import pygame
 
 from pyengine.Utils.Vec2 import Vec2
-from pyengine.Widgets import Label
+from pyengine.Widgets.Label import Label
 from pyengine.Widgets.Widget import Widget
 
 __all__ = ["Checkbox"]
