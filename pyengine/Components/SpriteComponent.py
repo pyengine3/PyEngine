@@ -2,6 +2,7 @@ import pygame
 
 from pyengine.Components.PositionComponent import PositionComponent
 from pyengine.Exceptions import CompatibilityError
+from pyengine.Utils.Vec2 import Vec2
 
 __all__ = ["SpriteComponent"]
 
@@ -47,22 +48,28 @@ class SpriteComponent:
     @scale.setter
     def scale(self, scale):
         self.__scale = scale
+        center = self.entity.rect.center
         self.entity.image = pygame.transform.scale(self.entity.image, (round(self.width * scale),
                                                                        round(self.height * scale)))
         self.origin_image = self.__entity.image
+        self.entity.rect = self.entity.image.get_rect(center=center)
         self.update_position()
 
     @property
     def size(self):
-        return [self.width, self.height]
+        return Vec2(self.width, self.height)
 
     @size.setter
     def size(self, size):
         if not isinstance(size, pygame.Vector2):
             raise TypeError("Size must be a Vec2")
+        center = self.entity.rect.center
         self.width, self.height = size.coords
         self.entity.image = pygame.transform.scale(self.entity.image, size.coords)
+        self.origin_image = self.__entity.image
         self.scale = 1
+        self.entity.rect = self.entity.image.get_rect(center=center)
+        self.update_position()
 
     @property
     def rotation(self):
@@ -70,6 +77,13 @@ class SpriteComponent:
 
     @rotation.setter
     def rotation(self, rotation):
+        from pyengine.Components.PhysicsComponent import PhysicsComponent
+        if self.entity.has_component(PhysicsComponent):
+            self.entity.get_component(PhysicsComponent).update_rot(rotation)
+        else:
+            self.make_rotation(rotation)
+
+    def make_rotation(self, rotation):
         center = self.entity.rect.center
         self.entity.image = pygame.transform.rotate(self.origin_image, rotation)
         self.__rotation = rotation

@@ -2,7 +2,6 @@ import math
 
 import pymunk
 
-import pygame
 from pyengine.Components.PositionComponent import PositionComponent
 from pyengine.Components.SpriteComponent import SpriteComponent
 from pyengine.Utils.Vec2 import Vec2
@@ -73,16 +72,23 @@ class PhysicsComponent:
     def entity(self, entity):
         self.__entity = entity
         self.orig_image = entity.image
-        temp = entity.rect.width/2
-        temp2 = entity.rect.height/2
+        if self.entity.has_component(SpriteComponent):
+            temp = self.entity.get_component(SpriteComponent).origin_image.get_rect()
+            temp2 = temp.height/2
+            temp = temp.width/2
+        else:
+            temp = entity.rect.width/2
+            temp2 = entity.rect.height/2
         vc = [(-temp, -temp2), (temp, -temp2), (-temp, temp2), (temp, temp2)]
-        moment = pymunk.moment_for_box(self.mass, (entity.rect.width, entity.rect.height))
+        moment = pymunk.moment_for_box(self.mass, (temp*2, temp2*2))
         self.body = pymunk.Body(self.mass, moment)
         if not self.affectbygravity:
             self.body.body_type = self.body.KINEMATIC
         self.shape = pymunk.Poly(self.body, vc)
         self.shape.friction = self.friction
         self.shape.elasticity = self.elasticity
+        if self.entity.has_component(SpriteComponent):
+            self.update_rot(self.entity.get_component(SpriteComponent).rotation)
 
     def flipy(self, pos):
         return [pos[0], -pos[1] + self.entity.system.world.window.height]
@@ -99,9 +105,12 @@ class PhysicsComponent:
             self.entity.get_component(PositionComponent).position = pos
             
         if self.entity.has_component(SpriteComponent):
-            self.entity.get_component(SpriteComponent).rotation = math.degrees(self.body.angle)
+            self.entity.get_component(SpriteComponent).make_rotation(math.degrees(self.body.angle))
 
     def update_pos(self, pos):
         self.body.position = self.flipy(pos)
+
+    def update_rot(self, rot):
+        self.body.angle = math.radians(rot)
 
 

@@ -1,9 +1,10 @@
-from pyengine import Window, WindowCallbacks, MouseButton
-from pyengine.Systems import EntitySystem
-from pyengine.Entities import Entity
-from pyengine.Components import PositionComponent, SpriteComponent, PhysicsComponent
-from pyengine.Utils import Vec2
 import math
+
+from pyengine import Window, MouseButton
+from pyengine.Components import PositionComponent, SpriteComponent, PhysicsComponent
+from pyengine.Entities import Entity
+from pyengine.Systems import EntitySystem
+from pyengine.Utils import Vec2
 
 
 class BasicEntity(Entity):
@@ -16,37 +17,51 @@ class BasicEntity(Entity):
 
 class Game(Window):
     def __init__(self):
-        super(Game, self).__init__(1200, 750, debug=True)
-
-        self.set_callback(WindowCallbacks.RUNWINDOW, self.launch)
+        super(Game, self).__init__(1300, 650)
 
         self.world.mousepress = self.mousepress
         self.esys = self.world.get_system(EntitySystem)
 
-        bas = BasicEntity(Vec2(600, 700))
+        bas = BasicEntity(Vec2(650, 600))
         bas.get_component(SpriteComponent).size = Vec2(800, 20)
-        bas.add_component(PhysicsComponent(False, elasticity=1))
+        bas.add_component(PhysicsComponent(False, elasticity=.9))
 
-        self.gauche = BasicEntity(Vec2(50, 500))
-        self.gauche.get_component(SpriteComponent).size = Vec2(500, 20)
-        self.gauche.add_component(PhysicsComponent(False, elasticity=1))
+        gauche = BasicEntity(Vec2(100, 400))
+        gauche.get_component(SpriteComponent).size = Vec2(500, 20)
+        gauche.get_component(SpriteComponent).rotation = -60
+        gauche.add_component(PhysicsComponent(False, elasticity=.9))
 
-        self.droit = BasicEntity(Vec2(1150, 500))
-        self.droit.get_component(SpriteComponent).size = Vec2(500, 20)
-        self.droit.add_component(PhysicsComponent(False, elasticity=1))
+        droit = BasicEntity(Vec2(1200, 400))
+        droit.get_component(SpriteComponent).size = Vec2(500, 20)
+        droit.get_component(SpriteComponent).rotation = 60
+        droit.add_component(PhysicsComponent(False, elasticity=.9))
 
-        obj = BasicEntity(Vec2(100, 100))
-        obj.add_component(PhysicsComponent(elasticity=1))
+        spinner = BasicEntity(Vec2(650, 450))
+        spinner.get_component(SpriteComponent).size = Vec2(300, 20)
+        phys = spinner.add_component(PhysicsComponent(False, elasticity=.9))
+        phys.body.angular_velocity = math.radians(120)
+
+        spinner2 = BasicEntity(Vec2(1050, 300))
+        spinner2.get_component(SpriteComponent).size = Vec2(300, 20)
+        phys2 = spinner2.add_component(PhysicsComponent(False, elasticity=.9))
+        phys2.body.angular_velocity = math.radians(120)
+
+        spinner3 = BasicEntity(Vec2(250, 300))
+        spinner3.get_component(SpriteComponent).size = Vec2(300, 20)
+        phys3 = spinner3.add_component(PhysicsComponent(False, elasticity=.9))
+        phys3.body.angular_velocity = math.radians(120)
+
+        obj = BasicEntity(Vec2(150, 100))
+        obj.add_component(PhysicsComponent(elasticity=.9))
 
         self.esys.add_entity(bas)
-        self.esys.add_entity(self.gauche)
-        self.esys.add_entity(self.droit)
+        self.esys.add_entity(gauche)
+        self.esys.add_entity(droit)
+        self.esys.add_entity(spinner)
+        self.esys.add_entity(spinner2)
+        self.esys.add_entity(spinner3)
         self.esys.add_entity(obj)
         self.run()
-
-    def launch(self):
-        self.gauche.get_component(PhysicsComponent).body.angle = math.radians(-60)
-        self.droit.get_component(PhysicsComponent).body.angle = math.radians(60)
 
     def mousepress(self, evt):
         self.world.systems["Entity"].mousepress(evt)
@@ -54,7 +69,7 @@ class Game(Window):
 
         if evt.button == MouseButton.LEFTCLICK.value:
             obj = BasicEntity(Vec2(evt.pos))
-            obj.add_component(PhysicsComponent(elasticity=1))
+            obj.add_component(PhysicsComponent(elasticity=.9))
             self.esys.add_entity(obj)
 
 
