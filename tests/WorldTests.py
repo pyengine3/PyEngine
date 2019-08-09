@@ -14,8 +14,6 @@ class WorldTests(unittest.TestCase):
 
     def test_window(self):
         self.assertEqual(self.world.window, self.w)
-        self.world.window = Window(2, 2)
-        self.assertNotEqual(self.world.window, self.w)
 
     def test_systems(self):
         self.assertEqual(self.world.get_system(EntitySystem), self.world.systems["Entity"])
@@ -23,5 +21,10 @@ class WorldTests(unittest.TestCase):
         self.assertEqual(self.world.get_system(UISystem), self.world.systems["UI"])
         self.assertEqual(self.world.get_system(SoundSystem), self.world.systems["Sound"])
         self.assertEqual(self.world.get_system(CameraSystem), self.world.systems["Camera"])
+
+    def test_phys(self):
+        self.assertEqual(self.world.space.gravity, [0, -900])
+        self.world.space.gravity = [0, 900]
+        self.assertEqual(self.world.space.gravity, [0, 900])
 
 

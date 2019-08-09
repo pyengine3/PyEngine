@@ -47,7 +47,7 @@ class AnimTests(unittest.TestCase):
         self.assertEqual(self.component.time, 2)
 
     def test_images(self):
-        self.assertEqual(self.component.images, ("files/sprite0.png", "files/sprite1.png"))
+        self.assertEqual(self.component.images, ["files/sprite0.png", "files/sprite1.png"])
         self.component.images = ["files/sprite0.png"]
         self.assertEqual(self.component.images, ["files/sprite0.png"])
 
@@ -96,7 +96,7 @@ class ControlTests(unittest.TestCase):
         self.component = ControlComponent(ControlType.FOURDIRECTION)
 
     def test_speed(self):
-        self.assertEqual(self.component.speed, 5)
+        self.assertEqual(self.component.speed, 250)
         self.component.speed = 4
         self.assertEqual(self.component.speed, 4)
 
@@ -136,23 +136,12 @@ class PhysicsTests(unittest.TestCase):
         self.component = self.entity.add_component(PhysicsComponent())
         self.p = self.entity.add_component(PositionComponent(Vec2(10, 10)))
 
-    def test_gravity_value(self):
-        self.assertEqual(self.component.gravity, 5)
-        self.component.gravity = 4
-        self.assertEqual(self.component.gravity, 4)
-
-    def test_gravity(self):
-        self.assertEqual(self.p.position, Vec2(10, 10))
-        self.component.timegravity = 0
-        self.component.update_gravity()
-        self.assertEqual(self.p.position, Vec2(10, 15))
-
     def test_callback(self):
         self.assertEqual(self.component.callback, None)
         self.component.callback = self.callback
         self.assertEqual(self.component.callback, self.callback)
 
-    def callback(self, obj, cause):
+    def callback(self, entity, others, space, data):
         pass
 
 
