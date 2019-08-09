@@ -18,6 +18,11 @@ class TilemapTests(unittest.TestCase):
         self.assertEqual(self.tilemap.scale, 1)
         self.tilemap.scale = 2
         self.assertEqual(self.tilemap.scale, 2)
+        
+        
+class CustomComponent(TextComponent):
+    def __init__(self):
+        super(CustomComponent, self).__init__("CUSTOM")
 
 
 class EntityTests(unittest.TestCase):
@@ -36,6 +41,13 @@ class EntityTests(unittest.TestCase):
         e2 = Entity()
         self.e.attach_entity(e2)
         self.assertTrue(e2 in self.e.attachedentities)
+
+    def test_custom_components(self):
+        self.assertFalse(self.e.has_component(TextComponent))
+        self.assertFalse(self.e.has_component(CustomComponent))
+        self.e.add_component(CustomComponent())
+        self.assertTrue(self.e.has_component(TextComponent))
+        self.assertTrue(self.e.has_component(CustomComponent))
 
     def test_components(self):
         with self.assertRaises(TypeError):
