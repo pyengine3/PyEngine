@@ -6,10 +6,12 @@ __all__ = ["AnimComponent"]
 
 
 class AnimComponent:
-    def __init__(self, timer: int, *images):
+    def __init__(self, timer: int, images, flipx: bool = False, flipy: bool = False):
         self.__entity = None
         self.time = timer
         self.images = images
+        self.flipx = flipx
+        self.flipy = flipy
         self.current_sprite = 0
         self.play: bool = True
 
@@ -25,6 +27,28 @@ class AnimComponent:
 
         self.__entity = entity
         self.images = self.images  # Trigger setter of images
+        self.flipx = self.flipx  # Trigger setter of images
+        self.flipy = self.flipy  # Trigger setter of images
+
+    @property
+    def flipx(self):
+        return self.__flipx
+
+    @flipx.setter
+    def flipx(self, val):
+        if self.entity is not None:
+            self.entity.get_component(SpriteComponent).flipx = val
+        self.__flipx = val
+
+    @property
+    def flipy(self):
+        return self.__flipy
+
+    @flipy.setter
+    def flipy(self, val):
+        if self.entity is not None:
+            self.entity.get_component(SpriteComponent).flipy = val
+        self.__flipy = val
 
     @property
     def images(self):

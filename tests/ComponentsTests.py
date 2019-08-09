@@ -26,7 +26,15 @@ class AnimTests(unittest.TestCase):
     def setUp(self):
         self.entity = Entity()
         self.sprite = self.entity.add_component(SpriteComponent("files/sprite0.png"))
-        self.component = self.entity.add_component(AnimComponent(5, "files/sprite0.png", "files/sprite1.png"))
+        self.component = self.entity.add_component(AnimComponent(5, ["files/sprite0.png", "files/sprite1.png"]))
+
+    def test_flip(self):
+        self.assertFalse(self.component.flipy)
+        self.assertFalse(self.component.flipx)
+        self.component.flipy = True
+        self.component.flipx = True
+        self.assertTrue(self.component.flipy)
+        self.assertTrue(self.component.flipx)
 
     def test_play(self):
         self.assertTrue(self.component.play)
@@ -153,6 +161,14 @@ class SpriteTests(unittest.TestCase):
         self.entity = Entity()
         self.component = self.entity.add_component(SpriteComponent("files/sprite0.png"))
         self.basesize = [self.entity.image.get_rect().width, self.entity.image.get_rect().height]
+
+    def test_flip(self):
+        self.assertFalse(self.component.flipy)
+        self.assertFalse(self.component.flipx)
+        self.component.flipy = True
+        self.component.flipx = True
+        self.assertTrue(self.component.flipy)
+        self.assertTrue(self.component.flipx)
 
     def text_size(self):
         self.assertEqual(self.component.size, self.basesize)

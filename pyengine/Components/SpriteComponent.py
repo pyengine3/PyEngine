@@ -7,11 +7,13 @@ __all__ = ["SpriteComponent"]
 
 
 class SpriteComponent:
-    def __init__(self, image: str, scale: int = 1, rotation: int = 0):
+    def __init__(self, image: str, scale: int = 1, rotation: int = 0, flipx: bool = False, flipy: bool = False):
         self.__entity = None
         self.__sprite = image
         self.__scale = scale
         self.__rotation = rotation
+        self.__flipx = flipx
+        self.__flipy = flipy
         self.origin_image = None
         self.width = 0
         self.height = 0
@@ -34,7 +36,9 @@ class SpriteComponent:
         self.height = self.entity.rect.height
         self.scale = self.scale
         self.origin_image = self.__entity.image
-        self.rotation = self.__rotation
+        self.rotation = self.rotation
+        self.flipx = self.flipx
+        self.flipy = self.flipy
 
     @property
     def scale(self):
@@ -86,6 +90,24 @@ class SpriteComponent:
                                                                        round(self.height * self.scale)))
         self.origin_image = self.entity.image
         self.update_position()
+
+    @property
+    def flipx(self):
+        return self.__flipx
+
+    @flipx.setter
+    def flipx(self, val):
+        self.entity.image = pygame.transform.flip(self.origin_image, val, 0)
+        self.__flipx = val
+
+    @property
+    def flipy(self):
+        return self.__flipy
+
+    @flipy.setter
+    def flipy(self, val):
+        self.entity.image = pygame.transform.flip(self.origin_image, 0, val)
+        self.__flipy = val
 
     def update_position(self):
         if self.entity.has_component(PositionComponent):
