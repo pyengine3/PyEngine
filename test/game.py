@@ -1,7 +1,7 @@
 import math
 
-from pyengine import Window, MouseButton
-from pyengine.Components import PositionComponent, SpriteComponent, PhysicsComponent
+from pyengine import Window, MouseButton, ControlType
+from pyengine.Components import PositionComponent, SpriteComponent, PhysicsComponent, ControlComponent
 from pyengine.Entities import Entity
 from pyengine.Systems import EntitySystem
 from pyengine.Utils import Vec2
@@ -52,7 +52,8 @@ class Game(Window):
         phys3.body.angular_velocity = math.radians(120)
 
         obj = BasicEntity(Vec2(150, 100))
-        obj.add_component(PhysicsComponent(elasticity=.9))
+        obj.add_component(PhysicsComponent(elasticity=.9, can_rot=False))
+        obj.add_component(ControlComponent(ControlType.MOUSEFOLLOW))
 
         self.esys.add_entity(bas)
         self.esys.add_entity(gauche)
