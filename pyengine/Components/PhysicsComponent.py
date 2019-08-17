@@ -11,7 +11,7 @@ __all__ = ["PhysicsComponent"]
 
 class PhysicsComponent:
     def __init__(self, affectbygravity: bool = True, friction: float = .5, elasticity: float = .5, mass: int = 1,
-                 solid: bool = True, callback=None):
+                 solid: bool = True, can_rot: bool = True, callback=None):
         self.__entity = None
         self.orig_image = None
         self.body = None
@@ -94,11 +94,9 @@ class PhysicsComponent:
         return [pos[0], -pos[1] + self.entity.system.world.window.height]
 
     def update(self):
-        """pos = self.flipy(self.body.position)
-        self.entity.rect.center = pos
-        self.entity.image = pygame.transform.rotate(
-            self.orig_image, math.degrees(self.body.angle))
-        self.entity.rect = self.entity.image.get_rect(center=self.entity.rect.center)"""
+        if not self.can_rot:
+            self.body.angular_velocity = 0
+            self.body.angle = 0
 
         if self.entity.has_component(PositionComponent):
             pos = Vec2(self.flipy(self.body.position))
