@@ -4,6 +4,7 @@
 
     - Window : Add limit_fps property
     - WindowCallbacks : Add RUNWINDOW Callback
+    - ControlComponent : Remove DOUBLEJUMP ControlType
     - SpriteComponent : Set origin of sprite to center
     - SpriteComponent-AnimComponent : Add flipx and flipy properties
     - PhysicsComponent : Rework with a physic engine (Pymunk)

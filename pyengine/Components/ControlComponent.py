@@ -12,11 +12,10 @@ __all__ = ["ControlComponent", "Controls", "ControlType", "MouseButton"]
 class ControlType(Enum):
     FOURDIRECTION = 1
     CLASSICJUMP = 2
-    DOUBLEJUMP = 3
-    CLICKFOLLOW = 4
-    LEFTRIGHT = 5
-    UPDOWN = 6
-    MOUSEFOLLOW = 7
+    CLICKFOLLOW = 3
+    LEFTRIGHT = 4
+    UPDOWN = 5
+    MOUSEFOLLOW = 6
 
 
 class Controls(Enum):
@@ -130,7 +129,7 @@ class ControlComponent:
     def movebykey(self, eventkey):
         if eventkey == self.controles[Controls.LEFT]:
             if self.controltype == ControlType.FOURDIRECTION or self.controltype == ControlType.CLASSICJUMP \
-                    or self.controltype == ControlType.DOUBLEJUMP or self.controltype == ControlType.LEFTRIGHT:
+                    or self.controltype == ControlType.LEFTRIGHT:
                 if self.entity.has_component(PhysicsComponent):
                     if self.entity.get_component(PhysicsComponent).body.velocity[0] > -self.speed:
                         self.entity.get_component(PhysicsComponent).body.velocity += [-self.speed, 0]
@@ -139,7 +138,7 @@ class ControlComponent:
                     pos.position = Vec2(pos.position.x - self.speed, pos.position.y)
         elif eventkey == self.controles[Controls.RIGHT]:
             if self.controltype == ControlType.FOURDIRECTION or self.controltype == ControlType.CLASSICJUMP \
-                    or self.controltype == ControlType.DOUBLEJUMP or self.controltype == ControlType.LEFTRIGHT:
+                    or self.controltype == ControlType.LEFTRIGHT:
                 if self.entity.has_component(PhysicsComponent):
                     if self.entity.get_component(PhysicsComponent).body.velocity[0] < self.speed:
                         self.entity.get_component(PhysicsComponent).body.velocity += [self.speed, 0]
@@ -154,8 +153,7 @@ class ControlComponent:
                 elif self.entity.has_component(PositionComponent):
                     pos = self.entity.get_component(PositionComponent)
                     pos.position = Vec2(pos.position.x, pos.position.y - self.speed)
-            elif self.controltype == ControlType.CLASSICJUMP and self.controltype == ControlType.DOUBLEJUMP:
-                raise ValueError("Not Implemented.")
+            elif self.controltype == ControlType.CLASSICJUMP:
         elif eventkey == self.controles[Controls.DOWN]:
             if self.controltype == ControlType.FOURDIRECTION or self.controltype == ControlType.UPDOWN:
                 if self.entity.has_component(PhysicsComponent):
