@@ -100,8 +100,9 @@ class PhysicsComponent:
             self.body.angle = 0
 
         if self.entity.has_component(PositionComponent):
-            pos = Vec2(self.flipy(self.body.position))
-            self.entity.get_component(PositionComponent).position = pos
+            if str(self.body.position[0]) != "nan" and str(self.body.position[1]) != "nan": 
+                pos = Vec2(self.flipy(self.body.position))
+                self.entity.get_component(PositionComponent).position = pos
             
         if self.entity.has_component(SpriteComponent):
             self.entity.get_component(SpriteComponent).make_rotation(math.degrees(self.body.angle))

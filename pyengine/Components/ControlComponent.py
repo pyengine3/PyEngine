@@ -32,13 +32,12 @@ class MouseButton(Enum):
 
 
 class ControlComponent:
-    def __init__(self, controltype: ControlType, speed: int = 250):
+    def __init__(self, controltype: ControlType, speed: int = 20):
         self.entity = None
         self.controltype = controltype
         self.speed = speed
         self.goto = Vec2(-1, -1)
         self.force = (0, 0)
-        self.jumping = False
         self.keypressed = []
         self.controles = {
             Controls.UPJUMP: const.K_UP,
@@ -74,6 +73,8 @@ class ControlComponent:
         return self.controles[name]
 
     def update(self):
+        self.force = (0, 0)
+    
         if (self.controltype == ControlType.CLICKFOLLOW or self.controltype == ControlType.MOUSEFOLLOW) \
                 and self.goto.coords != (-1, -1):
             self.movebymouse()
@@ -83,14 +84,8 @@ class ControlComponent:
 
         if self.force != (0, 0):
             phys = self.entity.get_component(PhysicsComponent)
-            phys.body.friction = 0
-            phys.body.apply_force_at_local_point(self.force, (0, 0))
-        elif self.entity.get_component(PhysicsComponent):
-            phys = self.entity.get_component(PhysicsComponent)
-            phys.body.friction = phys.friction
-
-        self.force = (0, 0)
-
+            phys.body.apply_impulse_at_local_point(self.force, (0, 0))
+            
     def mousepress(self, evt):
         if self.controltype == ControlType.CLICKFOLLOW and evt.button == MouseButton.LEFTCLICK.value:
             self.goto = Vec2(evt.pos[0], evt.pos[1])
@@ -102,9 +97,6 @@ class ControlComponent:
     def keyup(self, evt):
         if evt.key in self.keypressed:
             self.keypressed.remove(evt.key)
-        if self.controltype == ControlType.DOUBLEJUMP or self.controltype == ControlType.CLASSICJUMP:
-            if evt.key == self.controles[Controls.UPJUMP]:
-                self.jumping = False
 
     def keypress(self, evt):
         if evt.key not in self.keypressed:
@@ -162,7 +154,7 @@ class ControlComponent:
         elif eventkey == self.controles[Controls.UPJUMP]:
             if self.controltype == ControlType.FOURDIRECTION or self.controltype == ControlType.UPDOWN:
                 if self.entity.has_component(PhysicsComponent):
-                    self.force = (0, self.speed*50)
+                    self.force = (0, self.speed*20)
                 elif self.entity.has_component(PositionComponent):
                     pos = self.entity.get_component(PositionComponent)
                     pos.position = Vec2(pos.position.x, pos.position.y - self.speed)
@@ -172,9 +164,7 @@ class ControlComponent:
                     grounding = phys.check_grounding()
                     if grounding['body'] is not None and abs(grounding['normal'].x / grounding['normal'].y) < \
                             phys.shape.friction:
-                        self.force = (0, self.speed*50)
-            elif self.controltype == ControlType.DOUBLEJUMP:
-                raise TypeError("Not Implemented")
+                        self.force = (0, self.speed*20)
         elif eventkey == self.controles[Controls.DOWN]:
             if self.controltype == ControlType.FOURDIRECTION or self.controltype == ControlType.UPDOWN:
                 if self.entity.has_component(PhysicsComponent):
