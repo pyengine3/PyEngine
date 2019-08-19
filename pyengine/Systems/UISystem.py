@@ -3,6 +3,7 @@ import pygame
 from pyengine import World
 from pyengine.Utils.Logger import loggers
 from pyengine.Utils.Color import Colors
+from pyengine.Utils.Font import Font
 from pyengine.Widgets.Entry import Entry
 from pyengine.Widgets.Button import Button
 from pyengine.Widgets.AnimatedImage import AnimatedImage
@@ -16,6 +17,7 @@ class UISystem:
         self.world = world
         self.widgets = pygame.sprite.Group()
         self.focus = None
+        self.debugfont = Font("arial", 15, color=Colors.BLUE.value)
 
     def get_widget(self, identity: int) -> Widget:
         liste = [i for i in self.widgets if i.identity == identity]
@@ -75,5 +77,5 @@ class UISystem:
     def show_debug(self, screen):
         for i in self.widgets:
             if i.isshow and i.image is not None:
-                render = self.world.window.debugfont.render("ID : "+str(i.identity), 1, Colors.BLUE.value.get())
+                render = self.debugfont.render("ID : "+str(i.identity))
                 screen.blit(render, (i.rect.x + i.rect.width / 2 - render.get_width()/2, i.rect.y - 20))

@@ -14,6 +14,8 @@
     
     - Bug Fix : Check if object is a Vec2 doesn't work with operations
     - Bug Fix : OutOfWindow Callback return wrong object
+    
+    - Crash Fix : Crash in debug mode with Widgets added
 
 ## V 1.5.1 - 04/08/19
 

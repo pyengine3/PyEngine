@@ -1,9 +1,10 @@
 import math
 
-from pyengine import Window, MouseButton, ControlType
-from pyengine.Components import PositionComponent, SpriteComponent, PhysicsComponent, ControlComponent
+from pyengine import Window, MouseButton
+from pyengine.Components import PositionComponent, SpriteComponent, PhysicsComponent
 from pyengine.Entities import Entity
-from pyengine.Systems import EntitySystem
+from pyengine.Systems import EntitySystem, UISystem
+from pyengine.Widgets import Image
 from pyengine.Utils import Vec2
 
 
@@ -17,7 +18,7 @@ class BasicEntity(Entity):
 
 class Game(Window):
     def __init__(self):
-        super(Game, self).__init__(1300, 650)
+        super(Game, self).__init__(1300, 650, debug=True)
 
         self.world.mousepress = self.mousepress
         self.esys = self.world.get_system(EntitySystem)
@@ -53,7 +54,6 @@ class Game(Window):
 
         obj = BasicEntity(Vec2(150, 100))
         obj.add_component(PhysicsComponent(elasticity=.9, can_rot=False))
-        obj.add_component(ControlComponent(ControlType.MOUSEFOLLOW))
 
         self.esys.add_entity(bas)
         self.esys.add_entity(gauche)
@@ -62,6 +62,10 @@ class Game(Window):
         self.esys.add_entity(spinner2)
         self.esys.add_entity(spinner3)
         self.esys.add_entity(obj)
+
+        back = Image(Vec2(0, 0), "images/sprite1.png")
+        self.world.get_system(UISystem).add_widget(back)
+
         self.run()
 
     def mousepress(self, evt):
