@@ -18,8 +18,8 @@ class Entity(pygame.sprite.Sprite):
     def __init__(self):
         super(Entity, self).__init__()
         self.identity = -1
-        self.components = []
-        self.attachedentities = []
+        self.components = set()
+        self.attachedentities = set()
         self.__system = None
         self.image = None
 
@@ -42,7 +42,7 @@ class Entity(pygame.sprite.Sprite):
             self.get_component(PhysicsComponent).update_pos(self.get_component(PositionComponent).position.coords)
 
     def attach_entity(self, entity):
-        self.attachedentities.append(entity)
+        self.attachedentities.add(entity)
 
     def add_component(self, component: cunion) -> cunion:
         if isinstance(component, (PositionComponent, SpriteComponent, ControlComponent, PhysicsComponent,
@@ -50,7 +50,7 @@ class Entity(pygame.sprite.Sprite):
             if isinstance(component, tuple([type(c) for c in self.components])):
                 raise TypeError("Entity already have " + str(component) + " as component.")
             component.entity = self
-            self.components.append(component)
+            self.components.add(component)
             return component
         else:
             raise TypeError("Entity can't have "+str(component)+" as component.")
@@ -58,7 +58,7 @@ class Entity(pygame.sprite.Sprite):
     def remove_component(self, component: ctypes) -> None:
         for i in [i for i in self.components if isinstance(i, component)]:
             loggers.get_logger("PyEngine").debug("Deleting "+str(component))
-            del self.components[self.components.index(i)]
+            self.components.remove(i)
         loggers.get_logger("PyEngine").info("Deleting component can be dangerous.")
 
     def has_component(self, component: ctypes) -> bool:
@@ -68,9 +68,10 @@ class Entity(pygame.sprite.Sprite):
 
     def get_component(self, component: ctypes) -> cunion:
         liste = [i for i in self.components if isinstance(i, component)]
-        if len(liste):
+        try:
             return liste[0]
-        loggers.get_logger("PyEngine").warning("Try to get "+str(component)+" but Entity don't have it")
+        except IndexError:
+            loggers.get_logger("PyEngine").warning("Try to get "+str(component)+" but Entity don't have it")
 
     def update(self):
         if self.has_component(PhysicsComponent):

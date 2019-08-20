@@ -38,7 +38,7 @@ class ControlComponent:
         self.speed = speed
         self.goto = Vec2(-1, -1)
         self.force = (0, 0)
-        self.keypressed = []
+        self.keypressed = set()
         self.controles = {
             Controls.UPJUMP: const.K_UP,
             Controls.LEFT: const.K_LEFT,
@@ -100,7 +100,7 @@ class ControlComponent:
 
     def keypress(self, evt):
         if evt.key not in self.keypressed:
-            self.keypressed.append(evt.key)
+            self.keypressed.add(evt.key)
 
     def movebymouse(self):
         if self.entity.has_component(PositionComponent):
