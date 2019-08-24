@@ -4,8 +4,8 @@ from pyengine import Window, MouseButton
 from pyengine.Components import PositionComponent, SpriteComponent, PhysicsComponent
 from pyengine.Entities import Entity
 from pyengine.Systems import EntitySystem, UISystem
-from pyengine.Widgets import Image
-from pyengine.Utils import Vec2
+from pyengine.Widgets import Image, Entry, Selector
+from pyengine.Utils import Vec2, Colors
 
 
 class BasicEntity(Entity):
@@ -22,6 +22,7 @@ class Game(Window):
 
         self.world.mousepress = self.mousepress
         self.esys = self.world.get_system(EntitySystem)
+        self.uisys = self.world.get_system(UISystem)
 
         bas = BasicEntity(Vec2(650, 600))
         bas.get_component(SpriteComponent).size = Vec2(800, 20)
@@ -64,7 +65,12 @@ class Game(Window):
         self.esys.add_entity(obj)
 
         back = Image(Vec2(0, 0), "images/sprite1.png")
-        self.world.get_system(UISystem).add_widget(back)
+        entry = Entry(Vec2(100, 100))
+        select = Selector(Vec2(200, 200), ["Mamadou", "Charo"])
+        select.label.color = Colors.WHITE.value
+        self.uisys.add_widget(back)
+        self.uisys.add_widget(entry)
+        self.uisys.add_widget(select)
 
         self.run()
 

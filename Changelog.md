@@ -9,6 +9,7 @@
     - SpriteComponent : Set origin of sprite to center
     - SpriteComponent-AnimComponent : Add flipx and flipy properties
     - PhysicsComponent : Rework with a physic engine (Pymunk)
+    - Selector : Remove background by default
     
     - Optimization
     

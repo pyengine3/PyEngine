@@ -17,7 +17,7 @@ class Selector(Widget):
         self.current_index = 0
         self.bprecedent = Button(position, "<", self.precedent, size=Vec2(25, 25))
         self.label = Label(Vec2(position.x+30, position.y), self.strings[0],
-                           Colors.BLACK.value, Font(size=18), Colors.WHITE.value)
+                           Colors.BLACK.value, Font(size=18))
         self.bnext = Button(Vec2(position.x+35+self.maxsize_string(), position.y), ">", self.next, size=Vec2(25, 25))
         self.bprecedent.parent = self
         self.label.parent = self
