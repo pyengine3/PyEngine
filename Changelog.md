@@ -1,6 +1,6 @@
 # Changelog
 
-## V 1.6.0 - XX/08/19
+## V 1.6.0 - 24/08/19
 
     - Window : Add limit_fps property
     - WindowCallbacks : Add RUNWINDOW Callback
