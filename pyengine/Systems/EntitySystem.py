@@ -69,6 +69,9 @@ class EntitySystem:
         for i in self.entities:
             if i.has_component(ControlComponent):
                 i.get_component(ControlComponent).keypressed = []
+            if i.has_component(PhysicsComponent):
+                i.get_component(PhysicsComponent).body.velocity = [0, 0]
+                i.get_component(PhysicsComponent).body.angular_velocity = 0
 
     def keypress(self, evt):
         [i.get_component(ControlComponent).keypress(evt) for i in self.entities if i.has_component(ControlComponent)]
