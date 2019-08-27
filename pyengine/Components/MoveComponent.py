@@ -30,6 +30,8 @@ class MoveComponent:
             raise TypeError("Direction must be a Vec2")
 
         self.__direction = direction
+        if self.entity is not None and self.entity.has_component(PhysicsComponent):
+            self.entity.get_component(PhysicsComponent).body.velocity = self.direction
 
     def update(self):
         if self.entity.has_component(PhysicsComponent):

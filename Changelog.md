@@ -3,6 +3,7 @@
 ## V 1.6.1 - XX/XX/19
 
     - Bug Fix : Physics Objects without gravity can't move
+    - Bug Fix : MoveComponent save the old movement
 
 ## V 1.6.0 - 24/08/19
 
