@@ -108,7 +108,8 @@ class ControlComponent:
             if position.x - 10 < self.goto.x < position.x + 10 and position.y - 10 < self.goto.y < position.y + 10:
                 self.goto = Vec2(-1, -1)
             else:
-                if self.entity.has_component(PhysicsComponent):
+                if (self.entity.has_component(PhysicsComponent) and
+                        self.entity.get_component(PhysicsComponent).affectbygravity):
                     if position.x - 10 > self.goto.x:
                         self.force = (self.force[0] - self.speed, self.force[1])
                     elif position.x + 10 < self.goto.x:
@@ -138,26 +139,32 @@ class ControlComponent:
         if eventkey == self.controles[Controls.LEFT]:
             if self.controltype == ControlType.FOURDIRECTION or self.controltype == ControlType.CLASSICJUMP \
                     or self.controltype == ControlType.LEFTRIGHT:
-                if self.entity.has_component(PhysicsComponent):
+                if (self.entity.has_component(PhysicsComponent) and
+                        self.entity.get_component(PhysicsComponent).affectbygravity):
                     self.force = (-self.speed, 0)
                 elif self.entity.has_component(PositionComponent):
                     pos = self.entity.get_component(PositionComponent)
                     pos.position = Vec2(pos.position.x - self.speed, pos.position.y)
+                    pos.update_phys()
         elif eventkey == self.controles[Controls.RIGHT]:
             if self.controltype == ControlType.FOURDIRECTION or self.controltype == ControlType.CLASSICJUMP \
                     or self.controltype == ControlType.LEFTRIGHT:
-                if self.entity.has_component(PhysicsComponent):
+                if (self.entity.has_component(PhysicsComponent) and
+                        self.entity.get_component(PhysicsComponent).affectbygravity):
                     self.force = (self.speed, 0)
                 elif self.entity.has_component(PositionComponent):
                     pos = self.entity.get_component(PositionComponent)
                     pos.position = Vec2(pos.position.x + self.speed, pos.position.y)
+                    pos.update_phys()
         elif eventkey == self.controles[Controls.UPJUMP]:
             if self.controltype == ControlType.FOURDIRECTION or self.controltype == ControlType.UPDOWN:
-                if self.entity.has_component(PhysicsComponent):
+                if (self.entity.has_component(PhysicsComponent) and
+                        self.entity.get_component(PhysicsComponent).affectbygravity):
                     self.force = (0, self.speed*20)
                 elif self.entity.has_component(PositionComponent):
                     pos = self.entity.get_component(PositionComponent)
                     pos.position = Vec2(pos.position.x, pos.position.y - self.speed)
+                    pos.update_phys()
             elif self.controltype == ControlType.CLASSICJUMP:
                 if self.entity.has_component(PhysicsComponent):
                     phys = self.entity.get_component(PhysicsComponent)
@@ -167,9 +174,11 @@ class ControlComponent:
                         self.force = (0, self.speed*20)
         elif eventkey == self.controles[Controls.DOWN]:
             if self.controltype == ControlType.FOURDIRECTION or self.controltype == ControlType.UPDOWN:
-                if self.entity.has_component(PhysicsComponent):
+                if (self.entity.has_component(PhysicsComponent) and
+                        self.entity.get_component(PhysicsComponent).affectbygravity):
                     self.force = (0, -self.speed)
                 elif self.entity.has_component(PositionComponent):
                     pos = self.entity.get_component(PositionComponent)
                     pos.position = Vec2(pos.position.x, pos.position.y + self.speed)
+                    pos.update_phys()
 

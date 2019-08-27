@@ -50,6 +50,12 @@ class PositionComponent:
         self.__position = position
         self.update_dependances()
 
+    def update_phys(self):
+        from pyengine.Components import PhysicsComponent
+
+        if self.entity.has_component(PhysicsComponent):
+            self.entity.get_component(PhysicsComponent).update_pos(self.position.coords)
+
     def update_dependances(self):
         from pyengine.Components import SpriteComponent, TextComponent  # Avoid import cycle
 

@@ -1,5 +1,9 @@
 # Changelog
 
+## V 1.6.1 - XX/XX/19
+
+    - Bug Fix : Physics Objects without gravity can't move
+
 ## V 1.6.0 - 24/08/19
 
     - Window : Add limit_fps property
